@@ -1,0 +1,6 @@
+on chat:
+	if {suffix::%player's uuid%} is set:
+		set {_suffix} to " &8[%{suffix::%player's uuid%}%&8]"
+		set chat format to "&7%player's prefix%%player%%{_suffix}%&7: &f%message%"
+	else:
+		set chat format to "&7%player's prefix%%player%&7: &f%message%"

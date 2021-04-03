@@ -1,0 +1,77 @@
+on quit:
+	if metadata "glow" of player is not set:
+		remove glowing from player
+
+command /glow:
+	permission: perks.glow
+	permission message: &cNo Permission.
+	trigger:
+		if metadata "glow" of player is set:
+			remove glowing from player
+			delete metadata "glow" of player
+		else:
+			apply glowing without particles to player for 999 days
+			set metadata "glow" of player to true
+
+command /slap <player>:
+	permission: perks.slap
+	permission message: &cNo Permission.
+	cooldown: 2 seconds
+	cooldown message: &cThis command is on cooldown.
+	usage: &c/slap <player>
+	trigger:
+		broadcast "&f%player% &7slapped &f%arg-1%&7. &cOuch!"
+
+command /kiss <player>:
+	permission: perks.kiss
+	permission message: &cNo Permission.
+	cooldown: 2 seconds
+	cooldown message: &cThis command is on cooldown.
+	usage: &c/kiss <player>
+	trigger:
+		broadcast "&f%player% &7kissed &f%arg-1%&7. &dMWAH!"
+
+function applyTag(p: player, tag: text):
+	set {_u} to {_p}'s uuid
+	close {_p}'s inventory
+	send "&f&lTAGS &7Applied tag &r%{_tag}%&7." to {_p}
+	set {suffix::%{_u}%} to {_tag}
+
+command /tags:
+	permission: perks.tags
+	permission message: &cNo Permission.
+	cooldown: 2 seconds
+	cooldown message: &cThis command is on cooldown.
+	trigger:
+		open virtual chest with 4 rows named "&f&lTAGS" to player
+		fillSlots(player, 4)
+		format gui slot 10 of player with name tag named "&2&lRich" to run:
+			applyTag(player, "&2&lRich")
+		format gui slot 11 of player with name tag named "&c&l<3" to run:
+			applyTag(player, "&c&l<3")
+		format gui slot 12 of player with name tag named "&e&lGOD" to run:
+			applyTag(player, "&e&lGOD")
+		format gui slot 13 of player with name tag named "&c&lR&6&la&e&li&a&ln&b&lb&1&lo&d&lw" to run:
+			applyTag(player, "&c&lR&6&la&e&li&a&ln&b&lb&1&lo&d&lw")
+		format gui slot 14 of player with name tag named "&6&lLord" to run:
+			applyTag(player, "&6&lLord")
+		format gui slot 15 of player with name tag named "&4&lHot" to run:
+			applyTag(player, "&4&lHot")
+		format gui slot 16 of player with name tag named "&b&lMeow" to run:
+			applyTag(player, "&b&lMeow")
+		format gui slot 19 of player with name tag named "&5&lChad" to run:
+			applyTag(player, "&5&lChad")
+		format gui slot 20 of player with name tag named "&3&lOnwer" to run:
+			applyTag(player, "&3&lOnwer")
+		format gui slot 21 of player with name tag named "&f&lBALD" to run:
+			applyTag(player, "&f&lBALD")
+		format gui slot 22 of player with name tag named "&a&lSmart" to run:
+			applyTag(player, "&a&lSmart")
+		format gui slot 23 of player with name tag named "&9&lSmoll Brain" to run:
+			applyTag(player, "&9&lSmoll Brain")
+		format gui slot 24 of player with name tag named "&d&lIdot" to run:
+			applyTag(player, "&d&lIdot")
+		format gui slot 35 of player with barrier named "&cRemove Tag" to run:
+			close player's inventory
+			delete {suffix::%player's uuid%}
+			send "&f&lTAGS &7Removed your current tag."

@@ -1,0 +1,66 @@
+function playSound(p: player, sound: text):
+	play sound "%{_sound}%" with volume 100 to {_p}
+
+function allSound(sound: text):
+	play sound "%{_sound}%" with volume 100 to all players
+
+function insertComma(n: number) :: string:
+	return regex replace "(?<=\d)(?=(\d\d\d)+(?!\d))" with "," in "%{_n}%"
+
+function formatNumber(n: number) :: string:
+	set {_l::*} to split "k|M|B|T|Qn|Qi|Sx" at "|"
+	set {_i} to min(floor(log({_n})/3), size of {_l::*})
+	return "%{_n}%" if {_i} <= 0
+	set {_i2} to 1000^{_i}
+	return "%{_n}/{_i2}%%{_l::%{_i}%}%"
+
+function sort(indices: strings, values: numbers, descending: boolean = true) :: strings:
+	loop {_indices::*}:
+		set {_sort::%{_values::%loop-index%}%.%loop-index%} to loop-value
+	return (reversed {_sort::*}) if {_descending} is true, else {_sort::*}
+
+function formatTime(time: text) :: timespan:
+	loop {_time} split at ",":
+		set {_char} to loop-value
+		replace "s" in {_char} with " seconds"
+		replace "s" in {_char} with " second"
+		replace "m" in {_char} with " minutes"
+		replace "m" in {_char} with " minute"
+		replace "h" in {_char} with " hours"
+		replace "h" in {_char} with " hour"
+		replace "d" in {_char} with " days"
+		replace "d" in {_char} with " day"
+		replace "w" in {_char} with " weeks"
+		replace "w" in {_char} with " week"
+		replace "mo" in {_char} with " months"
+		replace "mo" in {_char} with " month"
+		add {_char} parsed as a timespan to {_total}
+	return {_total}
+
+function fillSlots(p: player, size: number):
+	format gui slot (numbers between 0 and ({_size}*9)) of {_p} with black stained glass pane named "&f"
+
+function fancyTime(time: timespan) :: string:
+	set {_time} to "%{_time}%"
+	replace " seconds" in {_time} with "s"
+	replace " second" in {_time} with "s"
+	replace " minutes" in {_time} with "m"
+	replace " minute" in {_time} with "m"
+	replace " hours" in {_time} with "h"
+	replace " hour" in {_time} with "h"
+	replace " days" in {_time} with "d"
+	replace " day" in {_time} with "d"
+	replace " weeks" in {_time} with "w"
+	replace " week" in {_time} with "w"
+	replace " months" in {_time} with "mo"
+	replace " month" in {_time} with "mo"
+	replace " and" in {_time} with ""
+	return {_time}
+
+function progressBar(val: number, max: number, barsize: number, fill_first: text, fill_second: text) :: text:
+	stop if {_val} < 0
+	stop if {_max} < 0
+	stop if {_barsize} < 1
+	loop {_barsize} times:
+		set {_bar} to "%{_bar} ? """"%|"
+	return "%{_fill_first}%%((first floor({_barsize} * ({_val}/{_max})) characters of {_bar}) ? """")%%{_fill_second}%%(last {_barsize} - floor({_barsize} * ({_val}/{_max})) characters of {_bar}) ? """"%"

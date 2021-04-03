@@ -1,0 +1,6 @@
+on tab complete:
+	if event-string is "/skript" or "/sk":
+		set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"
+		set tab completions for position 2 to all scripts
+	if event-string is "/stats":
+		set tab completions for position 1 to all players

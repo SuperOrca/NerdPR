@@ -1,0 +1,24 @@
+function getPrice(i: block) :: number:
+	if {_i} is sandstone:
+		return 1 
+	return 0
+
+function updateLevel(p: player):
+	set {_u} to {_p}'s uuid
+	while {xp::%{_u}%} >= ({xpn::%{_u}%} ? 100):
+		add 1 to {level::%{_u}%}
+		remove ({xpn::%{_u}%} ? 100) from {xp::%{_u}%}
+		set {xpn::%{_u}%} to round ({xpn::%{_u}%} ? 100)^1.005
+		send "&f&lLEVEL &7Leveled up to level &f%{level::%{_u}%}%&7." to {_p}
+
+on break:
+	player's tool is pickaxe
+	clear drops
+	add 1 to {mined::%player's uuid%}
+	set {_price} to getPrice(event-block)
+	set {_fort} to random integer between 0 and getEnchant(player's tool, "fortune")
+	add {_price} + {_fort} to {balance::%player's uuid%}
+	add 1 to {xp::%player's uuid%}
+
+	updateLevel(player)
+	updateScoreboard(player)

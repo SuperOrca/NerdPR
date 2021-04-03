@@ -1,0 +1,113 @@
+function getEnchants(t: item) :: objects:
+	add (((tag "efficiency" of nbt of {_t}) ? 0) and "Efficiency") to {_e::*}
+	add (((tag "fortune" of nbt of {_t}) ? 0) and "Fortune") to {_e::*}
+	add (((tag "nightvision" of nbt of {_t}) ? 0) and "NightVision") to {_e::*}
+	add (((tag "lightning" of nbt of {_t}) ? 0) and "Lightning") to {_e::*}
+	add (((tag "laser" of nbt of {_t}) ? 0) and "Laser") to {_e::*}
+	add (((tag "explode" of nbt of {_t}) ? 0) and "Explode") to {_e::*}
+	add (((tag "jackhammer" of nbt of {_t}) ? 0) and "Jackhammer") to {_e::*}
+	return {_e::*}
+
+function getEnchant(t: item, e: text) :: number:
+	return (tag {_e} of nbt of {_t}) ? 0
+
+function updatePickaxe(p: player, t: item) :: item:
+	updateScoreboard({_p})
+	set {_enchs::*} to getEnchants({_t})
+	loop ((size of {_enchs::*})/2) times:
+		set {_level} to {_enchs::%loop-value * 2 - 1%}
+		set {_enchant} to {_enchs::%loop-value * 2%}
+		set line loop-value of {_t}'s lore to "&7%{_enchant}%&7 %{_level}%"
+	enchant {_t} with "efficiency %getEnchant({_t}, ""efficiency"")%" parsed as a enchantment type
+	return {_t}
+
+function upgradePickaxe(p: player, t: item, e: text, pr: number, l: number, m: number, gct: text):
+	# {_gct}
+	if {_l} < {_m}:
+		set {_u} to {_p}'s uuid
+		if {balance::%{_u}%} >= {_pr}:
+			add "{%{_e}%:%getEnchant({_t}, {_e})+1%}" to nbt of {_t}
+			remove {_pr} from {balance::%{_u}%}
+			playSound({_p}, "ENTITY_VILLAGER_YES")
+			send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%insertComma({_pr})%&7." to {_p}
+			set {_p}'s tool to updatePickaxe({_p}, {_t})
+		else:
+			playSound({_p}, "ENTITY_VILLAGER_NO")
+			send "&cYou need $%{_pr} - {balance::%{_u}%}%&c more to buy this!" to {_p}
+		pickaxeInv({_p})
+	else:
+		send "&cYou already maxed this enchant." to {_p}
+
+function displayPickaxeInv(p: player):
+	open virtual chest with 6 rows named "&f&lUPGRADE PICKAXE" to {_p}
+	fillSlots({_p}, 6)
+	playSound({_p}, "ENTITY_BAT_TAKEOFF")
+	pickaxeInv({_p})
+
+function guiPickaxeItem(i: item, e: text, l: number, m: number, p: number) :: item:
+	return {_i} named "&f%{_e} in proper case% &7(%{_l}%/%{_m}%)" with lore "" and "&7Price: &f$%{_p}%" and "" and "&fLeft click &7to buy one." and "&fRight click &7to buy five."
+
+function pickaxeInv(p: player):
+	set {_u} to {_p}'s uuid
+	set {_t} to {_p}'s tool
+	format gui slot 13 of {_p} with {_t} named "&f&lYOUR PICKAXE"
+
+	set {_e} to "efficiency"
+	set {_l} to getEnchant({_t}, {_e})
+	set {_pr} to {_l} * 1000 + 300
+	set {_m} to 200
+	set {_item} to guiPickaxeItem(gold pickaxe, {_e}, {_l}, {_m}, {_pr})
+	format gui slot 28 of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+
+	set {_e} to "fortune"
+	set {_l} to getEnchant({_t}, {_e})
+	set {_pr} to {_l} * 2000 + 500
+	set {_m} to 200
+	set {_item} to guiPickaxeItem(emerald, {_e}, {_l}, {_m}, {_pr})
+	format gui slot 29 of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+
+	set {_e} to "nightvision"
+	set {_l} to getEnchant({_t}, {_e})
+	set {_pr} to 100
+	set {_m} to 1
+	set {_item} to guiPickaxeItem(night vision tipped arrow, {_e}, {_l}, {_m}, {_pr})
+	format gui slot 30 of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+
+	set {_e} to "lightning"
+	set {_l} to getEnchant({_t}, {_e})
+	set {_pr} to {_l} * 3000 + 1000
+	set {_m} to 50
+	set {_item} to guiPickaxeItem(golden shovel, {_e}, {_l}, {_m}, {_pr})
+	format gui slot 31 of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+
+	set {_e} to "laser"
+	set {_l} to getEnchant({_t}, {_e})
+	set {_pr} to {_l} * 5000 + 2500
+	set {_m} to 50
+	set {_item} to guiPickaxeItem(redstone, {_e}, {_l}, {_m}, {_pr})
+	format gui slot 32 of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+
+	set {_e} to "explode"
+	set {_l} to getEnchant({_t}, {_e})
+	set {_pr} to {_l} * 8000 + 4000
+	set {_m} to 50
+	set {_item} to guiPickaxeItem(tnt, {_e}, {_l}, {_m}, {_pr})
+	format gui slot 33 of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+
+	set {_e} to "jackhammer"
+	set {_l} to getEnchant({_t}, {_e})
+	set {_pr} to {_l} * 12000 + 10000
+	set {_m} to 50
+	set {_item} to guiPickaxeItem(iron pickaxe, {_e}, {_l}, {_m}, {_pr})
+	format gui slot 34 of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+
+on right click:
+	player's tool is pickaxe
+	displayPickaxeInv(player)
