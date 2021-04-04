@@ -28,7 +28,7 @@ function upgradePickaxe(p: player, t: item, e: text, pr: number, l: number, m: n
 			add "{%{_e}%:%getEnchant({_t}, {_e})+1%}" to nbt of {_t}
 			remove {_pr} from {balance::%{_u}%}
 			playSound({_p}, "ENTITY_VILLAGER_YES")
-			send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%insertComma({_pr})%&7." to {_p}
+			send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
 			set {_p}'s tool to updatePickaxe({_p}, {_t})
 		else:
 			playSound({_p}, "ENTITY_VILLAGER_NO")
