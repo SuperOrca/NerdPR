@@ -71,3 +71,14 @@ command /sudo <player> <text>:
 	trigger:
 		send "&f&lSTAFF&7 Made &f%arg-1%&7 execute &f'%arg-2%'&7."
 		make arg-1 say arg-2
+
+command /speed <number>:
+	permission: op
+	permission message: &cNo Permission.
+	usage: &cUsage: /speed <number>
+	trigger:
+		if player is flying:
+			set player's flying speed to arg-1
+		else:
+			set player's walking speed to arg-1
+		send "&f&lSTAFF&7 Set your speed to &f%arg-1%&7."

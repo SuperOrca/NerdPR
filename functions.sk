@@ -8,7 +8,7 @@ function insertComma(n: number) :: string:
 	return regex replace "(?<=\d)(?=(\d\d\d)+(?!\d))" with "," in "%{_n}%"
 
 function formatNumber(n: number) :: string:
-	set {_l::*} to split "k|M|B|T|Qn|Qi|Sx" at "|"
+	set {_l::*} to split "k|M|B|T|Q|QT" at "|"
 	set {_i} to min(floor(log({_n})/3), size of {_l::*})
 	return "%{_n}%" if {_i} <= 0
 	set {_i2} to 1000^{_i}
@@ -56,6 +56,12 @@ function fancyTime(time: timespan) :: string:
 	replace " month" in {_time} with "mo"
 	replace " and" in {_time} with ""
 	return {_time}
+
+function emojify(input: text) :: text:
+	replace all "<3" with "❤" in {_input} if {_input} contains "<3"
+	replace all "->" with "⟶" in {_input} if {_input} contains "->"
+	replace all "<-" with "⟵" in {_input} if {_input} contains "<-"
+	return {_input}
 
 function progressBar(val: number, max: number, barsize: number, fill_first: text, fill_second: text) :: text:
 	stop if {_val} < 0

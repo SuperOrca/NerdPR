@@ -1,7 +1,6 @@
 function getEnchants(t: item) :: objects:
 	add (((tag "efficiency" of nbt of {_t}) ? 0) and "Efficiency") to {_e::*}
 	add (((tag "fortune" of nbt of {_t}) ? 0) and "Fortune") to {_e::*}
-	add (((tag "nightvision" of nbt of {_t}) ? 0) and "NightVision") to {_e::*}
 	add (((tag "lightning" of nbt of {_t}) ? 0) and "Lightning") to {_e::*}
 	add (((tag "laser" of nbt of {_t}) ? 0) and "Laser") to {_e::*}
 	add (((tag "explode" of nbt of {_t}) ? 0) and "Explode") to {_e::*}
@@ -66,14 +65,6 @@ function pickaxeInv(p: player):
 	set {_m} to 200
 	set {_item} to guiPickaxeItem(emerald, {_e}, {_l}, {_m}, {_pr})
 	format gui slot 29 of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
-
-	set {_e} to "nightvision"
-	set {_l} to getEnchant({_t}, {_e})
-	set {_pr} to 100
-	set {_m} to 1
-	set {_item} to guiPickaxeItem(night vision tipped arrow, {_e}, {_l}, {_m}, {_pr})
-	format gui slot 30 of {_p} with {_item} to run:
 		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
 
 	set {_e} to "lightning"

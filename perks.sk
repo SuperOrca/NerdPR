@@ -1,17 +1,43 @@
 on quit:
 	if metadata "glow" of player is not set:
 		remove glowing from player
+	if metadata "nv" of player is not set:
+		remove night vision from player
 
 command /glow:
 	permission: perks.glow
 	permission message: &cNo Permission.
 	trigger:
 		if metadata "glow" of player is set:
+			send "&f&lPERKS &7You can no longer &eglow&7."
 			remove glowing from player
 			delete metadata "glow" of player
 		else:
+			send "&f&lPERKS &7You can now &eglow&7."
 			apply glowing without particles to player for 999 days
 			set metadata "glow" of player to true
+
+command /rainbow:
+	permission: perks.rainbow
+	permission message: &cNo Permission.
+	trigger:
+		if metadata "rainbow" of player is set:
+			send formatted "&f&lPERKS &7You can no longer talk in %rainbow(""rainbow"")%&7."
+			delete metadata "rainbow" of player
+		else:
+			send formatted "&f&lPERKS &7You can now talk in %rainbow(""rainbow"")%&7."
+			set metadata "rainbow" of player to true
+
+command /nv:
+	trigger:
+		if metadata "nv" of player is set:
+			send "&f&lPERKS &7You no longer have &dnight vision&7."
+			remove night vision from player
+			delete metadata "nv" of player
+		else:
+			send "&f&lPERKS &7You now have &dnight vision&7."
+			apply night vision without particles to player for 999 days
+			set metadata "nv" of player to true
 
 command /slap <player>:
 	permission: perks.slap

@@ -5,6 +5,7 @@ options:
 	
 	chat-channel: 828275594985734184
 	log-channel: 827365241687113778
+	suggestion-channel: 827365231545024513
 
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@chat-channel}":
@@ -13,14 +14,19 @@ on guild message received seen by "{@bot}":
 		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
 		if {_message} is not "":
 			broadcast "&b&lDISCORD &7%event-member%: &f%{_message}%"
+	if discord id of event-channel is "{@log-channel}":
+		make console execute command "%event-message%"
 
 on chat:
 	event is not canceled
 	send "**%player%**: %message%" to channel with id "{@chat-channel}" with "{@bot}"
  
 on load:
-	login to "{@token}" with the name "{@bot}"
-	mark "{@bot}" as playing "nerdpr.minehut.gg"
+	create vixio bot:
+		enable the guild message reactions intent
+		enable the direct message reactions intent
+		login to "{@token}" with the name "{@bot}"
+		mark "{@bot}" as playing "nerdpr.minehut.gg"
 
 on join:
 	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
@@ -29,4 +35,18 @@ on quit:
 	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 
 on command:
-	send "**%player%** issued command `%command% %arguments ? """"%`." to channel with id "{@log-channel}" with "{@bot}"
+	set {_cmd} to "%command% %arguments%" if arguments is set, else command
+	send "**%player ? ""CONSOLE""%** issued command `%{_cmd}%`." to channel with id "{@log-channel}" with "{@bot}"
+
+command /suggest <text>:
+	cooldown: 5 minutes
+	cooldown message: &cThis command is on cooldown.
+	usage: &cUsage: /suggest <suggestion>
+	trigger:
+		send "&f&lSUGGESTION&7 Your suggestion has been submitted."
+		create embed:
+			set the colour of the embed to purple
+			add field named "Player" with value "%player%" to embed
+			add field named "Suggestion" with value arg-1 to embed
+		send last created embed to channel with id "{@suggestion-channel}" with "{@bot}" and store it in {_msg}
+		add reactions "green_circle" and "red_circle" to {_msg}

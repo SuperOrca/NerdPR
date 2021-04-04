@@ -77,7 +77,3 @@ command /reloadall:
 command /rules:
 	trigger:
 		send centered "don't be a bitch" to player
-
-command /progress:
-	trigger:
-		send centered " ", "<##D285D7>&lYOUR LEVEL PROGRESS", "<##AAB0AF>&l%{level::%player's uuid%} ? 0% %progressBar(({xp::%player's uuid%} ? 0), ({xpn::%player's uuid%} ? 100), 100, ""<##A88FA9>"", ""&8"")% <##AAB0AF>&l%({level::%player's uuid%} ? 0) + 1%", and " " to player
