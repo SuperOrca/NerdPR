@@ -1,4 +1,4 @@
-on load:
+options:
 	prefix: ?
 	bot: NerdPR
 	token: ODI4Mjc0ODgyMTI2Njc2MDA5.YGnNGA.QqQl9vzX_dHqxaFfKjnyRxwEi3c
@@ -7,7 +7,7 @@ on load:
 	log-channel: 827365241687113778
 
 on guild message received seen by "{@bot}":
-	if event-channel's id is "{@chat-channel}":
+	if discord id of event-channel is "{@chat-channel}":
 		set {_message} to "%event-message%"
 		replace all ">" and "<" in {_message} with ""
 		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
@@ -23,10 +23,10 @@ on load:
 	mark "{@bot}" as playing "nerdpr.minehut.gg"
 
 on join:
-	send "**%player%** joined the game." to channel with id "{@chat-channel}" with "{@bot}"
+	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
  
 on quit:
-	send "**%player%** left the game." to channel with id "{@chat-channel}" with "{@bot}"
+	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 
 on command:
 	send "**%player%** issued command `%command% %arguments ? """"%`." to channel with id "{@log-channel}" with "{@bot}"
