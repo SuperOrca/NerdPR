@@ -63,6 +63,17 @@ command /playtime [<player>]:
 	trigger:
 		send "&f%arg-1 ? player%'s&7 playtime is &f%time played of arg-1 ? time played of player%&7."
 
+command /reloadall:
+	permission: *
+	permission message: &cNo Permission.
+	trigger:
+		set {_s} to now
+		loop all scripts where [input is not "config.sk" or "color.sk"]:
+			set {_m} to now
+			reload script loop-value
+			send "Took %time since {_m}% to reload %loop-value%."
+		send "Took %time since {_s}% to reload all scripts." to all players where [input has permission "*"]
+
 command /rules:
 	trigger:
 		send centered "don't be a bitch" to player
