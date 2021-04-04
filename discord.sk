@@ -35,8 +35,7 @@ on quit:
 	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 
 on command:
-	set {_cmd} to "%command% %arguments%" if arguments is set, else command
-	send "**%player ? ""CONSOLE""%** issued command `%{_cmd}%`." to channel with id "{@log-channel}" with "{@bot}"
+	send "**%player ? ""CONSOLE""%** issued command `%command% %arguments ? """"%`" to channel with id "{@log-channel}" with "{@bot}"
 
 command /suggest <text>:
 	cooldown: 5 minutes

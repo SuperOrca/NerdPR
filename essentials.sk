@@ -82,3 +82,17 @@ command /speed <number>:
 		else:
 			set player's walking speed to arg-1
 		send "&f&lSTAFF&7 Set your speed to &f%arg-1%&7."
+
+command /rename <text>:
+	permission: op
+	permission message: &cNo Permission.
+	usage: &cUsage: /rename <text>
+	trigger:
+		set tool's name to arg-1
+
+command /skull <offline player>:
+	permission: op
+	permission message: &cNo Permission.
+	usage: &cUsage: /skull <player>
+	trigger:
+		give arg-1's skull to player
