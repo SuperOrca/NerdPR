@@ -61,6 +61,7 @@ function emojify(input: text) :: text:
 	replace all "<3" with "❤" in {_input} if {_input} contains "<3"
 	replace all "->" with "⟶" in {_input} if {_input} contains "->"
 	replace all "<-" with "⟵" in {_input} if {_input} contains "<-"
+	replace all ":)" or "(:" with "☻" in {_input} if {_input} contains ":)" or "(:"
 	return {_input}
 
 function progressBar(val: number, max: number, barsize: number, fill_first: text, fill_second: text) :: text:

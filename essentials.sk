@@ -2,7 +2,7 @@ on join:
 	teleport player to {spawn}
 
 command /setspawn:
-	permission: op
+	permission: essentials.setspawn
 	permission message: &cNo Permission
 	trigger:
 		set {spawn} to player's location
@@ -12,35 +12,35 @@ command /spawn:
 		teleport player to {spawn}
 
 command /gmc <player=%player%>:
-	permission: staff.gamemode
+	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
 		send "&f&lSTAFF&7 Set &f%arg-1%'s&7 gamemode to &fCREATIVE&7."
 		set arg-1's gamemode to creative
 
 command /gms <player=%player%>:
-	permission: staff.gamemode
+	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
 		send "&f&lSTAFF&7 Set &f%arg-1%'s&7 gamemode to &fSURVIVAL&7."
 		set arg-1's gamemode to survival
 
 command /gmsp <player=%player%>:
-	permission: staff.gamemode
+	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
 		send "&f&lSTAFF&7 Set &f%arg-1%'s&7 gamemode to &fSPECTATOR&7."
 		set arg-1's gamemode to spectator
 
 command /gma <player=%player%>:
-	permission: staff.gamemode
+	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
 		send "&f&lSTAFF&7 Set &f%arg-1%'s&7 gamemode to &fADVENTURE&7."
 		set arg-1's gamemode to adventure
 
 command /invsee <player>:
-	permission: staff.invsee
+	permission: essentials.invsee
 	permission message: &cNo Permission.
 	usage: &cUsage: /invsee <player>
 	trigger:
@@ -48,7 +48,7 @@ command /invsee <player>:
 		open arg-1's inventory to player
 
 command /tp <player>:
-	permission: staff.tp
+	permission: essentials.tp
 	permission message: &cNo Permission.
 	usage: &cUsage: /tp <player>
 	trigger:
@@ -56,7 +56,7 @@ command /tp <player>:
 		teleport player to arg-1's location
 
 command /tphere <player>:
-	permission: staff.tphere
+	permission: essentials.tphere
 	permission message: &cNo Permission.
 	usage: &cUsage: /tphere <player>
 	trigger:
@@ -64,7 +64,7 @@ command /tphere <player>:
 		teleport arg-1 to player's location
 
 command /sudo <player> <text>:
-	permission: staff.sudo
+	permission: essentials.sudo
 	permission message: &cNo Permission.
 	usage: &cUsage: /sudo <player> <text>
 	trigger:
@@ -72,7 +72,7 @@ command /sudo <player> <text>:
 		make arg-1 say arg-2
 
 command /speed <number>:
-	permission: op
+	permission: essentials.speed
 	permission message: &cNo Permission.
 	usage: &cUsage: /speed <number>
 	trigger:
@@ -83,15 +83,22 @@ command /speed <number>:
 		send "&f&lSTAFF&7 Set your speed to &f%arg-1%&7."
 
 command /rename <text>:
-	permission: op
+	permission: essentials.rename
 	permission message: &cNo Permission.
 	usage: &cUsage: /rename <text>
 	trigger:
 		set tool's name to arg-1
 
 command /skull <offline player>:
-	permission: op
+	permission: essentials.skull
 	permission message: &cNo Permission.
 	usage: &cUsage: /skull <player>
 	trigger:
 		give arg-1's skull to player
+
+command /i <item>:
+	permission: essentials.i
+	permission message: &cNo Permission.
+	usage: &cUsage: /i <item>
+	trigger:
+		give player arg-1 

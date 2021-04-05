@@ -17,23 +17,6 @@ function updateScoreboard(p: player):
 	set line 7 of {_p}'s scoreboard to ""
 	set line 6 of {_p}'s scoreboard to "&7&onerdpr.minehut.gg"
 
-command /stats <player=%player%>:
-	trigger:
-		send centered "&f%arg-1%&f's stats" to player
-		set {_u} to arg-1's uuid
-		send "&8│"
-		set {_level} to formatNumber({level::%{_u}%} ? 0)
-		send "&8│ &7Level: &f%{_level}%"
-		set {_progress} to progressBar(({xp::%{_u}%} ? 0), ({xpn::%{_u}%} ? 100), 20, "&f", "&8")
-		send "&8│ &7Progress: %{_progress}%"
-		send "&8│"
-		set {_mined} to formatNumber({mined::%{_u}%} ? 0)
-		send "&8│ &7Mined: &f%{_mined}%"
-		set {_balance} to formatNumber({balance::%{_u}%} ? 0)
-		send "&8│ &7Balance: &f$%{_balance}%"
-		send "&8│ &7Multiplier: &f1x"
-		send "&8│"
-
 on join:
 	set join message to "&f%player%&7 joined the game."
 	if player's inventory does not contain diamond pickaxe:
