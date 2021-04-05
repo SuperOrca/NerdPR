@@ -25,6 +25,12 @@ on join:
 	loop all players:
 		updateScoreboard(loop-player)
 
+command /getpick:
+	permission: staff.getpick
+	permission message: &cNo Permission.
+	trigger:
+		give player updatePickaxe(player, diamond pickaxe named "&f&lPICKAXE" with nbt "{HideFlags:7b}")
+
 on quit:
 	set quit message to "&f%player%&7 left the game."
 	loop all players:
@@ -44,9 +50,9 @@ on drop:
 	item is pickaxe or sword or bow or trident or tripwire hook
 	cancel event
 
-command /playtime [<player>]:
+command /playtime <player=%player%>:
 	trigger:
-		send "&f%arg-1 ? player%'s&7 playtime is &f%time played of arg-1 ? time played of player%&7."
+		send "&f%arg-1%'s&7 playtime is &f%time played of arg-1%&7."
 
 command /reloadall:
 	permission: *

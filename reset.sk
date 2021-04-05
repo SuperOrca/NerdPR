@@ -1,0 +1,223 @@
+command /minereset [<text>] [<text>] [<text>]:
+	permission: mine.reset
+	permission message: &cNo Permission.
+	aliases: /mr
+	trigger:
+		if arg 1 is not set:
+			send ""
+			send "&8/&7minereset &bcreate (mine name)"
+			send "&8/&7minereset &binfo (mine name)"
+			send "&8/&7minereset &breset (mine name)"
+			send "&8/&7minereset &bdelete (mine name)"
+			send "&8/&7minereset &bsetblock (mine name) (block)"
+			send "&8/&7minereset &bsetdelay (mine name) (time, in minutes)"
+			send "&8/&7minereset &bsetarea (mine name)"
+			send "&8/&7minereset &bsetdynamic (mine name) (amount)"
+			send "&8/&7minereset &blist"
+			send "&8/&7minereset &bwand"
+			send ""
+		else if arg 1 is "create":
+			if arg 2 is set:
+				if {mines::list::*} does not contain arg 2:
+					if {mines::pos1::%player%} is set:
+						if {mines::pos2::%player%} is set:
+							add arg 2 to {mines::list::*}
+							set {mines::%arg 2%::resetTime} to 5 minutes
+							set {mines::%arg 2%::dynamic} to 0
+							set {mines::%arg 2%::pos1} to {mines::pos1::%player%}
+							set {mines::%arg 2%::pos2} to {mines::pos2::%player%}
+							send "&7Added &b%arg 2%&7 as a mine &o(%{mines::%arg 2%::pos1}% &8&o-->&7&o %{mines::%arg 2%::pos2}%&7&o)"
+						else:
+							send "&bPos 2&7 is not set! &7&o(/mines wand)"
+					else:
+						send "&bPos 1&7 is not set! &7&o(/mines wand)"
+				else:
+					send "&7The name &b%arg 2%&7 is already in use."
+			else:
+				make player execute "mines"
+		else if arg 1 is "info":
+			if arg 2 is set:
+				if {mines::list::*} contains arg 2:
+					send ""
+					send " &b%arg 2% &8-"
+					send "   &8- &7Reset Time: &b%{mines::%arg 2%::resetTime}%"
+					send "   &8- &7Block Type: &b%{mines::%arg 2%::block}%"
+					send "   &8- &7Dyanmic: &b%{mines::%arg 2%::dynamic}%"
+					set {_diff} to difference between {mines::%arg 2%::resetWhen} and now
+					send "   &8- &7Next Reset: &b%difference between {mines::%arg 2%::resetTime} and {_diff}%"
+					send "   &8- &7Coordinates: &b%{mines::%arg 2%::pos1}% &7--> &b%{mines::%arg 2%::pos2}%"
+					send ""
+				else:
+					send "&7Invalid mine name!"
+			else:
+				make player execute "mines"
+		else if arg 1 is "setblock":
+			if arg 3 is set:
+				if {mines::list::*} contains arg 2:
+					set {_block} to arg 3 parsed as item type
+					if {_block} is set:
+						set {mines::%arg 2%::block} to {_block}
+						send "&7The block type for &b%arg 2%&7 mine has been set to &b%{_block}%&7."
+						make player execute "mines reset %arg 2%"
+					else:
+						send "&7Invalid block type!"
+				else:
+					send "&7Invalid mine name!"
+			else:
+				make player execute "mines"
+		else if arg 1 is "delete":
+			if arg 2 is set:
+				if {mines::list::*} contains arg 2:
+					remove arg 2 from {mines::list::*}
+					delete {mines::%arg 2%}
+					send "&7Deleted mine &b%arg 2%&7."
+				else:
+					send "&7Invalid mine name!"
+			else:
+				make player execute "mines"
+		else if arg 1 is "reset":
+			if arg 2 is set:
+				if {mines::list::*} contains arg 2:
+					set {mines::%arg 2%::resetWhen} to now
+					resetMine(arg 2)
+					send "&7Reset the mine &b%arg 2%&7."
+				else:
+					send "&7Invalid mine name!"
+			else:
+				make player execute "mines"
+		else if arg 1 is "setdelay":
+			if arg 3 is set:
+				if {mines::list::*} contains arg 2:
+					set {_amount} to arg 3 parsed as integer
+					if {_amount} is set:
+						set {mines::%arg 2%::resetTime} to "%{_amount}% minutes" parsed as timespan
+						send "&7The reset time for &b%arg 2%&7 has been set to &b%{mines::%arg 2%::resetTime}%&7."
+					else:
+						send "&7Invalid time!"
+				else:
+					send "&7Invalid mine name!"
+			else:
+				make player execute "mines"
+		else if arg 1 is "setrespawn":
+			if arg 2 is set:
+				if {mines::list::*} contains arg 2:
+					set {mines::%arg 2%::respawn} to player's location
+					send "&7Set the spawn point of mine &b%arg 2%&7 to your location &o(%{mines::%arg 2%::respawn}%&7&o)."
+				else:
+					send "&7Invalid mine name!"
+			else:
+				make player execute "mines"
+		else if arg 1 is "setarea":
+			if arg 2 is set:
+				if {mines::list::*} contains arg 2:
+					if {mines::pos1::%player%} is set:
+						if {mines::pos2::%player%} is set:
+							set {mines::%arg 2%::pos1} to {mines::pos1::%player%}
+							set {mines::%arg 2%::pos2} to {mines::pos2::%player%}
+							send "&7Redefined the area for &b%arg 2%&7 &o(%{mines::%arg 2%::pos1}% &8&o-->&7&o %{mines::%arg 2%::pos2}%&7&o)"
+						else:
+							send "&bPos 2&7is not set! &7&o(/mines wand)"
+					else:
+						send "&bPos 1&7is not set! &7&o(/mines wand)"
+				else:
+					send "&7There is no mine named &b%arg 2%"
+		else if arg 1 is "setdynamic":
+			if arg 3 is set:
+				if {mines::list::*} contains arg 2:
+					set {_amount} to arg 3 parsed as integer
+					if {_amount} is set:
+						set {mines::%arg 2%::dynamic} to {_amount}
+						send "&7Set the amount of players needed online for the &b%arg 2%&7 mine to reset to &b%{_amount}%&7."
+					else:
+						send "&7Invalid integer &8(&b""%arg 3%&b""&8)"
+				else:
+					send "&7There is no mine named &b%arg 2%"
+			else:
+				make player execute "mines"
+		else if arg 1 is "list":
+			if size of {mines::list::*} > 0:
+				send "&bAll Mines&8: &7%{mines::list::*}%"
+			else:
+				send "&7No mines have been created."
+		else if arg 1 is "wand":
+			give player 1 bone named "&bMines Wand"
+			send "&bLeft click &7to set pos 1, &bright click&7 to set pos 2."
+		else:
+			make player execute "mines"
+
+on left click:
+	if player has permission "server.srmod":
+		if player's tool is bone:
+			if name of player's tool is "&bMines Wand":
+				cancel event
+				set {_loc} to location of event-block
+				set {mines::pos1::%player%} to {_loc}
+				send "&bPos 1&7 has been set to %{mines::pos1::%player%}%"
+		if player's tool is blaze rod:
+			if name of player's tool is "&3&lCELLS &7Wand":
+				cancel event
+				set {_loc} to location of event-block
+				set {cells::pos1::%player%} to {_loc}
+				send "&3Pos 1&7 has been set to %{cells::pos1::%player%}%"
+
+on right click:
+	if player has permission "server.srmod":
+		if player's tool is bone:
+			if name of player's tool is "&bMines Wand":
+				cancel event
+				set {_loc} to location of event-block
+				set {mines::pos2::%player%} to {_loc}
+				send "&bPos 2&7 has been set to %{mines::pos2::%player%}%"
+		if player's tool is blaze rod:
+			if name of player's tool is "&3&lCELLS &7Wand":
+				cancel event
+				set {_loc} to location of event-block
+				set {cells::pos2::%player%} to {_loc}
+				send "&3Pos 2&7 has been set to %{cells::pos2::%player%}%"
+#	if player's gamemode is not creative:
+#		loop all integers between 0 and {cells::total}:
+#			if {cell::%loop-integer%::owner} is not player's uuid:
+#				if {cell::%loop-integer%::door::open} is not set:
+#					loop all blocks within block at {cell::%loop-integer%::pos1} and block at {cell::%loop-integer%::pos2}:
+#						if loop-block is event-block:
+#							cancel event
+#							send " &d&l(!) &7You cannot do this"
+#							stop
+
+# mine = name of mine. can be "all"
+function resetMine(mine: text):
+	if {_mine} is "all":
+		loop {mines::list::*}:
+			resetMine(loop-value)
+			wait 3 ticks
+	else:
+		loop all blocks within block at {mines::%{_mine}%::pos1} and block at {mines::%{_mine}%::pos2}:
+			set loop-block to {mines::%{_mine}%::block}
+		loop all players:
+			if "%block at loop-player%" is "%{mines::%{_mine}%::block}%":
+				if loop-player's x coordinate is between x coordinate of {mines::%{_mine}%::pos1} and x coordinate of {mines::%{_mine}%::pos2}:
+					if loop-player's y coordinate is between y coordinate of {mines::%{_mine}%::pos1} and y coordinate of {mines::%{_mine}%::pos2}:
+						if loop-player's z coordinate is between z coordinate of {mines::%{_mine}%::pos1} and z coordinate of {mines::%{_mine}%::pos2}:
+							loop 6 times:
+								set {_loc} to loop-player's location
+								set {_r} to a random integer between 1 and -1
+								add {_r} to the x coordinate of {_loc}
+								add 1 to the y coordinate of {_loc}
+								teleport loop-player to {_loc} if block at {_loc} is not bedrock
+								if block at loop-player is air:
+									stop loop
+		set {mines::%{_mine}%::resetWhen} to now
+
+function checkResetMines():
+	loop {mines::list::*}:
+		if difference between {mines::%loop-value%::resetWhen} and now >= {mines::%loop-value%::resetTime}:
+			resetMine(loop-value) if {mines::%loop-value%::dynamic} is 0
+			checkDynamicMine(loop-value) if {mines::%loop-value%::dynamic} > 0
+
+function checkDynamicMine(mine: text):
+	if {mines::%{_mine}%::dynamic} > 0:
+		if amount of online players >= {mines::%{_mine}%::dynamic}:
+			resetMine({_mine})
+
+every 1 minute:
+	checkResetMines()

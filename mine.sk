@@ -1,6 +1,5 @@
 function getPrice(i: block) :: number:
-	if {_i} is sandstone:
-		return 1 
+	return 500 if {_i} is white terracotta
 	return 0
 
 function updateLevel(p: player):
@@ -14,10 +13,22 @@ function updateLevel(p: player):
 on break:
 	player's tool is pickaxe
 	clear drops
+
+	set metadata "nuker" of player to metadata "nuker" of player + 1
+	if metadata "nuker_yes" of player is not set:
+		set metadata "nuker_yes" of player to true
+		wait 5 seconds
+		if metadata "nuker" of player > 150:
+			send "%player% might be using nuker lmao" to all players where [input has permission "staff"]
+		if metadata "nuker" of player > 350:
+			send "you wouldve gotten banned"
+		delete metadata "nuker" of player
+		delete metadata "nuker_yes" of player
+
 	add 1 to {mined::%player's uuid%}
 	set {_price} to getPrice(event-block)
-	set {_fort} to random integer between 0 and getTag(player's tool, "fortune")
-	add {_price} + {_fort} to {balance::%player's uuid%}
+	set {_fort} to random integer between 1 and (getTag(player's tool, "fortune") + 1)
+	add {_price} * {_fort} to {balance::%player's uuid%}
 	add 1 to {xp::%player's uuid%}
 
 	updateLevel(player)
