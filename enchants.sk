@@ -1,41 +1,66 @@
-function getEnchants(t: item) :: objects:
-	add (((tag "efficiency" of nbt of {_t}) ? 0) and "Efficiency") to {_e::*}
-	add (((tag "fortune" of nbt of {_t}) ? 0) and "Fortune") to {_e::*}
-	add (((tag "lightning" of nbt of {_t}) ? 0) and "Lightning") to {_e::*}
-	add (((tag "laser" of nbt of {_t}) ? 0) and "Laser") to {_e::*}
-	add (((tag "explode" of nbt of {_t}) ? 0) and "Explode") to {_e::*}
-	add (((tag "jackhammer" of nbt of {_t}) ? 0) and "Jackhammer") to {_e::*}
-	return {_e::*}
-
-function getEnchant(t: item, e: text) :: number:
+function getTag(t: item, e: text) :: number:
 	return (tag {_e} of nbt of {_t}) ? 0
+
+function getTags(t: item) :: objects:
+	add (getTag({_t}, "efficiency") and "Efficiency") to {_e::*}
+	add (getTag({_t}, "fortune") and "Fortune") to {_e::*}
+	add (getTag({_t}, "jump") and "Jump") to {_e::*}
+	add (getTag({_t}, "flight") and "Flight") to {_e::*}
+	add (getTag({_t}, "tokenfinder") and "Tokenfinder") to {_e::*} 
+	add (getTag({_t}, "keyfinder") and "Keyfinder") to {_e::*}
+	add (getTag({_t}, "explosive") and "Explosive") to {_e::*}
+	add (getTag({_t}, "jackhammer") and "Jackhammer") to {_e::*}
+	add (getTag({_t}, "chunk") and "Chunk") to {_e::*}
+	add (getTag({_t}, "tsunami") and "Tsunami") to {_e::*}
+	return {_e::*}
 
 function updatePickaxe(p: player, t: item) :: item:
 	updateScoreboard({_p})
-	set {_enchs::*} to getEnchants({_t})
+	set {_enchs::*} to getTags({_t})
 	loop ((size of {_enchs::*})/2) times:
 		set {_level} to {_enchs::%loop-value * 2 - 1%}
 		set {_enchant} to {_enchs::%loop-value * 2%}
 		set line loop-value of {_t}'s lore to "&7%{_enchant}%&7 %{_level}%"
-	enchant {_t} with "efficiency %getEnchant({_t}, ""efficiency"")%" parsed as a enchantment type
+	enchant {_t} with "efficiency %getTag({_t}, ""efficiency"")%" parsed as a enchantment type
 	return {_t}
 
-function upgradePickaxe(p: player, t: item, e: text, pr: number, l: number, m: number, gct: text):
-	# {_gct}
-	if {_l} < {_m}:
-		set {_u} to {_p}'s uuid
+function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: text):
+	set {_u} to {_p}'s uuid
+	if gct contains "middle":
+		while 1 = 1:
+			set {_pr} to enchantPrice({_e}, {_l})
+			if {balance::%{_u}%} >= {_pr}:
+				if {_l} < {_m}:
+					add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
+					remove {_pr} from {balance::%{_u}%}
+					playSound({_p}, "ENTITY_VILLAGER_YES")
+					send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
+					set {_p}'s tool to updatePickaxe({_p}, {_t})
+				else:
+					playSound({_p}, "ENTITY_VILLAGER_NO")
+					send "&cYou already maxed this enchant." to {_p}
+					break
+			else:
+				playSound({_p}, "ENTITY_VILLAGER_NO")
+				send "&cYou need $%{_pr} - {balance::%{_u}%}%&c more to buy this!" to {_p}
+				break
+	else:
+		set {_pr} to enchantPrice({_e}, {_l})
 		if {balance::%{_u}%} >= {_pr}:
-			add "{%{_e}%:%getEnchant({_t}, {_e})+1%}" to nbt of {_t}
-			remove {_pr} from {balance::%{_u}%}
-			playSound({_p}, "ENTITY_VILLAGER_YES")
-			send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
-			set {_p}'s tool to updatePickaxe({_p}, {_t})
+			if {_l} < {_m}:
+				add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
+				remove {_pr} from {balance::%{_u}%}
+				playSound({_p}, "ENTITY_VILLAGER_YES")
+				send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
+				set {_p}'s tool to updatePickaxe({_p}, {_t})
+			else:
+				playSound({_p}, "ENTITY_VILLAGER_NO")
+				send "&cYou already maxed this enchant." to {_p}
 		else:
 			playSound({_p}, "ENTITY_VILLAGER_NO")
 			send "&cYou need $%{_pr} - {balance::%{_u}%}%&c more to buy this!" to {_p}
-		pickaxeInv({_p})
-	else:
-		send "&cYou already maxed this enchant." to {_p}
+	pickaxeInv({_p})
+	updateScoreboard({_p})
 
 function displayPickaxeInv(p: player):
 	open virtual chest with 6 rows named "&f&lUPGRADE PICKAXE" to {_p}
@@ -43,61 +68,57 @@ function displayPickaxeInv(p: player):
 	playSound({_p}, "ENTITY_BAT_TAKEOFF")
 	pickaxeInv({_p})
 
-function guiPickaxeItem(i: item, e: text, l: number, m: number, p: number) :: item:
-	return {_i} named "&f%{_e} in proper case% &7(%{_l}%/%{_m}%)" with lore "" and "&7Price: &f$%{_p}%" and "" and "&fLeft click &7to buy one." and "&fRight click &7to buy five."
+function enchantPrice(e: text, l: number) :: number:
+	return ({_l}*10000)^(1.02)+20000 if {_e} is "efficiency"
+	return ({_l}*5000)^(1.01)+10000 if {_e} is "fortune"
+	return 10000000 if {_e} is "jump"
+	return 50000000 if {_e} is "flight"
+	return ({_l}*500000)^(1.02)+1000000 if {_e} is "tokenfinder"
+	return ({_l}*200000)^(1.035)+400000 if {_e} is "keyfinder"
+	return ({_l}*250000)^(1.035)+500000 if {_e} is "explosive"
+	return ({_l}*300000)^(1.03)+600000 if {_e} is "jackhammer"
+	return ({_l}*375000)^(1.04)+750000 if {_e} is "chunk"
+	return ({_l}*500000)^(1.05)+1000000 if {_e} is "tsunami"
+	return 0
+
+function enchantMax(e: text) :: number:
+	return 500 if {_e} is "efficiency"
+	return 1000000 if {_e} is "fortune"
+	return 1 if {_e} is "jump"
+	return 1 if {_e} is "flight"
+	return 500 if {_e} is "tokenfinder"
+	return 5000 if {_e} is "keyfinder"
+	return 500 if {_e} is "explosive"
+	return 1000 if {_e} is "jackhammer"
+	return 5000 if {_e} is "chunk"
+	return 10000 if {_e} is "tsunami"
+	return 0
+
+function guiPickaxeItem(p: player, slot: number, item: item, enchant: text, max: number):
+	set {_tool} to {_p}'s tool
+	set {_level} to getTag({_tool}, {_enchant})
+	set {_max} to enchantMax({_e})
+
+	set {_item} to {_item} named "&f%{_enchant} in proper case% &7(%{_level}%/%{_max}%)" with lore "" and "&7Price: &f$%enchantPrice({_enchant}, {_level})%" and "" and "&fClick &7to buy one." and "&fMMB &7to buy as many as possible."
+	format gui slot {_slot} of {_p} with {_item} to run:
+		upgradePickaxe({_p}, {_tool}, {_enchant}, {_level}, {_max}, %gui-click-type%)
 
 function pickaxeInv(p: player):
 	set {_u} to {_p}'s uuid
 	set {_t} to {_p}'s tool
-	format gui slot 13 of {_p} with {_t} named "&f&lYOUR PICKAXE"
+	
+	format gui slot 4 of {_p} with {_p}'s skull
 
-	set {_e} to "efficiency"
-	set {_l} to getEnchant({_t}, {_e})
-	set {_pr} to {_l} * 1000 + 300
-	set {_m} to 200
-	set {_item} to guiPickaxeItem(gold pickaxe, {_e}, {_l}, {_m}, {_pr})
-	format gui slot 28 of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
-
-	set {_e} to "fortune"
-	set {_l} to getEnchant({_t}, {_e})
-	set {_pr} to {_l} * 2000 + 500
-	set {_m} to 200
-	set {_item} to guiPickaxeItem(emerald, {_e}, {_l}, {_m}, {_pr})
-	format gui slot 29 of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
-
-	set {_e} to "lightning"
-	set {_l} to getEnchant({_t}, {_e})
-	set {_pr} to {_l} * 3000 + 1000
-	set {_m} to 50
-	set {_item} to guiPickaxeItem(golden shovel, {_e}, {_l}, {_m}, {_pr})
-	format gui slot 31 of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
-
-	set {_e} to "laser"
-	set {_l} to getEnchant({_t}, {_e})
-	set {_pr} to {_l} * 5000 + 2500
-	set {_m} to 50
-	set {_item} to guiPickaxeItem(redstone, {_e}, {_l}, {_m}, {_pr})
-	format gui slot 32 of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
-
-	set {_e} to "explode"
-	set {_l} to getEnchant({_t}, {_e})
-	set {_pr} to {_l} * 8000 + 4000
-	set {_m} to 50
-	set {_item} to guiPickaxeItem(tnt, {_e}, {_l}, {_m}, {_pr})
-	format gui slot 33 of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
-
-	set {_e} to "jackhammer"
-	set {_l} to getEnchant({_t}, {_e})
-	set {_pr} to {_l} * 12000 + 10000
-	set {_m} to 50
-	set {_item} to guiPickaxeItem(iron pickaxe, {_e}, {_l}, {_m}, {_pr})
-	format gui slot 34 of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_t}, {_e}, {_pr}, {_l}, {_m}, "%gui-click-type%")
+	guiPickaxeItem({_p}, 19, hopper, "jackhammer")
+	guiPickaxeItem({_p}, 21, chest, "tokenfinder")
+	guiPickaxeItem({_p}, 23, emerald, "fortune")
+	guiPickaxeItem({_p}, 27, tnt, "explosive")
+	guiPickaxeItem({_p}, 29, arrow, "efficiency")
+	guiPickaxeItem({_p}, 31, feather, "flight")
+	guiPickaxeItem({_p}, 33, rabbit foot, "jump")
+	guiPickaxeItem({_p}, 37, anvil, "chunk")
+	guiPickaxeItem({_p}, 39, water bucket, "tsunami")
+	guiPickaxeItem({_p}, 41, lecturn, "keyfinder")
 
 on right click:
 	player's tool is pickaxe

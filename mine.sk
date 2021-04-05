@@ -16,7 +16,7 @@ on break:
 	clear drops
 	add 1 to {mined::%player's uuid%}
 	set {_price} to getPrice(event-block)
-	set {_fort} to random integer between 0 and getEnchant(player's tool, "fortune")
+	set {_fort} to random integer between 0 and getTag(player's tool, "fortune")
 	add {_price} + {_fort} to {balance::%player's uuid%}
 	add 1 to {xp::%player's uuid%}
 
