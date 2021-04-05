@@ -2,7 +2,7 @@ options:
 	prefix: &6&lWRECK &8|
 
 command /tempban <offline player> <text> <text>:
-	permission: tempban
+	permission: punish.tempban
 	permission message: &cNo Permission.
 	usage: &7Usage: /tempban <player> <time ex:24h> <reason> [-s]
 	trigger:
@@ -21,7 +21,7 @@ command /tempban <offline player> <text> <text>:
 			broadcast "{@prefix} &e%arg-1%&f was banned by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f."
 
 command /ban <offline player> <text>:
-	permission: ban
+	permission: punish.ban
 	permission message: &cNo Permission.
 	usage: &7Usage: /ban <player> <reason> [-s]
 	trigger:
@@ -37,7 +37,7 @@ command /ban <offline player> <text>:
 			broadcast "{@prefix} &e%arg-1%&f was banned by &e%player%&f for &e%{_reason}%&f."
 
 command /unban <offline player> [<text>]:
-	permission: unban
+	permission: punish.unban
 	permission message: &cNo Permission.
 	usage: &7Usage: /unban <player> [-s]
 	trigger:
@@ -48,7 +48,7 @@ command /unban <offline player> [<text>]:
 			broadcast "{@prefix} &e%arg-1%&f was unbanned by &e%player%&f."
 
 command /kick <player> <text>:
-	permission: kick
+	permission: punish.kick
 	permission message: &cNo Permission.
 	usage: &7Usage: /kick <player> <reason> [-s]
 	trigger:
@@ -61,7 +61,7 @@ command /kick <player> <text>:
 			broadcast "{@prefix} &e%arg-1%&f was kicked by &e%player%&f for &e%{_reason}%&f."
 
 command /tempmute <offline player> <text> <text>:
-	permission: tempmute
+	permission: punish.tempmute
 	permission message: &cNo Permission.
 	usage: &7Usage: /tempmute <player> <time ex:24h> <reason> [-s]
 	trigger:
@@ -80,7 +80,7 @@ command /tempmute <offline player> <text> <text>:
 			broadcast "{@prefix} &e%arg-1%&f was muted by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f."
 
 command /mute <offline player> <text>:
-	permission: mute
+	permission: punish.mute
 	permission message: &cNo Permission.
 	usage: &7Usage: /mute <player> <reason> [-s]
 	trigger:
@@ -96,7 +96,7 @@ command /mute <offline player> <text>:
 			broadcast "{@prefix} &e%arg-1%&f was muted by &e%player%&f for &e%{_reason}%&f."
 
 command /unmute <offline player> [<text>]:
-	permission: unmute
+	permission: punish.unmute
 	permission message: &cNo Permission.
 	usage: &7Usage: /unmute <player> [-s]
 	trigger:
@@ -107,7 +107,7 @@ command /unmute <offline player> [<text>]:
 			broadcast "{@prefix} &e%arg-1%&f was unmuted by &e%player%&f."
 
 command /clearchat [<text>]:
-	permission: clearchat
+	permission: punish.clearchat
 	permission message: &cNo Permission.
 	trigger:
 		loop 200 times:
@@ -118,7 +118,7 @@ command /clearchat [<text>]:
 			broadcast "{@prefix} &fThe chat was cleared by &e%player%&f."
 
 command /mutechat [<text>]:
-	permission: mutechat
+	permission: punish.mutechat
 	permission message: &cNo Permission.
 	aliases: /chatmute
 	trigger:
