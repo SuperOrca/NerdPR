@@ -26,7 +26,7 @@ function updatePickaxe(p: player, t: item) :: item:
 
 function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: text):
 	set {_u} to {_p}'s uuid
-	if gct contains "middle":
+	if {_gct} contains "middle":
 		while 1 = 1:
 			set {_pr} to enchantPrice({_e}, {_l})
 			if {balance::%{_u}%} >= {_pr}:
@@ -39,11 +39,11 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
 					send "&cYou already maxed this enchant." to {_p}
-					break
+					exit loop
 			else:
 				playSound({_p}, "ENTITY_VILLAGER_NO")
 				send "&cYou need $%{_pr} - {balance::%{_u}%}%&c more to buy this!" to {_p}
-				break
+				exit loop
 	else:
 		set {_pr} to enchantPrice({_e}, {_l})
 		if {balance::%{_u}%} >= {_pr}:
@@ -94,14 +94,14 @@ function enchantMax(e: text) :: number:
 	return 10000 if {_e} is "tsunami"
 	return 0
 
-function guiPickaxeItem(p: player, slot: number, item: item, enchant: text, max: number):
+function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
 	set {_tool} to {_p}'s tool
 	set {_level} to getTag({_tool}, {_enchant})
-	set {_max} to enchantMax({_e})
+	set {_max} to enchantMax({_enchant})
 
-	set {_item} to {_item} named "&f%{_enchant} in proper case% &7(%{_level}%/%{_max}%)" with lore "" and "&7Price: &f$%enchantPrice({_enchant}, {_level})%" and "" and "&fClick &7to buy one." and "&fMMB &7to buy as many as possible."
+	set {_item} to {_item} named "&f%{_enchant} in proper case% &7(%{_level}%/%{_max}%)" with lore "" and "&7Price: &f$%formatNumber(enchantPrice({_enchant}, {_level}))%" and "" and "&fClick &7to buy one." and "&fMMB &7to buy as many as possible."
 	format gui slot {_slot} of {_p} with {_item} to run:
-		upgradePickaxe({_p}, {_tool}, {_enchant}, {_level}, {_max}, %gui-click-type%)
+		upgradePickaxe({_p}, {_tool}, {_enchant}, {_level}, {_max}, "%gui-click-type%")
 
 function pickaxeInv(p: player):
 	set {_u} to {_p}'s uuid
@@ -109,16 +109,16 @@ function pickaxeInv(p: player):
 	
 	format gui slot 4 of {_p} with {_p}'s skull
 
-	guiPickaxeItem({_p}, 19, hopper, "jackhammer")
-	guiPickaxeItem({_p}, 21, chest, "tokenfinder")
-	guiPickaxeItem({_p}, 23, emerald, "fortune")
-	guiPickaxeItem({_p}, 27, tnt, "explosive")
-	guiPickaxeItem({_p}, 29, arrow, "efficiency")
-	guiPickaxeItem({_p}, 31, feather, "flight")
-	guiPickaxeItem({_p}, 33, rabbit foot, "jump")
-	guiPickaxeItem({_p}, 37, anvil, "chunk")
-	guiPickaxeItem({_p}, 39, water bucket, "tsunami")
-	guiPickaxeItem({_p}, 41, lecturn, "keyfinder")
+	guiPickaxeItem({_p}, 20, hopper, "jackhammer")
+	guiPickaxeItem({_p}, 22, chest, "tokenfinder")
+	guiPickaxeItem({_p}, 24, emerald, "fortune")
+	guiPickaxeItem({_p}, 28, tnt, "explosive")
+	guiPickaxeItem({_p}, 30, arrow, "efficiency")
+	guiPickaxeItem({_p}, 32, feather, "flight")
+	guiPickaxeItem({_p}, 34, rabbit foot, "jump")
+	guiPickaxeItem({_p}, 38, anvil, "chunk")
+	guiPickaxeItem({_p}, 40, water bucket, "tsunami")
+	guiPickaxeItem({_p}, 42, lectern, "keyfinder")
 
 on right click:
 	player's tool is pickaxe

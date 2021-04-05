@@ -2,11 +2,11 @@ function updateScoreboard(p: player):
 	set {_u} to {_p}'s uuid
 	set title of {_p}'s scoreboard to "&f&lNERDPR &7&o(%size of all players%)"
 	set line 15 of {_p}'s scoreboard to ""
-	set {_level} to formatNumber({level::%{_u}%} ? 0)
+	set {_level} to insertComma({level::%{_u}%} ? 0)
 	set line 14 of {_p}'s scoreboard to "&8| &7Level: &f%{_level}%"
-	set {_prestige} to formatNumber({level::%{_u}%} ? 0)
+	set {_prestige} to insertComma({prestige::%{_u}%} ? 0)
 	set line 13 of {_p}'s scoreboard to "&8| &7Prestige: &f%{_prestige}%"
-	set {_rebirth} to formatNumber({level::%{_u}%} ? 0)
+	set {_rebirth} to insertComma({rebirth::%{_u}%} ? 0)
 	set line 12 of {_p}'s scoreboard to "&8| &7Rebirth: &f%{_rebirth}%"
 	set line 11 of {_p}' scoreboard to ""
 	set {_mined} to formatNumber({mined::%{_u}%} ? 0)
