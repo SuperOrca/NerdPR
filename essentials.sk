@@ -6,7 +6,6 @@ command /setspawn:
 	permission message: &cNo Permission
 	trigger:
 		set {spawn} to player's location
-		send "yay u set spawn idiot lmao"
 
 command /spawn:
 	trigger:
