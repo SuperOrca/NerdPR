@@ -126,8 +126,9 @@ on right click:
 	displayPickaxeInv(player)
 
 on join:
-	set player's flight mode to false
-	remove jump boost from player
+	if player is not op:
+		set player's flight mode to false
+		remove jump boost from player
 
 on hotbar switch:
 	if getTag(player's tool, "jump") > 0:
