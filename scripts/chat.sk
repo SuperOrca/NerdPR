@@ -1,4 +1,5 @@
 on chat:
+	event is not canceled
 	set {_message} to message
 	set {_message} to rainbow({_message}) if metadata "rainbow" of player is true
 	set {_message} to emojify({_message}) if player has permission "perks.emoji"

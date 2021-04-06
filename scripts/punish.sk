@@ -1,5 +1,36 @@
 options:
-	prefix: &6&lWRECK &8|
+	prefix: &7&lPUNISH &8|
+
+on chat:
+	if event is not canceled:
+		if {mute::%player's uuid%::type} is set:
+			if {mute::%player's uuid%::type} is "temp":
+				set {_waited} to time since {mute::%player's uuid%::time}
+				if {_waited} < {mute::%player's uuid%::span}:
+					send "{@prefix} &f&lTEMPMTUE%nl%&7Muted by: &f%{mute::%player's uuid%::by}%%nl%&7Reason: &f%{mute::%player's uuid%::reason}%%nl%&7Time left: &f%difference between {mute::%player's uuid%::span} and {_waited}%"
+					cancel event
+				else:
+					delete {mute::%player's uuid%::*}
+			else if {mute::%player's uuid%::type} is "perm":
+				send "{@prefix} &f&lMUTE%nl%&7Muted by: &f%{mute::%player's uuid%::by}%%nl%&7Reason: &f%{mute::%player's uuid%::reason}%"
+				cancel event
+		if {chatmute} is true:
+			if player doesn't have permission "rank.staff":
+				send "&cChat is currently muted."
+				cancel event
+
+on join:
+	if {ban::%player's uuid%::type} is set:
+		if {ban::%player's uuid%::type} is "temp":
+			set {_waited} to time since {ban::%player's uuid%::time}
+			if {_waited} < {ban::%player's uuid%::span}:
+				kick player due to "{@prefix} &6&lTEMPBAN%nl%&eBanned by: &f%{ban::%player's uuid%::by}%%nl%&eReason: &f%{ban::%player's uuid%::reason}%%nl%&eTime left: &f%difference between {ban::%player's uuid%::span} and {_waited}%"
+				set join message to ""
+			else:
+				delete {ban::%player's uuid%::*}
+		else if {ban::%player's uuid%::type} is "perm":
+			kick player due to "{@prefix} &6&lBAN%nl%&eBanned by: &f%{ban::%player's uuid%::by}%%nl%&eReason: &f%{ban::%player's uuid%::reason}%"
+			set join message to ""
 
 command /tempban <offline player> <text> <text>:
 	permission: punish.tempban
@@ -14,11 +45,11 @@ command /tempban <offline player> <text> <text>:
 		set {_reason} to arg-3
 		replace all " -s" with "" in {_reason}
 		set {ban::%arg-1's uuid%::reason} to {_reason}
-		kick arg-1 due to "{@prefix} &fYou were tempbanned by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f."
+		kick arg-1 due to "{@prefix} &7You were tempbanned by &f%player%&7 for &f%{_time}%&7 for &f%{_reason}%&7."
 		if arg-3 contains "-s":
-			send "&7[SILENT] {@prefix} &e%arg-1%&f was banned by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} &f%arg-1%&7 was banned by &f%player%&7 for &f%{_time}%&7 for &f%{_reason}%&7." to all players where [input has permission "rank.staff"]
 		else:
-			broadcast "{@prefix} &e%arg-1%&f was banned by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f."
+			broadcast "{@prefix} &f%arg-1%&7 was banned by &f%player%&7 for &f%{_time}%&7 for &f%{_reason}%&7."
 
 command /ban <offline player> <text>:
 	permission: punish.ban
@@ -30,11 +61,11 @@ command /ban <offline player> <text>:
 		set {_reason} to arg-2
 		replace all " -s" with "" in {_reason}
 		set {ban::%arg-1's uuid%::reason} to {_reason}
-		kick arg-1 due to "{@prefix} &fYou were permanently banned by &e%player%&f for &e%{_reason}%&f."
+		kick arg-1 due to "{@prefix} &7You were permanently banned by &f%player%&7 for &f%{_reason}%&7."
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} &e%arg-1%&f was banned by &e%player%&f for &e%{_reason}%&f." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} &f%arg-1%&7 was banned by &f%player%&7 for &f%{_reason}%&7." to all players where [input has permission "rank.staff"]
 		else:
-			broadcast "{@prefix} &e%arg-1%&f was banned by &e%player%&f for &e%{_reason}%&f."
+			broadcast "{@prefix} &f%arg-1%&7 was banned by &f%player%&7 for &f%{_reason}%&7."
 
 command /unban <offline player> [<text>]:
 	permission: punish.unban
@@ -43,9 +74,9 @@ command /unban <offline player> [<text>]:
 	trigger:
 		delete {ban::%arg-1's uuid%::*}
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} &e%arg-1%&f was unbanned by &e%player%&f." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} &f%arg-1%&7 was unbanned by &f%player%&7." to all players where [input has permission "rank.staff"]
 		else:
-			broadcast "{@prefix} &e%arg-1%&f was unbanned by &e%player%&f."
+			broadcast "{@prefix} &f%arg-1%&7 was unbanned by &f%player%&7."
 
 command /kick <player> <text>:
 	permission: punish.kick
@@ -54,11 +85,11 @@ command /kick <player> <text>:
 	trigger:
 		set {_reason} to arg-2
 		replace all "-s" with "" in {_reason}
-		kick arg-1 due to "{@prefix} &fYou were kicked by &e%player% for &e%{_reason}%&f."
+		kick arg-1 due to "{@prefix} &7You were kicked by &f%player% for &f%{_reason}%&7."
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} &e%arg-1%&f was kicked by &e%player%&f for &e%{_reason}%&f." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} &f%arg-1%&7 was kicked by &f%player%&7 for &f%{_reason}%&7." to all players where [input has permission "rank.staff"]
 		else:
-			broadcast "{@prefix} &e%arg-1%&f was kicked by &e%player%&f for &e%{_reason}%&f."
+			broadcast "{@prefix} &f%arg-1%&7 was kicked by &f%player%&7 for &f%{_reason}%&7."
 
 command /tempmute <offline player> <text> <text>:
 	permission: punish.tempmute
@@ -73,11 +104,11 @@ command /tempmute <offline player> <text> <text>:
 		set {_reason} to arg-3
 		replace all " -s" with "" in {_reason}
 		set {mute::%arg-1's uuid%::reason} to {_reason}
-		send "{@prefix} &fYou were tempmuted by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f." to arg-1
+		send "{@prefix} &7You were tempmuted by &f%player%&7 for &f%{_time}%&7 for &f%{_reason}%&7." to arg-1
 		if arg-3 contains "-s":
-			send "&7[SILENT] {@prefix} &e%arg-1%&f was muted by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} &f%arg-1%&7 was muted by &f%player%&7 for &f%{_time}%&7 for &f%{_reason}%&7." to all players where [input has permission "rank.staff"]
 		else:
-			broadcast "{@prefix} &e%arg-1%&f was muted by &e%player%&f for &e%{_time}%&f for &e%{_reason}%&f."
+			broadcast "{@prefix} &f%arg-1%&7 was muted by &f%player%&7 for &f%{_time}%&7 for &f%{_reason}%&7."
 
 command /mute <offline player> <text>:
 	permission: punish.mute
@@ -89,11 +120,11 @@ command /mute <offline player> <text>:
 		set {_reason} to arg-2
 		replace all " -s" with "" in {_reason}
 		set {mute::%arg-1's uuid%::reason} to {_reason}
-		send "{@prefix} &fYou were permanently muted by &e%player%&f for &e%{_reason}%&f." to arg-1
+		send "{@prefix} &7You were permanently muted by &f%player%&7 for &f%{_reason}%&7." to arg-1
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} &e%arg-1%&f was muted by &e%player%&f for &e%{_reason}%&f." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} &f%arg-1%&7 was muted by &f%player%&7 for &f%{_reason}%&7." to all players where [input has permission "rank.staff"]
 		else:
-			broadcast "{@prefix} &e%arg-1%&f was muted by &e%player%&f for &e%{_reason}%&f."
+			broadcast "{@prefix} &f%arg-1%&7 was muted by &f%player%&7 for &f%{_reason}%&7."
 
 command /unmute <offline player> [<text>]:
 	permission: punish.unmute
@@ -102,9 +133,9 @@ command /unmute <offline player> [<text>]:
 	trigger:
 		delete {mute::%arg-1's uuid%::*}
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} &e%arg-1%&f was unmuted by &e%player%&f." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} &f%arg-1%&7 was unmuted by &f%player%&7." to all players where [input has permission "rank.staff"]
 		else:
-			broadcast "{@prefix} &e%arg-1%&f was unmuted by &e%player%&f."
+			broadcast "{@prefix} &f%arg-1%&7 was unmuted by &f%player%&7."
 
 command /clearchat [<text>]:
 	permission: punish.clearchat
@@ -113,9 +144,9 @@ command /clearchat [<text>]:
 		loop 200 times:
 			broadcast ""
 		if arg-1 contains "-a":
-			broadcast "{@prefix} &fThe chat was cleared."
+			broadcast "{@prefix} &7The chat was cleared."
 		else:
-			broadcast "{@prefix} &fThe chat was cleared by &e%player%&f."
+			broadcast "{@prefix} &7The chat was cleared by &f%player%&7."
 
 command /mutechat [<text>]:
 	permission: punish.mutechat
@@ -125,12 +156,12 @@ command /mutechat [<text>]:
 		if {chatmute} is not set:
 			set {chatmute} to true
 			if arg-1 contains "-a":
-				broadcast "{@prefix} &fThe chat was muted."
+				broadcast "{@prefix} &7The chat was muted."
 			else:
-				broadcast "{@prefix} &fThe chat was muted by &e%player%&f."
+				broadcast "{@prefix} &7The chat was muted by &f%player%&7."
 		else:
 			delete {chatmute}
 			if arg-1 contains "-a":
-				broadcast "{@prefix} &fThe chat was unmuted."
+				broadcast "{@prefix} &7The chat was unmuted."
 			else:
-				broadcast "{@prefix} &fThe chat was unmuted by &e%player%&f."
+				broadcast "{@prefix} &7The chat was unmuted by &f%player%&7."
