@@ -1,0 +1,26 @@
+command /voucher [<text>] [<text>] <player=%player%>:
+	permission: op
+	permission message: &cNo Permission.
+	trigger:
+		if arg-1 is "rank":
+			give paper with nbt "{rank:%arg-2%}" named "&fRank Voucher" with lore "" and "&b&l%arg-2 in uppercase%" to arg-3
+			send "&f&lVOUCHER&7 You have given &f%arg-3%&7 a &f%arg-2 in uppercase%&7 voucher."
+		else if arg-2 is "money":
+			set {_arg2} to arg-2 parsed as a number
+			give paper with nbt "{money:%{_arg2}%}" named "&fMoney Voucher" with lore "" and "&a&l%formatNumber({_arg2})%" to arg-3
+			send "&f&lVOUCHER&7 You have given &f%arg-3%&7 a &f%formatNumber({_arg2})%&7 voucher."
+
+command /withdraw <number>:
+	cooldown: 1 second
+	cooldown message: &cThis command is on cooldown.
+	trigger:
+		give paper with nbt "{money:%arg-2%}" named "&fMoney Voucher" with lore "" and "&a&l%formatNumber(arg-2)%" to arg-3
+		send "&f&lWITHDRAW&7 You withdrew &f%formatNumber(arg-2)%&7."
+
+on right click:
+	set {_rank} to tag "rank" of nbt of player's tool
+	set {_money} to tag "money" of nbt of player's tool
+	if {_rank} is set:
+		make console execute command "lp user %player% parent %{_rank}%"
+	if {_money} is set:
+		add {_money} to {balance::%player's uuid%}
