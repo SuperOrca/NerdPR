@@ -74,16 +74,16 @@ function displayPickaxeInv(p: player):
 	pickaxeInv({_p})
 
 function enchantPrice(e: text, l: number) :: number:
-	return ({_l}*10000)^(1.08)+20000 if {_e} is "efficiency"
-	return ({_l}*25000)^(1.2)+25000 if {_e} is "fortune"
+	return ({_l}*5000)^(1.14)+20000 if {_e} is "efficiency"
+	return ({_l}*12500)^(1.26)+25000 if {_e} is "fortune"
 	return 10000000 if {_e} is "jump"
 	return 50000000 if {_e} is "flight"
-	return ({_l}*500000)^(1.08)+1000000 if {_e} is "tokenfinder"
-	return ({_l}*200000)^(1.095)+400000 if {_e} is "keyfinder"
-	return ({_l}*250000)^(1.095)+500000 if {_e} is "explosive"
-	return ({_l}*300000)^(1.09)+600000 if {_e} is "jackhammer"
-	return ({_l}*375000)^(1.1)+750000 if {_e} is "chunk"
-	return ({_l}*500000)^(1.11)+1000000 if {_e} is "tsunami"
+	return ({_l}*250000)^(1.14)+1000000 if {_e} is "tokenfinder"
+	return ({_l}*100000)^(1.155)+400000 if {_e} is "keyfinder"
+	return ({_l}*125000)^(1.155)+500000 if {_e} is "explosive"
+	return ({_l}*150000)^(1.15)+600000 if {_e} is "jackhammer"
+	return ({_l}*175000)^(1.16)+750000 if {_e} is "chunk"
+	return ({_l}*250000)^(1.17)+1000000 if {_e} is "tsunami"
 	return 0
 
 function enchantMax(e: text) :: number:
@@ -136,6 +136,8 @@ on join:
 		remove jump boost from player
 
 on hotbar switch:
+	if metadata "enchant_thread" of player is true:
+		cancel event
 	if getTag(player's tool, "jump") > 0:
 		apply jump boost of tier 2 without any particles to player for 999 days
 	if getTag(player's tool, "flight") > 0:
