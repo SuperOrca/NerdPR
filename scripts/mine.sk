@@ -48,10 +48,28 @@ on break:
 	set {_y} to y-loc of event-block
 	set {_z} to z-loc of event-block
 
-	if (random integer between 1 and 210) <= getTag(player's tool, "jackhammer"):
+	if (random integer between 1 and 1250) <= getTag(player's tool, "jackhammer"):
 		set {_loc1} to location({_x} - 2, {_y}, {_z} - 2)
 		set {_loc2} to location({_x} + 2, {_y}, {_z} + 2)
 		loop all blocks within {_loc1} and {_loc2}:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+
+	if (random integer between 1 and 725) <= getTag(player's tool, "explosive"):
+		loop all blocks in radius 3 around event-block:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+	
+	if (random integer between 1 and 250000) <= getTag(player's tool, "chunk"):
+		loop all blocks within chunk at event-block:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+
+	if (random integer between 1 and 100000000) <= getTag(player's tool, "tsunami"):
+		loop all blocks in radius 40 around event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
