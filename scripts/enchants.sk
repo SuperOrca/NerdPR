@@ -27,6 +27,8 @@ function updatePickaxe(t: item) :: item:
 function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: text):
 	set {_u} to {_p}'s uuid
 	if {_gct} contains "middle":
+		close {_p}'s inventory
+		set metadata "enchant_thread" of player to true
 		while 1 = 1:
 			set {_pr} to enchantPrice({_e}, getTag({_p}'s tool, {_e}))
 			set {_l} to getTag({_p}'s tool, {_e})
@@ -46,6 +48,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
 				exit loop
 			wait 1 tick
+		delete metadata "enchant_thread" of player
 	else:
 		set {_pr} to enchantPrice({_e}, {_l})
 		if {balance::%{_u}%} >= {_pr}:
@@ -124,6 +127,7 @@ function pickaxeInv(p: player):
 
 on right click:
 	player's tool is pickaxe
+	metadata "enchant_thread" of player is not set:
 	displayPickaxeInv(player)
 
 on join:
