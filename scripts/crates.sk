@@ -1,32 +1,32 @@
-#options 
-iq_key: tripwire hook named "&f&lIQ Crate Key"
-zop_key: tripwire hook name "&c&lZop Crate Key"
-rebirth_key: tripwire hool "&5&lRebirth Crate Key"
+options:
+	iq_key: tripwire hook named "&f&lIQ Crate Key"
+	zop_key: tripwire hook name "&c&lZop Crate Key"
+	rebirth_key: tripwire hool "&5&lRebirth Crate Key"
 
 
 
 on right click:
     if "%region at clicked%" contains "iq_crate":
-        if player's held item is {iq_key}:
+        if player's held item is {@iq_key}:
             if player is shifting:
                 set {_amount} to amount of player's tool
                 loop {_amount} times:
                     remove 1 of player's tool from player's tool
                     set {_num} to random integer between 1 and 100
                     if {_num} is between 1 and 15:
-                        give player 3 {iq_key}
+                        give player 3 {@iq_key}
                     else if {_num} is between 16 and 25:
                         add 100 to {level::%player's uuid%}
                     else if {_num} is between 26 and 30:
-                        give player 1 {zop_key}
+                        give player 1 {@zop_key}
                     else if {_num} is between 31 and 35:
-                        give player 2 {zop_key}
+                        give player 2 {@zop_key}
                     else if {_num} is between 36 and 40:
-                        give player 3 {zop_key}
+                        give player 3 {@zop_key}
                     if {_num} is between 41 and 50:
-                        give player 2 {iq_key}
+                        give player 2 {@iq_key}
                     if {_num} is between 51 and 60:
-                        give player 1 {iq_key}
+                        give player 1 {@iq_key}
                     if {_num} is between 61 and 100:
                         add 1 to {multiplier::%player's uuid%}
                 send "&f&lCRATES &7You have opened &f%{_num}%&7 IQ Crates."
@@ -34,47 +34,47 @@ on right click:
                 remove 1 of player's tool from player's tool
                 set {_num} to random integer between 1 and 100
                 if {_num} is between 1 and 15:
-                    give player 3 {iq_key}
+                    give player 3 {@iq_key}
                     send "&f&lCRATES &7You've won &f3 IQ Crate Keys" to player
                 else if {_num} is between 16 and 25:
                     add 100 to {level::%player's uuid%}
                     send "&f&lCRATES &7You've won &f+100 Levels" to player
                 else if {_num} is between 26 and 30:
-                    give player 1 {zop_key}
+                    give player 1 {@zop_key}
                     send "&f&lCRATES &7You've won &f1 ZOP Crate Key" to player
                 else if {_num} is between 31 and 35:
-                    give player 2 {zop_key}
+                    give player 2 {@zop_key}
                     send "&f&lCRATES &7You've won &f2 ZOP Crate Keys" to player
                 else if {_num} is between 36 and 40:
-                    give player 3 {zop_key}
+                    give player 3 {@zop_key}
                     send "&f&lCRATES &7You've won &f3 ZOP Crate Keys" to player
                 if {_num} is between 41 and 50:
-                    give player 2 {iq_key}
+                    give player 2 {@iq_key}
                     send "&f&lCRATES &7You've won &f2 IQ Crate Keys" to player
                 if {_num} is between 51 and 60:
-                    give player 1 {iq_key}
+                    give player 1 {@iq_key}
                     send "&f&lCRATES &7You've won &f1 IQ Crate Keys" to player
                 if {_num} is between 61 and 100:
                     add 1 to {multiplier::%player's uuid%}
                     send "&f&lCRATES &7You've won a &f+1 Multiplier" to player
-                
+
 on right click:
     if "%region at clicked%" contains "zop_crate":
-        if player's held item is {zop_key}:
+        if player's held item is {@zop_key}:
             if player is shifting:
                 set {_amount} to amount of player's tool
                 loop {_amount} times:
                     set {_num} to random integer between 1 and 100
                     if {_num} is between 1 and 14:
-                        give player 3 {iq_key}
+                        give player 3 {@iq_key}
                     else if {_num} is between 16 and 25:
                         add 100 to {level::%player's uuid%}
                     else if {_num} is between 26 and 30:
-                        give player 1 {zop_key}
+                        give player 1 {@zop_key}
                     else if {_num} is between 31 and 35:
-                        give player 2 {zop_key}
+                        give player 2 {@zop_key}
                     else if {_num} is between 36 and 40:
-                        give player 3 {zop_key}
+                        give player 3 {@zop_key}
                     if {_num} is between 41 and 50:
                         add 3 to {multiplier::%player's uuid%}
                     if {_num} is between 51 and 60:
@@ -87,19 +87,19 @@ on right click:
                 remove 1 of player's tool from player's tool
                 set {_num} to random integer between 1 and 100
                 if {_num} is between 1 and 14:
-                    give player 3 {iq_key}
+                    give player 3 {@iq_key}
                     send "&f&lCRATES &7You've won &f3 IQ Crate Keys" to player
                 else if {_num} is between 16 and 25:
                     add 100 to {level::%player's uuid%}
                     send "&f&lCRATES &7You've won &f+100 Levels" to player
                 else if {_num} is between 26 and 30:
-                    give player 1 {zop_key}
+                    give player 1 {@zop_key}
                     send "&f&lCRATES &7You've won &f1 ZOP Crate Key" to player
                 else if {_num} is between 31 and 35:
-                    give player 2 {zop_key}
+                    give player 2 {@zop_key}
                     send "&f&lCRATES &7You've won &f2 ZOP Crate Keys" to player
                 else if {_num} is between 36 and 40:
-                    give player 3 {zop_key}
+                    give player 3 {@zop_key}
                     send "&f&lCRATES &7You've won &f3 ZOP Crate Keys" to player
                 if {_num} is between 41 and 50:
                     add 3 to {multiplier::%player's uuid%}
