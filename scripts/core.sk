@@ -50,7 +50,6 @@ on hunger meter change:
 	cancel event
 
 on damage:
-	damage cause is fall
 	cancel event
 
 on drop:
@@ -75,6 +74,3 @@ command /reloadall:
 command /rules:
 	trigger:
 		send centered "don't be a bitch" to player
-
-on damage:
-	cancel event
