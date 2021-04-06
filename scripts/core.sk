@@ -27,7 +27,7 @@ function updateScoreboard(p: player):
 on join:
 	set join message to "&f%player%&7 joined the game."
 	if player's inventory does not contain diamond pickaxe:
-		give player updatePickaxe(player, diamond pickaxe named "&f&lPICKAXE" with nbt "{HideFlags:7b}")
+		give player updatePickaxe(diamond pickaxe named "&f&lPICKAXE" with nbt "{HideFlags:7b}")
 	toggle scoreboard of player to on
 	loop all players:
 		updateScoreboard(loop-player)
@@ -36,7 +36,7 @@ command /getpick:
 	permission: staff.getpick
 	permission message: &cNo Permission.
 	trigger:
-		give player updatePickaxe(player, diamond pickaxe named "&f&lPICKAXE" with nbt "{HideFlags:7b}")
+		give player updatePickaxe(diamond pickaxe named "&f&lPICKAXE" with nbt "{HideFlags:7b}")
 
 on quit:
 	set quit message to "&f%player%&7 left the game."

@@ -6,7 +6,7 @@ function getTags(t: item) :: objects:
 	add (getTag({_t}, "fortune") and "Fortune") to {_e::*}
 	add (getTag({_t}, "jump") and "Jump") to {_e::*}
 	add (getTag({_t}, "flight") and "Flight") to {_e::*}
-	add (getTag({_t}, "tokenfinder") and "Tokenfinder") to {_e::*} 
+	add (getTag({_t}, "tokenfinder") and "Tokenfinder") to {_e::*}
 	add (getTag({_t}, "keyfinder") and "Keyfinder") to {_e::*}
 	add (getTag({_t}, "explosive") and "Explosive") to {_e::*}
 	add (getTag({_t}, "jackhammer") and "Jackhammer") to {_e::*}
@@ -14,7 +14,7 @@ function getTags(t: item) :: objects:
 	add (getTag({_t}, "tsunami") and "Tsunami") to {_e::*}
 	return {_e::*}
 
-function updatePickaxe(p: player, t: item) :: item:
+function updatePickaxe(t: item) :: item:
 	updateScoreboard({_p})
 	set {_enchs::*} to getTags({_t})
 	loop ((size of {_enchs::*})/2) times:
@@ -35,7 +35,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 					remove {_pr} from {balance::%{_u}%}
 					playSound({_p}, "ENTITY_VILLAGER_YES")
 					send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
-					set {_p}'s tool to updatePickaxe({_p}, {_t})
+					set {_p}'s tool to updatePickaxe({_t})
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
 					send "&cYou already maxed this enchant." to {_p}
@@ -53,7 +53,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				remove {_pr} from {balance::%{_u}%}
 				playSound({_p}, "ENTITY_VILLAGER_YES")
 				send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
-				set {_p}'s tool to updatePickaxe({_p}, {_t})
+				set {_p}'s tool to updatePickaxe({_t})
 			else:
 				playSound({_p}, "ENTITY_VILLAGER_NO")
 				send "&cYou already maxed this enchant." to {_p}
@@ -107,7 +107,7 @@ function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
 function pickaxeInv(p: player):
 	set {_u} to {_p}'s uuid
 	set {_t} to {_p}'s tool
-	
+
 	format gui slot 4 of {_p} with {_p}'s skull
 
 	guiPickaxeItem({_p}, 20, hopper, "jackhammer")
