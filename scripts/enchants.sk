@@ -64,7 +64,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 		else:
 			playSound({_p}, "ENTITY_VILLAGER_NO")
 			send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
-	pickaxeInv({_p})
+		pickaxeInv({_p})
 	updateScoreboard({_p})
 
 function displayPickaxeInv(p: player):
