@@ -105,11 +105,11 @@ on right click:
                     add 3 to {multiplier::%player's uuid%}
                     send "&f&lCRATES &7You've won a &f+3 Multiplier" to player
                 if {_num} is between 51 and 60:
-                    add 2 to {multiplier::%player's uuid%}
-                    send "&f&lCRATES &7You've won a &f+2 Multiplier" to player
-                if {_num} is between 61 and 100:
                     add 1 to {multiplier::%player's uuid%}
                     send "&f&lCRATES &7You've won a &f+1 Multiplier" to player
+                if {_num} is between 61 and 100:
+                    add 0.5 to {multiplier::%player's uuid%}
+                    send "&f&lCRATES &7You've won a &f+0.5 Multiplier" to player
                 if {_num} is between 15 and 15:
                     make console execute command "voucher rank %{bottom_rank_name}% %player%"
                 
