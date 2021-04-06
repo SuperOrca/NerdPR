@@ -68,3 +68,6 @@ command /reloadall:
 command /rules:
 	trigger:
 		send centered "don't be a bitch" to player
+		
+on damage:
+	cancel event
