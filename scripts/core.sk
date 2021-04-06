@@ -1,3 +1,10 @@
+on tab complete:
+	if event-string is "/skript" or "/sk":
+		set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"
+		set tab completions for position 2 to all scripts
+	if event-string is "/minereset" or "/mr":
+		set tab completions for position 1 to "create", "info", "reset", "delete", "setblock", "setdelay", "setarea", "setdynamic", "list", and "wand"
+
 function updateScoreboard(p: player):
 	set {_u} to {_p}'s uuid
 	set title of {_p}'s scoreboard to "&f&lNERDPR &7&o(%size of all players%)"
@@ -68,6 +75,6 @@ command /reloadall:
 command /rules:
 	trigger:
 		send centered "don't be a bitch" to player
-		
+
 on damage:
 	cancel event
