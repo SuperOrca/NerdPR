@@ -1,0 +1,51 @@
+#options 
+iq_key: tripwire hook named "&f&lIQ Crate Key"
+zop_key: tripwire hoook name "&c&lZop Crate Key"
+
+
+
+
+on right click:
+    if "%region at clicked%" contains "iq_crate":
+        if player's held item is {iq_key}:
+            if player is shifting:
+                set {_amount} to amount of player's tool
+                loop {_amount} times:
+                    remove 1 of player's tool
+                    set {_num} to random integer between 1 and 100
+                    if {_num} is between 1 and 15:
+                        give player 3 {iq_key}
+                    else if {_num} is between 16 and 25:
+                        add 100 to {level::%player's uuid%}
+                    else if {_num} is between 26 and 30:
+                        give player 1 {zop_key}
+                    else if {_num} is between 31 and 35:
+                        give player 2 {zop_key}
+                    else if {_num} is between 36 and 40:
+                        give player 3 {zop_key}
+                    if {_num} is between 41 and 50:
+                        give player 2 {iq_key}
+                    if {_num} is between 51 and 60:
+                        give player 1 {iq_key}
+                    if {_num} is between 61 and 100:
+                        add 1 to {multiplier::%player's uuid%}
+                send "&f&lCRATES &7You have opened &f%{_num}%&7 IQ Crates."
+            else:
+                remove 1 of player's tool from player's tool
+                set {_num} to random integer between 1 and 100
+                if {_num} is between 1 and 15:
+                    give player 3 {iq_key}
+                else if {_num} is between 16 and 25:
+                    add 100 to {level::%player's uuid%}
+                else if {_num} is between 26 and 30:
+                    give player 1 {zop_key}
+                else if {_num} is between 31 and 35:
+                    give player 2 {zop_key}
+                else if {_num} is between 36 and 40:
+                    give player 3 {zop_key}
+                if {_num} is between 41 and 50:
+                    give player 2 {iq_key}
+                if {_num} is between 51 and 60:
+                    give player 1 {iq_key}
+                if {_num} is between 61 and 100:
+                    add 1 to {multiplier::%player's uuid%}
