@@ -2,7 +2,7 @@ options:
 	prefix: ?
 	bot: NerdPR
 	token: ODI4Mjc0ODgyMTI2Njc2MDA5.YGnNGA.QqQl9vzX_dHqxaFfKjnyRxwEi3c
-	
+
 	chat-channel: 828275594985734184
 	log-channel: 827365241687113778
 	suggestion-channel: 827365231545024513
@@ -20,7 +20,7 @@ on guild message received seen by "{@bot}":
 on chat:
 	event is not canceled
 	send "**%player%**: %message%" to channel with id "{@chat-channel}" with "{@bot}"
- 
+
 on load:
 	create vixio bot:
 		enable the guild message reactions intent
@@ -30,7 +30,7 @@ on load:
 
 on join:
 	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
- 
+
 on quit:
 	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 
@@ -48,4 +48,8 @@ command /suggest <text>:
 			add field named "Player" with value "%player%" to embed
 			add field named "Suggestion" with value arg-1 to embed
 		send last created embed to channel with id "{@suggestion-channel}" with "{@bot}" and store it in {_msg}
-		add reactions "green_circle" and "red_circle" to {_msg}
+		add reactions "green_circle" and "red_circle" to {_msg} with "{@bot}"
+
+command /discord:
+	trigger:
+		send "&f&lDISCORD&7 Click <link:https://discord.gg/8BQd8m2Z6B>&fhere<reset>&7 to join the discord."
