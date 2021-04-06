@@ -5,6 +5,7 @@ command /setspawn:
 	permission: essentials.setspawn
 	permission message: &cNo Permission
 	trigger:
+		send "&f&lSTAFF&7 Set spawn to &f%player's location%&7."
 		set {spawn} to player's location
 
 command /spawn:
@@ -88,6 +89,7 @@ command /rename <text>:
 	usage: &cUsage: /rename <text>
 	trigger:
 		set tool's name to arg-1
+		send "&f&lSTAFF&7 Set your tool's name to &f%arg-1%&7."
 
 command /skull <offline player>:
 	permission: essentials.skull
@@ -95,6 +97,7 @@ command /skull <offline player>:
 	usage: &cUsage: /skull <player>
 	trigger:
 		give arg-1's skull to player
+		send "&f&lSTAFF&7 Given &f%arg-1%'s &7skull."
 
 command /i <item>:
 	permission: essentials.i
@@ -102,6 +105,7 @@ command /i <item>:
 	usage: &cUsage: /i <item>
 	trigger:
 		give player arg-1
+		send "&f&lSTAFF&7 Given &f%arg-1%&7."
 
 command /clear <player=%player%>:
 	permission: essentials.clear
@@ -110,6 +114,7 @@ command /clear <player=%player%>:
 	aliases: /ci
 	trigger:
 		clear arg-1's inventory
+		send "&f&lSTAFF&7 Cleared &f%arg-1%'s &7inventory."
 
 command /setwarp <text>:
 	permission: essentials.setwarp
@@ -121,8 +126,20 @@ command /setwarp <text>:
 command /warp [<text>]:
 	permission: essentials.warp
 	permission message: &cNo Permission.
+	aliases: /warps
 	trigger:
-		if (indices of {warps::*}) contains arg-1:
+		if indices of {warps::*} contains arg-1:
 			teleport player to {warps::%arg-1%}
 		else:
 			send "&7Warps: &f%indices of {warps::*} ? ""no warps.""%"
+
+command /fly <player=%player%>:
+	permission: essentials.fly
+	permission message: &cNo Permission.
+	trigger:
+		if player's fly mode is false:
+			set arg-1's fly mode to true
+			send "&f&lSTAFF&7 &f%arg-1%'s &7can now fly."
+		else:
+			set arg-1's fly mode to false
+			send "&f&lSTAFF&7 &f%arg-1%'s &7can no longer fly."
