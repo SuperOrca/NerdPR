@@ -7,20 +7,31 @@ command /voucher [<text>] [<text>] <player=%player%>:
 			send "&f&lVOUCHER&7 You have given &f%arg-3%&7 a &f%arg-2 in uppercase%&7 voucher."
 		else if arg-2 is "money":
 			set {_arg2} to arg-2 parsed as a number
-			give paper with nbt "{money:%{_arg2}%}" named "&fMoney Voucher" with lore "" and "&a&l%formatNumber({_arg2})%" to arg-3
-			send "&f&lVOUCHER&7 You have given &f%arg-3%&7 a &f%formatNumber({_arg2})%&7 voucher."
+			give paper with nbt "{money:%{_arg2}%}" named "&fMoney Voucher" with lore "" and "&a&l$%formatNumber({_arg2})%" to arg-3
+			send "&f&lVOUCHER&7 You have given &f%arg-3%&7 a &f$%formatNumber({_arg2})%&7 voucher."
 
 command /withdraw <number>:
 	cooldown: 1 second
 	cooldown message: &cThis command is on cooldown.
 	trigger:
-		give paper with nbt "{money:%arg-2%}" named "&fMoney Voucher" with lore "" and "&a&l%formatNumber(arg-2)%" to arg-3
-		send "&f&lWITHDRAW&7 You withdrew &f%formatNumber(arg-2)%&7."
+		if {balance::%player's uuid%} >= arg-2:
+			if arg-2 >= 1000:
+				give paper with nbt "{money:%arg-1%}" named "&fMoney Voucher" with lore "" and "&a&l$%formatNumber(arg-1)%" to player
+				send "&f&lWITHDRAW&7 You withdrew &f$%formatNumber(arg-1)%&7."
+				remove arg-1 from {balance::%player's uuid%}
+			else:
+				send "&cYou must withdraw atleast $1k."
+		else:
+			send "&cYou do not have enough money."
 
 on right click:
 	set {_rank} to tag "rank" of nbt of player's tool
 	set {_money} to tag "money" of nbt of player's tool
 	if {_rank} is set:
-		make console execute command "lp user %player% parent %{_rank}%"
+		make console execute command "lp user %player% parent set %{_rank}%"
+		remove 1 of player's tool from player's tool
+		updateScoreboard(player)
 	if {_money} is set:
 		add {_money} to {balance::%player's uuid%}
+		remove 1 of player's tool from player's tool
+		updateScoreboard(player)
