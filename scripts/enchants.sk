@@ -125,7 +125,7 @@ on right click:
 	displayPickaxeInv(player)
 
 on join:
-	set player's flight to false
+	set player's flight mode to false
 	remove jump boost from player
 
 on hotbar switch:
@@ -134,4 +134,4 @@ on hotbar switch:
 		apply jump boost of tier 2 without any particles to player for 999 days
 
 	if getTag(player's tool, "flight") > 0:
-		set player's flight to true
+		set player's flight mode to true
