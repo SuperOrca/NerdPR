@@ -32,6 +32,10 @@ on join:
 	loop all players:
 		updateScoreboard(loop-player)
 
+on quit:
+	loop all players:
+		updateScoreboard(loop-player)
+
 command /getpick:
 	permission: staff.getpick
 	permission message: &cNo Permission.
