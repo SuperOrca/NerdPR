@@ -82,8 +82,8 @@ command /rules:
 		send centered "don't be a bitch" to player
 
 command /sc <text>:
-    permission: staff.chat
-    permission message: &cNo Permission.
+	permission: staff.chat
+	permission message: &cNo Permission.
 	usage: &cUsage: /sc <text>
-    trigger:
-    	send "&7&lSTAFFCHAT &f%player% &7%arg-1%" to all players where [input has permission "staff.chat"]
+	trigger:
+		send "&7&lSTAFFCHAT &f%player% &7%arg-1%" to all players where [input has permission "staff.chat"]
