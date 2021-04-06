@@ -139,7 +139,14 @@ command /fly <player=%player%>:
 	trigger:
 		if player's fly mode is false:
 			set arg-1's fly mode to true
-			send "&f&lSTAFF&7 &f%arg-1%'s &7can now fly."
+			send "&f&lSTAFF&7 &f%arg-1% &7can now fly."
 		else:
 			set arg-1's fly mode to false
-			send "&f&lSTAFF&7 &f%arg-1%'s &7can no longer fly."
+			send "&f&lSTAFF&7 &f%arg-1% &7can no longer fly."
+
+command /ec <player=%player%>:
+	permission: essentials.enderchest
+	permission message: &cNo Permission.
+	trigger:
+		open arg-1's ender chest to player
+		send "&f&lSTAFF&7 You are viewing &f%arg-1%'s&7 enderchest."
