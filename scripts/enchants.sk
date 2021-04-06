@@ -29,6 +29,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 	if {_gct} contains "middle":
 		while 1 = 1:
 			set {_pr} to enchantPrice({_e}, getTag({_p}'s tool, {_e}))
+			set {_l} to getTag({_p}'s tool, {_e})
 			if {balance::%{_u}%} >= {_pr}:
 				if {_l} < {_m}:
 					add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}

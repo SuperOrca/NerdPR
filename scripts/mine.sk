@@ -21,6 +21,12 @@ function updateLevel(p: player):
 		set {xpn::%{_u}%} to round ({xpn::%{_u}%} ? 100)^1.005
 		send "&f&lLEVEL &7Leveled up to level &f%{level::%{_u}%}%&7." to {_p}
 
+command /getmaxedpick:
+	permission: op
+	permission message: &cNo Permission.
+	trigger:
+		give player updatePickaxe(player, diamond pickaxe named "&c&lADMIN PICKAXE" with nbt "{HideFlags:7b,efficiency:500,fortune:1000000,jump:1,flight:1,tokenfinder:500,keyfinder:5000,explosive:500,jackhammer:1000,chunk:5000,tsunami:10000}")
+
 on break:
 	player's tool is pickaxe
 	clear drops
@@ -61,7 +67,7 @@ on break:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
-	
+
 	if (random integer between 1 and 250000) <= getTag(player's tool, "chunk"):
 		loop all blocks within chunk at event-block:
 			if blockValidator(loop-block) is true:
