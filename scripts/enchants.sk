@@ -35,14 +35,13 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 					remove {_pr} from {balance::%{_u}%}
 					playSound({_p}, "ENTITY_VILLAGER_YES")
 					send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
-					set {_p}'s tool to updatePickaxe({_p}, {_t})
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
 					send "&cYou already maxed this enchant." to {_p}
 					exit loop
 			else:
 				playSound({_p}, "ENTITY_VILLAGER_NO")
-				send "&cYou need $%{_pr} - {balance::%{_u}%}%&c more to buy this!" to {_p}
+				send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
 				exit loop
 			wait 1 tick
 	else:
@@ -53,13 +52,13 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				remove {_pr} from {balance::%{_u}%}
 				playSound({_p}, "ENTITY_VILLAGER_YES")
 				send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
-				set {_p}'s tool to updatePickaxe({_p}, {_t})
 			else:
 				playSound({_p}, "ENTITY_VILLAGER_NO")
 				send "&cYou already maxed this enchant." to {_p}
 		else:
 			playSound({_p}, "ENTITY_VILLAGER_NO")
-			send "&cYou need $%{_pr} - {balance::%{_u}%}%&c more to buy this!" to {_p}
+			send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
+	set {_p}'s tool to updatePickaxe({_p}, {_t})
 	pickaxeInv({_p})
 	updateScoreboard({_p})
 
@@ -70,16 +69,16 @@ function displayPickaxeInv(p: player):
 	pickaxeInv({_p})
 
 function enchantPrice(e: text, l: number) :: number:
-	return ({_l}*10000)^(1.02)+20000 if {_e} is "efficiency"
-	return ({_l}*25000)^(1.05)+25000 if {_e} is "fortune"
-	return 10000000 if {_e} is "jump"
-	return 50000000 if {_e} is "flight"
-	return ({_l}*500000)^(1.02)+1000000 if {_e} is "tokenfinder"
-	return ({_l}*200000)^(1.035)+400000 if {_e} is "keyfinder"
-	return ({_l}*250000)^(1.035)+500000 if {_e} is "explosive"
-	return ({_l}*300000)^(1.03)+600000 if {_e} is "jackhammer"
-	return ({_l}*375000)^(1.04)+750000 if {_e} is "chunk"
-	return ({_l}*500000)^(1.05)+1000000 if {_e} is "tsunami"
+	return round ({_l}*10000)^(1.08)+20000 if {_e} is "efficiency"
+	return round ({_l}*25000)^(1.23)+25000 if {_e} is "fortune"
+	return round 10000000 if {_e} is "jump"
+	return round 50000000 if {_e} is "flight"
+	return round ({_l}*500000)^(1.08)+1000000 if {_e} is "tokenfinder"
+	return round ({_l}*200000)^(1.095)+400000 if {_e} is "keyfinder"
+	return round ({_l}*250000)^(1.095)+500000 if {_e} is "explosive"
+	return round ({_l}*300000)^(1.09)+600000 if {_e} is "jackhammer"
+	return round ({_l}*375000)^(1.1)+750000 if {_e} is "chunk"
+	return round ({_l}*500000)^(1.11)+1000000 if {_e} is "tsunami"
 	return 0
 
 function enchantMax(e: text) :: number:
@@ -124,3 +123,15 @@ function pickaxeInv(p: player):
 on right click:
 	player's tool is pickaxe
 	displayPickaxeInv(player)
+
+on join:
+	set player's flight to false
+	remove jump boost from player
+
+on hotbar switch:
+
+	if getTag(player's tool, "jump") > 0:
+		apply jump boost of tier 2 without any particles to player for 999 days
+
+	if getTag(player's tool, "flight") > 0:
+		set player's flight to true
