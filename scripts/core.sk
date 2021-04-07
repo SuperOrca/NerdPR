@@ -64,6 +64,9 @@ on hunger meter change:
 on damage:
 	cancel event
 
+on offhand switch:
+	cancel event
+
 on drop:
 	item is pickaxe or sword or bow or trident or tripwire hook
 	cancel event

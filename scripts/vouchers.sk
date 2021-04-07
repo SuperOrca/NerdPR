@@ -3,11 +3,11 @@ command /voucher [<text>] [<text>] <player=%player%>:
 	permission message: &cNo Permission.
 	trigger:
 		if arg-1 is "rank":
-			give paper with nbt "{rank:%arg-2%}" named "&fRank Voucher (%arg-2 in uppercase%)" to arg-3
+			give shiny paper with nbt "{rank:%arg-2%}" named "&fRank Voucher (%arg-2 in uppercase%)" to arg-3
 			send "&f&lVOUCHER&7 You have given &f%arg-3%&7 a &f%arg-2 in uppercase%&7 voucher."
 		else if arg-2 is "money":
 			set {_arg2} to arg-2 parsed as a number
-			give paper with nbt "{money:%{_arg2}%}" named "&fMoney Voucher ($%formatNumber({_arg2})%)" to arg-3
+			give shiny paper with nbt "{money:%{_arg2}%}" named "&fMoney Voucher ($%formatNumber({_arg2})%)" to arg-3
 			send "&f&lVOUCHER&7 You have given &f%arg-3%&7 a &f$%formatNumber({_arg2})%&7 voucher."
 		else:
 			send ""
@@ -15,15 +15,16 @@ command /voucher [<text>] [<text>] <player=%player%>:
 			send "&8/&7voucher &brank (rank)"
 			send ""
 
-command /withdraw <number>:
+command /withdraw <integer>:
 	cooldown: 1 second
 	cooldown message: &cThis command is on cooldown.
 	trigger:
 		if {balance::%player's uuid%} >= arg-2:
 			if arg-2 >= 1000:
-				give paper with nbt "{money:%arg-1%}" named "&fMoney Voucher" with lore "" and "&a&l$%formatNumber(arg-1)%" to player
+				give shiny paper with nbt "{money:%arg-1%}" named "&fMoney Voucher ($%formatNumber(arg-1)%)" to player
 				send "&f&lWITHDRAW&7 You withdrew &f$%formatNumber(arg-1)%&7."
 				remove arg-1 from {balance::%player's uuid%}
+				updateScoreboard(player)
 			else:
 				send "&cYou must withdraw atleast $1k."
 		else:
