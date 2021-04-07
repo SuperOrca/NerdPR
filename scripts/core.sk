@@ -2,6 +2,8 @@ on tab complete:
 	if event-string is "/skript" or "/sk":
 		set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"
 		set tab completions for position 2 to all scripts
+	if event-string is "/voucher":
+		set tab completions for position 1 to "money" and "rank"
 	if event-string is "/minereset" or "/mr":
 		set tab completions for position 1 to "create", "info", "reset", "delete", "setblock", "setdelay", "setarea", "setdynamic", "list", and "wand"
 
