@@ -61,9 +61,6 @@ on item damage:
 on hunger meter change:
 	cancel event
 
-on damage:
-	cancel event
-
 on offhand switch:
 	cancel event
 
