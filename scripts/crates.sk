@@ -6,9 +6,9 @@ options:
 
 
 on right click:
-    if "%region at clicked%" contains "iq_crate":
+    if location of target block is location at -130.5, 42.5, -79.5 of the world "world":
         if player's held item is {@iq_key}:
-            if player is shifting:
+            if player is sneaking:
                 set {_amount} to amount of player's tool
                 loop {_amount} times:
                     remove 1 of player's tool from player's tool
@@ -57,9 +57,11 @@ on right click:
                 if {_num} is between 61 and 100:
                     add 0.5 to {multiplier::%player's uuid%}
                     send "&f&lCRATES &7You've won a &f+0.5 Multiplier" to player
+        else:
+            send "&f&lCRATE&7 You must hold a &fIQ &7Crate Key to use this."
 
 on right click:
-    if "%region at clicked%" contains "zop_crate":
+    if "%region at click%" contains "zop_crate":
         if player's held item is {@zop_key}:
             if player is shifting:
                 set {_amount} to amount of player's tool
@@ -112,9 +114,11 @@ on right click:
                     send "&f&lCRATES &7You've won a &f+0.5 Multiplier" to player
                 if {_num} is between 15 and 15:
                     make console execute command "voucher rank %{bottom_rank_name}% %player%"
+        else:
+            send "&f&lCRATE &7You must hold a &fZOP&7 Crate Key to use this."
                 
 on right click:
-    if "%region at clicked%" contains "rebirth_crate":
+    if "%region at click%" contains "rebirth_crate":
         if player's held item is {@rebirth_key}:
             if player is shifting:
                 set {_amount} to amount of player's tool
@@ -173,3 +177,5 @@ on right click:
                     send "&f&lCRATES &7You've won a &f+5 Multiplier" to player
                 if {_num} is between 15 and 15:
                     make console execute command "voucher rank %{middle_rank_name}% %player%"
+        Else:
+            send "&f&lCRATE &7You must hold a &fRebirth&7 Crate Key to use this."
