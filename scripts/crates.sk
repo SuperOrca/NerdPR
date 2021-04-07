@@ -58,6 +58,7 @@ on right click:
                     add 0.5 to {multiplier::%player's uuid%}
                     send "&f&lCRATES &7You've won a &f+0.5 Multiplier" to player
 		else:
+            cancel event
 			send "&cYou must be holding a IQ key."
 
 on right click:
@@ -115,6 +116,7 @@ on right click:
                 if {_num} is between 15 and 15:
                     make console execute command "voucher rank %{bottom_rank_name}% %player%"
 		else:
+            cancel event
 			send "&cYou must be holding a zop key."
 
 on right click:
@@ -178,4 +180,5 @@ on right click:
                 if {_num} is between 15 and 15:
                     make console execute command "voucher rank %{middle_rank_name}% %player%"
 		else:
+            cancel event
 			send "&cYou must be holding a rebirth key."
