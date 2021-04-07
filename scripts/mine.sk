@@ -30,7 +30,7 @@ on break:
 		set metadata "nuker_yes" of player to true
 		wait 5 seconds
 		if metadata "nuker" of player > 150:
-			send "%player% might be using nuker lmao" to all players where [input has permission "staff"]
+			send "&7&lANTICHEAT &8| &" to all players where [input has permission "staff"]
 		if metadata "nuker" of player > 350:
 			send "you wouldve gotten banned"
 		delete metadata "nuker" of player
