@@ -1,7 +1,0 @@
-on load:
-  if {-mongo::*} is set:
-    close connection {-mongo::client}
-    delete {-mongo::*}
-  create a new mongo client to host "mongodb+srv://Falmes:Ckj7s_v8wrR*PjW@nerdpr-cluster.nlhbb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" named "mongo"
-  set {-mongo::client} to client named "mongo"
-  set {-mongo::stats} to mongo database named "stats" with {-mongo::client}
