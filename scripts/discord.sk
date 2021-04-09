@@ -48,7 +48,7 @@ command /suggest <text>:
 			add field named "Player" with value "%player%" to embed
 			add field named "Suggestion" with value arg-1 to embed
 		send last created embed to channel with id "{@suggestion-channel}" with "{@bot}" and store it in {_msg}
-		add reactions ":green_circle:" and ":red_circle:" to {_msg} with "{@bot}"
+		add reactions ":thumbsup:" and ":thumbsdown:" to {_msg} with "{@bot}"
 
 command /discord:
 	trigger:
