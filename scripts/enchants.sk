@@ -29,26 +29,25 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 	if {_gct} contains "middle":
 		close {_p}'s inventory
 		set metadata "enchant_thread" of {_p} to true
-		while 1 = 1:
-			if {_p} is online:
-				set {_pr} to enchantPrice({_e}, getTag({_p}'s tool, {_e}))
-				set {_l} to getTag({_p}'s tool, {_e})
-				if {balance::%{_u}%} >= {_pr}:
-					if {_l} < {_m}:
-						add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
-						remove {_pr} from {balance::%{_u}%}
-						playSound({_p}, "ENTITY_VILLAGER_YES")
-						send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
-						set {_p}'s tool to updatePickaxe({_t})
-					else:
-						playSound({_p}, "ENTITY_VILLAGER_NO")
-						send "&cYou already maxed this enchant." to {_p}
-						exit loop
+		while {_p} is online:
+			set {_pr} to enchantPrice({_e}, getTag({_p}'s tool, {_e}))
+			set {_l} to getTag({_p}'s tool, {_e})
+			if {balance::%{_u}%} >= {_pr}:
+				if {_l} < {_m}:
+					add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
+					remove {_pr} from {balance::%{_u}%}
+					playSound({_p}, "ENTITY_VILLAGER_YES")
+					send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
+					set {_p}'s tool to updatePickaxe({_t})
+					wait 1 tick
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
-					send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
+					send "&cYou already maxed this enchant." to {_p}
 					exit loop
-			wait 1 tick
+			else:
+				playSound({_p}, "ENTITY_VILLAGER_NO")
+				send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
+				exit loop
 		delete metadata "enchant_thread" of {_p}
 	else:
 		set {_pr} to enchantPrice({_e}, {_l})
@@ -132,9 +131,8 @@ on right click:
 	displayPickaxeInv(player)
 
 on join:
-	if player is not op:
-		set player's flight mode to false
-		remove jump boost from player
+	set player's flight mode to false if player is not op
+	remove jump boost from player
 
 on hotbar switch:
 	if metadata "enchant_thread" of player is true:
@@ -146,4 +144,4 @@ on hotbar switch:
 
 on inventory open:
 	metadata "enchant_thread" of player is true
-	cancel event
+	close player's inventory
