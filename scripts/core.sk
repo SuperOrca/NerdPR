@@ -22,11 +22,9 @@ function updateScoreboard(p: player):
 	set line 10 of {_p}'s scoreboard to "&8| &7Mined: &f%{_mined}%"
 	set {_balance} to formatNumber({balance::%{_u}%} ? 0)
 	set line 9 of {_p}'s scoreboard to "&8| &7Balance: &f$%{_balance}%"
-	set {_tokens} to formatNumber({tokens::%{_u}%} ? 0)
-	set line 8 of {_p}'s scoreboard to "&8| &7Tokens: &f$%{_tokens}%⛃"
-	set line 7 of {_p}'s scoreboard to "&8| &7Multiplier: &f1x"
-	set line 6 of {_p}'s scoreboard to ""
-	set line 5 of {_p}'s scoreboard to "&7&onerdpr.minehut.gg"
+	set line 8 of {_p}'s scoreboard to "&8| &7Multiplier: &f1x"
+	set line 7 of {_p}'s scoreboard to ""
+	set line 6 of {_p}'s scoreboard to "&7&onerdpr.minehut.gg"
 
 on join:
 	set join message to "&f%player%&7 joined the game."
