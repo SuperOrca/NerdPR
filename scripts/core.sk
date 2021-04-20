@@ -35,6 +35,7 @@ on join:
 		updateScoreboard(loop-player)
 
 on quit:
+	wait 1 tick
 	loop all players:
 		updateScoreboard(loop-player)
 

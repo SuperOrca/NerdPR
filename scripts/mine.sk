@@ -12,6 +12,7 @@ function simMine(p: player, t: number):
 	set {_u} to {_p}'s uuid
 	add {_t} to {balance::%{_u}%}
 	add 1 to {xp::%{_u}%}
+	add 1 to {mined::%{_u}%}
 
 function updateLevel(p: player):
 	set {_u} to {_p}'s uuid
@@ -57,13 +58,13 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and 725) <= getTag(player's tool, "explosive"):
+	if (random integer between 1 and 7250) <= getTag(player's tool, "explosive"):
 		loop all blocks in radius 3 around event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and 250000) <= getTag(player's tool, "chunk"):
+	if (random integer between 1 and 25000000) <= getTag(player's tool, "chunk"):
 		loop all blocks within chunk at event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
