@@ -20,6 +20,7 @@ function updateLevel(p: player):
 		remove ({xpn::%{_u}%} ? 100) from {xp::%{_u}%}
 		set {xpn::%{_u}%} to round ({xpn::%{_u}%} ? 100)^1.005
 		send "&f&lLEVEL &7Leveled up to level &f%{level::%{_u}%}%&7." to {_p}
+		wait 1 tick
 
 on break:
 	player's tool is pickaxe
