@@ -145,5 +145,5 @@ on hotbar switch:
 		set player's flight mode to true
 
 on inventory open:
-	if metadata "enchant_thread" of player is true:
-		close player's inventory
+	metadata "enchant_thread" of player is true
+	cancel event

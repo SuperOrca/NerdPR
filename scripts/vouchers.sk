@@ -39,7 +39,7 @@ on right click:
 		remove 1 of player's tool from player's tool
 		updateScoreboard(player)
 	if {_money} is set:
-		set {_money} to (tag "money" of nbt of player's tool) parsed as a number
+		set {_money} to {_money} parsed as a number
 		add {_money} to {balance::%player's uuid%}
 		remove 1 of player's tool from player's tool
 		updateScoreboard(player)
