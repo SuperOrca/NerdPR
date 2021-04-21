@@ -5,4 +5,4 @@ on chat:
 	set {_message} to emojify({_message}) if player has permission "perks.emoji"
 	set {_suffix} to " &8[%{suffix::%player's uuid%}%&8]" if {suffix::%player's uuid%} is set
 	set {_color} to "&f" if player has permission "perks.chat.white"
-	set chat format to "&7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color} ? ""&7""%%{_message}%"
+	set chat format to "&7[%{prestige::%player's uuid%} ? 0%] &7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color} ? ""&7""%%{_message}%"
