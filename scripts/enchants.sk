@@ -30,6 +30,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 		close {_p}'s inventory
 		set metadata "enchant_thread" of {_p} to true
 		while {_p} is online:
+			send "%metadata ""enchant_thread"" of {_p}%" to {_p}
 			set {_pr} to enchantPrice({_e}, getTag({_p}'s tool, {_e}))
 			set {_l} to getTag({_p}'s tool, {_e})
 			if {balance::%{_u}%} >= {_pr}:
@@ -43,13 +44,12 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
 					send "&cYou already maxed this enchant." to {_p}
-					delete metadata "enchant_thread" of {_p}
 					exit loop
 			else:
 				playSound({_p}, "ENTITY_VILLAGER_NO")
 				send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
-				delete metadata "enchant_thread" of {_p}
 				exit loop
+		delete metadata "enchant_thread" of {_p}
 	else:
 		set {_pr} to enchantPrice({_e}, {_l})
 		if {balance::%{_u}%} >= {_pr}:
