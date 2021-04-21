@@ -28,14 +28,13 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 	set {_u} to {_p}'s uuid
 	if {_gct} contains "middle":
 		close {_p}'s inventory
-		set metadata "enchant_thread" of {_p} to true
+		set metadata "thread" of {_p} to true
 		while {_p} is online:
-			send "%metadata ""enchant_thread"" of {_p}%" to {_p}
-			set {_pr} to enchantPrice({_e}, getTag({_p}'s tool, {_e}))
-			set {_l} to getTag({_p}'s tool, {_e})
+			set {_pr} to enchantPrice({_e}, {_t}, {_e}))
+			set {_l} to getTag({_t}, {_e})
 			if {balance::%{_u}%} >= {_pr}:
 				if {_l} < {_m}:
-					add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
+					set tag {_e} of {_t} to {_l} + 1
 					remove {_pr} from {balance::%{_u}%}
 					playSound({_p}, "ENTITY_VILLAGER_YES")
 					send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
@@ -49,7 +48,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				playSound({_p}, "ENTITY_VILLAGER_NO")
 				send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
 				exit loop
-		delete metadata "enchant_thread" of {_p}
+		delete metadata "thread" of {_p}
 	else:
 		set {_pr} to enchantPrice({_e}, {_l})
 		if {balance::%{_u}%} >= {_pr}:
@@ -128,7 +127,7 @@ function pickaxeInv(p: player):
 
 on right click:
 	player's tool is pickaxe
-	metadata "enchant_thread" of player is not set
+	metadata "thread" of player is not set
 	displayPickaxeInv(player)
 
 on join:
@@ -136,7 +135,7 @@ on join:
 	remove jump boost from player
 
 on hotbar switch:
-	if metadata "enchant_thread" of player is true:
+	if metadata "thread" of player is true:
 		cancel event
 	if getTag(player's tool, "jump") > 0:
 		apply jump boost of tier 2 without any particles to player for 999 days
@@ -144,5 +143,5 @@ on hotbar switch:
 		set player's flight mode to true
 
 on inventory open:
-	metadata "enchant_thread" of player is true
+	metadata "thread" of player is true
 	close player's inventory
