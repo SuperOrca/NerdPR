@@ -22,6 +22,11 @@ function updateLevel(p: player):
 		set {xpn::%{_u}%} to round ({xpn::%{_u}%} ? 100)^1.005
 		send "&f&lLEVEL &7Leveled up to level &f%{level::%{_u}%}%&7." to {_p}
 		wait 1 tick
+	while {level::%{_u}%} >= (({prestige::%{_u}%} ? 0) * 5 + 10)
+		add 1 to {prestige::%{_u}%}
+		remove (({prestige::%{_u}%} ? 0) * 5 + 10) from {level::%{_u}%}
+		broadcast "&f&lPRESTIGE &7You prestiged to &f%{prestige::%{_u}%}%&7."
+		wait 1 tick
 
 on break:
 	player's tool is pickaxe
