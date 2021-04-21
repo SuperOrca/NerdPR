@@ -39,6 +39,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 					playSound({_p}, "ENTITY_VILLAGER_YES")
 					send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
 					set {_p}'s tool to updatePickaxe({_t})
+					updateScoreboard({_p})
 					wait 1 tick
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
@@ -58,6 +59,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				playSound({_p}, "ENTITY_VILLAGER_YES")
 				send "&f&lENCHANT &7Purchased &f%{_e}%&7 for &f$%formatNumber({_pr})%&7." to {_p}
 				set {_p}'s tool to updatePickaxe({_t})
+				updateScoreboard({_p})
 			else:
 				playSound({_p}, "ENTITY_VILLAGER_NO")
 				send "&cYou already maxed this enchant." to {_p}
@@ -65,7 +67,6 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 			playSound({_p}, "ENTITY_VILLAGER_NO")
 			send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
 		pickaxeInv({_p})
-	updateScoreboard({_p})
 
 function displayPickaxeInv(p: player):
 	open virtual chest with 6 rows named "&f&lUPGRADE PICKAXE" to {_p}
