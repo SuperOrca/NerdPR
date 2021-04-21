@@ -30,7 +30,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 		close {_p}'s inventory
 		set metadata "thread" of {_p} to true
 		while {_p} is online:
-			set {_pr} to enchantPrice({_e}, {_t}, {_e}))
+			set {_pr} to enchantPrice({_e}, {_t})
 			set {_l} to getTag({_t}, {_e})
 			if {balance::%{_u}%} >= {_pr}:
 				if {_l} < {_m}:
