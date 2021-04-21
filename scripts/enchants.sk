@@ -43,12 +43,13 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
 					send "&cYou already maxed this enchant." to {_p}
+					delete metadata "enchant_thread" of {_p}
 					exit loop
 			else:
 				playSound({_p}, "ENTITY_VILLAGER_NO")
 				send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
+				delete metadata "enchant_thread" of {_p}
 				exit loop
-		delete metadata "enchant_thread" of {_p}
 	else:
 		set {_pr} to enchantPrice({_e}, {_l})
 		if {balance::%{_u}%} >= {_pr}:
