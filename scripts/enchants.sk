@@ -27,13 +27,17 @@ function updatePickaxe(t: item) :: item:
 function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: text):
 	set {_u} to {_p}'s uuid
 	if {_gct} contains "middle":
+		broadcast "yes 1"
 		close {_p}'s inventory
 		set metadata "thread" of {_p} to true
 		while {_p} is online:
+			broadcast "yes 2"
 			set {_pr} to enchantPrice({_e}, {_t})
 			set {_l} to getTag({_t}, {_e})
 			if {balance::%{_u}%} >= {_pr}:
+				broadcast "yes 3"
 				if {_l} < {_m}:
+					broadcast "yes 4"
 					set tag {_e} of {_t} to {_l} + 1
 					remove {_pr} from {balance::%{_u}%}
 					playSound({_p}, "ENTITY_VILLAGER_YES")
