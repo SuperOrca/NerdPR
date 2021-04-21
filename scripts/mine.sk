@@ -14,6 +14,12 @@ function simMine(p: player, t: number):
 	add 1 to {xp::%{_u}%}
 	add 1 to {mined::%{_u}%}
 
+function mineActionBar(p: player):
+	set {_u} to {_p}'s uuid
+	set {_mined} to formatNumber({mined::%{_u}%} ? 0)
+	set {_xp} to round (({xp::%player's uuid%} ? 0)/({xpn::%{_u}%} ? 100))
+	send action bar "&7%{_xp}%%% &6| &7%{_mined}%" to %players%
+
 function updateLevel(p: player):
 	set {_u} to {_p}'s uuid
 	while {xp::%{_u}%} >= ({xpn::%{_u}%} ? 100):
@@ -81,5 +87,6 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
+	mineActionBar(player)
 	updateLevel(player)
 	updateScoreboard(player)
