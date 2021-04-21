@@ -50,7 +50,7 @@ on break:
 	set {_y} to y-loc of event-block
 	set {_z} to z-loc of event-block
 
-	if (random integer between 1 and 1250) <= getTag(player's tool, "jackhammer"):
+	if (random integer between 1 and 3000) <= getTag(player's tool, "jackhammer"):
 		set {_loc1} to location({_x} - 2, {_y}, {_z} - 2)
 		set {_loc2} to location({_x} + 2, {_y}, {_z} + 2)
 		loop all blocks within {_loc1} and {_loc2}:

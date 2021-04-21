@@ -66,7 +66,6 @@ on offhand switch:
 	cancel event
 
 on drop:
-	item is pickaxe or sword or bow or trident or tripwire hook
 	cancel event
 
 command /playtime <player=%player%>:
