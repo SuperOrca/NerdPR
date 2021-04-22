@@ -111,6 +111,7 @@ command /ad:
 		send "&f&lAD&7 Click <suggest command:test>&fhere<reset>&7 to get the advertisment command you can use in the hub."
 
 every 5 minutes:
+	delete {reaction::*}
 	set {reaction::word} to random element out of {words::*}
 	set {reaction::start} to now
 	broadcast "&f&lREACTION&7 Type &f%{reaction::word}%&7 to win!"
@@ -125,13 +126,13 @@ on chat:
 
 function updateLeaderboards():
 	broadcast "&f&lLEADERBOARDS&7 Leaderboards are not updating. This may cause lag!"
-	set {_sorted::*} to sort(indices of {mined::*}, {mined::*})
+	set {_sorted::*} to sort((indices of {mined::*}), {mined::*})
 	set {_total} to formatNumber(sum({mined::*}))
 	set {_n} to 0
 	loop {_sorted::*}:
 		add 1 to {_n}
-		set {_p} to loop-index parsed as a offline player
-		set {_v} to formatNumber(loop-value)
+		set {_p} to loop-value parsed as a offline player
+		set {_v} to formatNumber({mined::%loop-value%})
 		make console execute command "hd setline mined %{_n} + 1% &7%{_n}%. &f%{_p}% &7%{_v}%"
 		if {_n} >= 10:
 			exit loop

@@ -20,11 +20,11 @@ on guild message received seen by "{@bot}":
 
 on chat:
 	event is not canceled
-	set {_message} to message
-	replace all ">" and "<" in {_message} with ""
-	replace all "@" in {_message} with ""
-	replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
-	send "**%player%**: %{_message}%" to channel with id "{@chat-channel}" with "{@bot}"
+	wait 1 tick
+	replace all ">" and "<" with "" in message
+	replace all "@" with "" in message
+	replace all "&" and "*" and "~" and "`" and "_" with "" in message
+	send "**%player%**: %message%" to channel with id "{@chat-channel}" with "{@bot}"
 
 on load:
 	create vixio bot:

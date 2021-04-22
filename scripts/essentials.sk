@@ -128,10 +128,10 @@ command /warp [<text>]:
 	permission message: &cNo Permission.
 	aliases: /warps
 	trigger:
-		if indices of {warps::*} contains arg-1:
+		if (indices of {warps::*}) contains arg-1:
 			teleport player to {warps::%arg-1%}
 		else:
-			send "&7Warps: &f%indices of {warps::*} ? ""no warps.""%"
+			send "&7Warps: &f%(indices of {warps::*}) ? ""no warps.""%"
 
 command /fly <player=%player%>:
 	permission: essentials.fly
