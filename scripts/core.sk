@@ -95,6 +95,10 @@ command /reloadall:
 			send "Took %time since {_m}% to reload %loop-value%."
 		send "Took %time since {_s}% to reload all scripts." to all players where [input has permission "*"]
 
+on pressure plate:
+	push player forwards at speed 2.5
+	push player upwards at speed 1.5
+
 command /rules:
 	trigger:
 		send centered "don't be a bitch" to player

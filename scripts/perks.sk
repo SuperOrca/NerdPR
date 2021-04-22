@@ -19,19 +19,6 @@ command /glow:
 			apply glowing without particles to player for 999 days
 			set metadata "glow" of player to true
 
-command /rainbow:
-	permission: perks.rainbow
-	permission message: &cNo Permission.
-	cooldown: 2 seconds
-	cooldown message: &cThis command is on cooldown.
-	trigger:
-		if metadata "rainbow" of player is set:
-			send formatted "<##4b8bf2>&lPERKS &7You can no longer talk in %rainbow(""rainbow"")%&7."
-			delete metadata "rainbow" of player
-		else:
-			send formatted "<##4b8bf2>&lPERKS &7You can now talk in %rainbow(""rainbow"")%&7."
-			set metadata "rainbow" of player to true
-
 command /nv:
 	cooldown: 2 seconds
 	cooldown message: &cThis command is on cooldown.
@@ -52,7 +39,7 @@ command /slap <player>:
 	cooldown message: &cThis command is on cooldown.
 	usage: &c/slap <player>
 	trigger:
-		broadcast "<##81aef7>%player% &7slapped <##81aef7>%arg-1%&7. &cOuch!"
+		broadcast "&f%player% &7slapped &f%arg-1%&7. &cOuch!"
 
 command /kiss <player>:
 	permission: perks.kiss
@@ -61,7 +48,7 @@ command /kiss <player>:
 	cooldown message: &cThis command is on cooldown.
 	usage: &c/kiss <player>
 	trigger:
-		broadcast "<##81aef7>%player% &7kissed <##81aef7>%arg-1%&7. &dMWAH!"
+		broadcast "&f%player% &7kissed &f%arg-1%&7. &dMWAH!"
 
 function applyTag(p: player, tag: text):
 	set {_u} to {_p}'s uuid
@@ -107,3 +94,34 @@ command /tags:
 			close player's inventory
 			delete {suffix::%player's uuid%}
 			send "<##4b8bf2>&lTAGS &7Removed your current tag."
+
+command /chatcolor:
+	permission: perks.chatcolor
+	permission message: &cNo Permission.
+	cooldown: 2 seconds
+	cooldown message: &cThis command is on cooldown.
+	trigger:
+		open virtual chest with 4 rows named "<##4b8bf2>&lTAGS" to player
+		fillSlots(player, 4)
+		format gui slot 10 of player with name tag named "&aLime" to run:
+			applyChatcolor(player, "&a")
+		format gui slot 11 of player with name tag named "&bAqua" to run:
+			applyChatcolor(player, "&b")
+		format gui slot 12 of player with name tag named "&cRed" to run:
+			applyChatcolor(player, "&c")
+		format gui slot 13 of player with name tag named "&dPink" to run:
+			applyChatcolor(player, "&d")
+		format gui slot 14 of player with name tag named "&eYellow" to run:
+			applyChatcolor(player, "&e")
+		format gui slot 15 of player with name tag named "&fWhite" to run:
+			applyChatcolor(player, "&f")
+		format gui slot 35 of player with barrier named "&cRemove Tag" to run:
+			close player's inventory
+			delete {chatcolor::%player's uuid%}
+			send "<##4b8bf2>&lCOLOR &7Removed your current color."
+
+function applyChatcolor(p: player, color: text):
+	set {_u} to {_p}'s uuid
+	close {_p}'s inventory
+	send "<##4b8bf2>&lCOLOR &7Applied %{_color}%color&7." to {_p}
+	set {chatcolor::%{_u}%} to {_color}
