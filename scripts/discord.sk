@@ -10,8 +10,7 @@ options:
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@chat-channel}":
 		set {_message} to "%event-message%"
-		replace all ">" and "<" in {_message} with ""
-		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
+		replace all "&" and "*" and "~" and "`" and "_" and ">" and "<" and "@" in {_message} with ""
 		if {_message} is not "":
 			broadcast "&b&lDISCORD &7%event-member%: &f%{_message}%"
 	if discord id of event-channel is "{@log-channel}":
@@ -19,7 +18,9 @@ on guild message received seen by "{@bot}":
 
 on chat:
 	event is not canceled
-	send "**%player%**: %message%" to channel with id "{@chat-channel}" with "{@bot}"
+	set {_message} to message
+	replace all "&" and "*" and "~" and "`" and "_" and ">" and "<" and "@" in {_message} with ""
+	send "**%player%**: %{_message}%" to channel with id "{@chat-channel}" with "{@bot}"
 
 on load:
 	create vixio bot:
@@ -30,15 +31,19 @@ on load:
 
 on join:
 	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
+	wait 1 tick
+	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
 
 on quit:
 	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
+	wait 1 tick
+	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
 
 on command:
 	send "**%player ? ""CONSOLE""%** issued command `%command% %arguments ? """"%`" to channel with id "{@log-channel}" with "{@bot}"
 
 command /suggest <text>:
-	cooldown: 5 minutes
+	cooldown: 15 seconds
 	cooldown message: &cThis command is on cooldown.
 	usage: &cUsage: /suggest <suggestion>
 	trigger:

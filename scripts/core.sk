@@ -1,11 +1,23 @@
+on load:
+	delete {words::*}
+	set {words::1} to "prisons"
+	set {words::2} to "mine"
+	set {words::3} to "orca"
+	set {words::4} to "flames"
+	set {words::5} to "pickaxe"
+	set {words::6} to "nerd"
+	set {words::7} to "brain"
+	set {words::8} to "lightbulb"
+	set {words::9} to "keyboard"
+	set {words::10} to "mouse"
+	set {words::11} to "webcam"
+
 on tab complete:
 	if event-string is "/skript" or "/sk":
 		set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"
 		set tab completions for position 2 to all scripts
 	if event-string is "/voucher":
 		set tab completions for position 1 to "money" and "rank"
-	if event-string is "/minereset" or "/mr":
-		set tab completions for position 1 to "create", "info", "reset", "delete", "setblock", "setdelay", "setarea", "setdynamic", "list", and "wand"
 
 function updateScoreboard(p: player):
 	set {_u} to {_p}'s uuid
@@ -17,7 +29,7 @@ function updateScoreboard(p: player):
 	set line 13 of {_p}'s scoreboard to "&8| &7Prestige: &f%{_prestige}%"
 	set {_rebirth} to insertComma({rebirth::%{_u}%} ? 0)
 	set line 12 of {_p}'s scoreboard to "&8| &7Rebirth: &f%{_rebirth}%"
-	set line 11 of {_p}' scoreboard to ""
+	set line 11 of {_p}'s scoreboard to ""
 	set {_mined} to formatNumber({mined::%{_u}%} ? 0)
 	set line 10 of {_p}'s scoreboard to "&8| &7Mined: &f%{_mined}%"
 	set {_balance} to formatNumber({balance::%{_u}%} ? 0)
@@ -93,3 +105,43 @@ command /sc <text>:
 	usage: &cUsage: /sc <text>
 	trigger:
 		send "&7&lSTAFFCHAT &f%player% &7%arg-1%" to all players where [input has permission "staff.chat"]
+
+command /ad:
+	trigger:
+		send "&f&lAD&7 Click <suggest command:test>&fhere<reset>&7 to get the advertisment command you can use in the hub."
+
+every 5 minutes:
+	set {reaction::word} to random element out of {words::*}
+	set {reaction::start} to now
+	broadcast "&f&lREACTION&7 Type &f%{reaction::word}%&7 to win!"
+
+on chat:
+	event is not canceled
+	if {reaction::word} is set:
+		if message is {reaction::word}:
+			cancel event
+			broadcast "&f&lREACTION&7 &f%player%&7 typed &f%{reaction::word}%&7 in &f%time since {reaction::start}%&7."
+			delete {reaction::*}
+
+function updateLeaderboards():
+	broadcast "&f&lLEADERBOARDS&7 Leaderboards are not updating. This may cause lag!"
+	set {_sorted::*} to sort(indices of {mined::*}, {mined::*})
+	set {_total} to formatNumber(sum({mined::*}))
+	set {_n} to 0
+	loop {_sorted::*}:
+		add 1 to {_n}
+		set {_p} to loop-index parsed as a offline player
+		set {_v} to formatNumber(loop-value)
+		make console execute command "hd setline mined %{_n} + 1% &7%{_n}%. &f%{_p}% &7%{_v}%"
+		if {_n} >= 10:
+			exit loop
+	make console execute command "hd setline mined 12 &7&o(( Total: %{_total}% ))"
+
+every 10 minutes:
+	updateLeaderboards()
+
+command /forceleaderboards:
+	permission: op
+	permission message: &cNo Permission.
+	trigger:
+		updateLeaderboards()

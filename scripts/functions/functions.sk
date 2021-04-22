@@ -64,6 +64,12 @@ function emojify(input: text) :: text:
 	replace all ":)" or "(:" with "☻" in {_input} if {_input} contains ":)" or "(:"
 	return {_input}
 
+function scramble(s: string) :: string:
+	set {_string::*} to {_s} split at ""
+	set {_scrambled::*} to shuffled {_string::*}
+	set {_string} to join {_string::*} by ""
+	return {_string}
+
 function progressBar(val: number, max: number, barsize: number, fill_first: text, fill_second: text) :: text:
 	stop if {_val} < 0
 	stop if {_max} < 0

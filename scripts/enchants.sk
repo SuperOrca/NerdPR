@@ -81,7 +81,7 @@ function enchantPrice(e: text, l: number) :: number:
 	return 50000000 if {_e} is "flight"
 	return ({_l}*250000)^(1.14)+1000000 if {_e} is "tokenfinder"
 	return ({_l}*100000)^(1.155)+400000 if {_e} is "keyfinder"
-	return ({_l}*125000)^(1.155)+500000 if {_e} is "explosive"
+	return ({_l}*125000)^(1.14)+500000 if {_e} is "explosive"
 	return ({_l}*150000)^(1.15)+600000 if {_e} is "jackhammer"
 	return ({_l}*175000)^(1.16)+750000 if {_e} is "chunk"
 	return ({_l}*250000)^(1.17)+1000000 if {_e} is "tsunami"
