@@ -5,7 +5,7 @@ command /setspawn:
 	permission: essentials.setspawn
 	permission message: &cNo Permission
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Set spawn to <##81aef7>%player's location%&7."
+		send "<##1063e8>&lSTAFF&7 Set spawn to <##2273f5>%player's location%&7."
 		set {spawn} to player's location
 
 command /spawn:
@@ -16,28 +16,28 @@ command /gmc <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Set <##81aef7>%arg-1%'s&7 gamemode to <##81aef7>CREATIVE&7."
+		send "<##1063e8>&lSTAFF&7 Set <##2273f5>%arg-1%'s&7 gamemode to <##2273f5>CREATIVE&7."
 		set arg-1's gamemode to creative
 
 command /gms <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Set <##81aef7>%arg-1%'s&7 gamemode to <##81aef7>SURVIVAL&7."
+		send "<##1063e8>&lSTAFF&7 Set <##2273f5>%arg-1%'s&7 gamemode to <##2273f5>SURVIVAL&7."
 		set arg-1's gamemode to survival
 
 command /gmsp <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Set <##81aef7>%arg-1%'s&7 gamemode to <##81aef7>SPECTATOR&7."
+		send "<##1063e8>&lSTAFF&7 Set <##2273f5>%arg-1%'s&7 gamemode to <##2273f5>SPECTATOR&7."
 		set arg-1's gamemode to spectator
 
 command /gma <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Set <##81aef7>%arg-1%'s&7 gamemode to <##81aef7>ADVENTURE&7."
+		send "<##1063e8>&lSTAFF&7 Set <##2273f5>%arg-1%'s&7 gamemode to <##2273f5>ADVENTURE&7."
 		set arg-1's gamemode to adventure
 
 command /invsee <player>:
@@ -45,7 +45,7 @@ command /invsee <player>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /invsee <player>
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Opened <##81aef7>%arg-1%'s &7inventory."
+		send "<##1063e8>&lSTAFF&7 Opened <##2273f5>%arg-1%'s &7inventory."
 		open arg-1's inventory to player
 
 command /tp <player>:
@@ -53,7 +53,7 @@ command /tp <player>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /tp <player>
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Teleported to <##81aef7>%arg-1%&7."
+		send "<##1063e8>&lSTAFF&7 Teleported to <##2273f5>%arg-1%&7."
 		teleport player to arg-1's location
 
 command /tphere <player>:
@@ -61,7 +61,7 @@ command /tphere <player>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /tphere <player>
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Teleported <##81aef7>%arg-1%&7 to you."
+		send "<##1063e8>&lSTAFF&7 Teleported <##2273f5>%arg-1%&7 to you."
 		teleport arg-1 to player's location
 
 command /sudo <player> <text>:
@@ -69,7 +69,7 @@ command /sudo <player> <text>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /sudo <player> <text>
 	trigger:
-		send "<##4b8bf2>&lSTAFF&7 Made <##81aef7>%arg-1%&7 execute <##81aef7>'%arg-2%'&7."
+		send "<##1063e8>&lSTAFF&7 Made <##2273f5>%arg-1%&7 execute <##2273f5>'%arg-2%'&7."
 		make arg-1 say arg-2
 
 command /speed <number>:
@@ -81,7 +81,7 @@ command /speed <number>:
 			set player's flying speed to arg-1
 		else:
 			set player's walking speed to arg-1
-		send "<##4b8bf2>&lSTAFF&7 Set your speed to <##81aef7>%arg-1%&7."
+		send "<##1063e8>&lSTAFF&7 Set your speed to <##2273f5>%arg-1%&7."
 
 command /rename <text>:
 	permission: essentials.rename
@@ -89,7 +89,7 @@ command /rename <text>:
 	usage: &cUsage: /rename <text>
 	trigger:
 		set tool's name to arg-1
-		send "<##4b8bf2>&lSTAFF&7 Set your tool's name to <##81aef7>%arg-1%&7."
+		send "<##1063e8>&lSTAFF&7 Set your tool's name to <##2273f5>%arg-1%&7."
 
 command /skull <offline player>:
 	permission: essentials.skull
@@ -97,7 +97,7 @@ command /skull <offline player>:
 	usage: &cUsage: /skull <player>
 	trigger:
 		give arg-1's skull to player
-		send "<##4b8bf2>&lSTAFF&7 Given <##81aef7>%arg-1%'s &7skull."
+		send "<##1063e8>&lSTAFF&7 Given <##2273f5>%arg-1%'s &7skull."
 
 command /i <item>:
 	permission: essentials.i
@@ -105,7 +105,7 @@ command /i <item>:
 	usage: &cUsage: /i <item>
 	trigger:
 		give player arg-1
-		send "<##4b8bf2>&lSTAFF&7 Given <##81aef7>%arg-1%&7."
+		send "<##1063e8>&lSTAFF&7 Given <##2273f5>%arg-1%&7."
 
 command /clear <player=%player%>:
 	permission: essentials.clear
@@ -114,7 +114,7 @@ command /clear <player=%player%>:
 	aliases: /ci
 	trigger:
 		clear arg-1's inventory
-		send "<##4b8bf2>&lSTAFF&7 Cleared <##81aef7>%arg-1%'s &7inventory."
+		send "<##1063e8>&lSTAFF&7 Cleared <##2273f5>%arg-1%'s &7inventory."
 
 command /setwarp <text>:
 	permission: essentials.setwarp
@@ -131,7 +131,7 @@ command /warp [<text>]:
 		if (indices of {warps::*}) contains arg-1:
 			teleport player to {warps::%arg-1%}
 		else:
-			send "&7Warps: <##81aef7>%(indices of {warps::*}) ? ""no warps.""%"
+			send "&7Warps: <##2273f5>%(indices of {warps::*}) ? ""no warps.""%"
 
 command /fly <player=%player%>:
 	permission: essentials.fly
@@ -139,14 +139,14 @@ command /fly <player=%player%>:
 	trigger:
 		if player's fly mode is false:
 			set arg-1's fly mode to true
-			send "<##4b8bf2>&lSTAFF&7 <##81aef7>%arg-1% &7can now fly."
+			send "<##1063e8>&lSTAFF&7 <##2273f5>%arg-1% &7can now fly."
 		else:
 			set arg-1's fly mode to false
-			send "<##4b8bf2>&lSTAFF&7 <##81aef7>%arg-1% &7can no longer fly."
+			send "<##1063e8>&lSTAFF&7 <##2273f5>%arg-1% &7can no longer fly."
 
 command /ec <player=%player%>:
 	permission: essentials.enderchest
 	permission message: &cNo Permission.
 	trigger:
 		open arg-1's ender chest to player
-		send "<##4b8bf2>&lSTAFF&7 You are viewing <##81aef7>%arg-1%'s&7 enderchest."
+		send "<##1063e8>&lSTAFF&7 You are viewing <##2273f5>%arg-1%'s&7 enderchest."

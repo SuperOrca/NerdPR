@@ -2,7 +2,7 @@ on chat:
 	event is not canceled
 	set {_message} to message
 	set {_message} to rainbow({_message}) if metadata "rainbow" of player is true
-	set {_color} to "<##81aef7>" if player has permission "perks.chat.white"
+	set {_color} to "<##2273f5>" if player has permission "perks.chat.white"
 	set {_message} to emojify({_message}) if player has permission "perks.emoji"
 	set {_suffix} to " &8[%{suffix::%player's uuid%}%&8]" if {suffix::%player's uuid%} is set
 	set chat format to "&7[%{prestige::%player's uuid%} ? 0%] &7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color} ? ""&7""%%{_message}%"

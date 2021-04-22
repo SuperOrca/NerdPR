@@ -1,5 +1,5 @@
 options:
-	iq_key: tripwire hook named "<##4b8bf2>&lIQ Crate Key"
+	iq_key: tripwire hook named "<##1063e8>&lIQ Crate Key"
 	zop_key: tripwire hook name "&c&lZop Crate Key"
 	rebirth_key: tripwire hool "&5&lRebirth Crate Key"
 
@@ -29,34 +29,34 @@ on right click:
                         give player 1 {@iq_key}
                     if {_num} is between 61 and 100:
                         add 0.5 to {multiplier::%player's uuid%}
-                send "<##4b8bf2>&lCRATES &7You have opened <##81aef7>%{_num}%&7 IQ Crates."
+                send "<##1063e8>&lCRATES &7You have opened <##2273f5>%{_num}%&7 IQ Crates."
             else:
                 remove 1 of player's tool from player's tool
                 set {_num} to random integer between 1 and 100
                 if {_num} is between 1 and 15:
                     give player 3 {@iq_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 IQ Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>3 IQ Crate Keys" to player
                 else if {_num} is between 16 and 25:
                     add 100 to {level::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>+100 Levels" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>+100 Levels" to player
                 else if {_num} is between 26 and 30:
                     give player 1 {@zop_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>1 ZOP Crate Key" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>1 ZOP Crate Key" to player
                 else if {_num} is between 31 and 35:
                     give player 2 {@zop_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>2 ZOP Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>2 ZOP Crate Keys" to player
                 else if {_num} is between 36 and 40:
                     give player 3 {@zop_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 ZOP Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>3 ZOP Crate Keys" to player
                 if {_num} is between 41 and 50:
                     give player 2 {@iq_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>2 IQ Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>2 IQ Crate Keys" to player
                 if {_num} is between 51 and 60:
                     give player 1 {@iq_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>1 IQ Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>1 IQ Crate Keys" to player
                 if {_num} is between 61 and 100:
                     add 0.5 to {multiplier::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won a <##81aef7>+0.5 Multiplier" to player
+                    send "<##1063e8>&lCRATES &7You've won a <##2273f5>+0.5 Multiplier" to player
 		else:
             cancel event
 			send "&cYou must be holding a IQ key."
@@ -85,34 +85,34 @@ on right click:
                     if {_num} is between 61 and 100:
                         add 1 to {multiplier::%player's uuid%}
                     if {_num} is between 15 and 15:
-                send "<##4b8bf2>&lCRATES &7You have opened <##81aef7>%{_num}%&7 ZOP Crates." to player
+                send "<##1063e8>&lCRATES &7You have opened <##2273f5>%{_num}%&7 ZOP Crates." to player
             else:
                 remove 1 of player's tool from player's tool
                 set {_num} to random integer between 1 and 100
                 if {_num} is between 1 and 14:
                     give player 3 {@iq_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 IQ Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>3 IQ Crate Keys" to player
                 else if {_num} is between 16 and 25:
                     add 100 to {level::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>+100 Levels" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>+100 Levels" to player
                 else if {_num} is between 26 and 30:
                     give player 1 {@zop_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>1 ZOP Crate Key" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>1 ZOP Crate Key" to player
                 else if {_num} is between 31 and 35:
                     give player 2 {@zop_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>2 ZOP Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>2 ZOP Crate Keys" to player
                 else if {_num} is between 36 and 40:
                     give player 3 {@zop_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 ZOP Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>3 ZOP Crate Keys" to player
                 if {_num} is between 41 and 50:
                     add 3 to {multiplier::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won a <##81aef7>+3 Multiplier" to player
+                    send "<##1063e8>&lCRATES &7You've won a <##2273f5>+3 Multiplier" to player
                 if {_num} is between 51 and 60:
                     add 1 to {multiplier::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won a <##81aef7>+1 Multiplier" to player
+                    send "<##1063e8>&lCRATES &7You've won a <##2273f5>+1 Multiplier" to player
                 if {_num} is between 61 and 100:
                     add 0.5 to {multiplier::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won a <##81aef7>+0.5 Multiplier" to player
+                    send "<##1063e8>&lCRATES &7You've won a <##2273f5>+0.5 Multiplier" to player
                 if {_num} is between 15 and 15:
                     make console execute command "voucher rank %{bottom_rank_name}% %player%"
 		else:
@@ -130,7 +130,7 @@ on right click:
                         give player 3 {@rebirth_key}
                     else if {_num} is between 16 and 25:
                         add 100 to {level::%player's uuid%}
-                        send "<##4b8bf2>&lCRATES &7You've won <##81aef7>+100 Levels" to player
+                        send "<##1063e8>&lCRATES &7You've won <##2273f5>+100 Levels" to player
                     else if {_num} is between 26 and 30:
                         set {_moneyrandom} to random integer between 10000000000 and 100000000000
                         set {_money} to formatNumber({_moneyrandom} ? 0)
@@ -147,36 +147,36 @@ on right click:
                         add 1 to {multiplier::%player's uuid%}
                     if {_num} is between 15 and 15:
                         make console execute command "voucher rank %{middle_rank_name}% %player%"
-                send "<##4b8bf2>&lCRATES &7You have opened <##81aef7>%{_num}%&7 ZOP Crates." to player
+                send "<##1063e8>&lCRATES &7You have opened <##2273f5>%{_num}%&7 ZOP Crates." to player
             else:
                 remove 1 of player's tool from player's tool
                 set {_num} to random integer between 1 and 100
                 if {_num} is between 1 and 14:
                     give player 3 {@rebirth_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 REBIRTH Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>3 REBIRTH Crate Keys" to player
                 else if {_num} is between 16 and 25:
                     add 100 to {level::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>+100 Levels" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>+100 Levels" to player
                 else if {_num} is between 26 and 30:
                     set {_moneyrandom} to random integer between 10000000000 and 100000000000
                     set {_money} to formatNumber({_moneyrandom} ? 0)
                     add {_moneyrandom} to {balance::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>+$%{_money}%" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>+$%{_money}%" to player
                 else if {_num} is between 31 and 35:
                     give player 2 {@rebirth_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>2 REBIRTH Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>2 REBIRTH Crate Keys" to player
                 else if {_num} is between 36 and 40:
                     give player 3 {@zop_key}
-                    send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 ZOP Crate Keys" to player
+                    send "<##1063e8>&lCRATES &7You've won <##2273f5>3 ZOP Crate Keys" to player
                 if {_num} is between 41 and 50:
                     add 3 to {multiplier::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won a <##81aef7>+8 Multiplier" to player
+                    send "<##1063e8>&lCRATES &7You've won a <##2273f5>+8 Multiplier" to player
                 if {_num} is between 51 and 60:
                     add 2 to {multiplier::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won a <##81aef7>+6 Multiplier" to player
+                    send "<##1063e8>&lCRATES &7You've won a <##2273f5>+6 Multiplier" to player
                 if {_num} is between 61 and 80:
                     add 1 to {multiplier::%player's uuid%}
-                    send "<##4b8bf2>&lCRATES &7You've won a <##81aef7>+5 Multiplier" to player
+                    send "<##1063e8>&lCRATES &7You've won a <##2273f5>+5 Multiplier" to player
                 if {_num} is between 15 and 15:
                     make console execute command "voucher rank %{middle_rank_name}% %player%"
 		else:

@@ -14,7 +14,7 @@ on guild message received seen by "{@bot}":
 		replace all "@" in {_message} with ""
 		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
 		if {_message} is not "":
-			broadcast "&b&lDISCORD &7%event-member%: <##81aef7>%{_message}%"
+			broadcast "&b&lDISCORD &7%event-member%: <##2273f5>%{_message}%"
 	if discord id of event-channel is "{@log-channel}":
 		make console execute command "%event-message%"
 
@@ -51,7 +51,7 @@ command /suggest <text>:
 	cooldown message: &cThis command is on cooldown.
 	usage: &cUsage: /suggest <suggestion>
 	trigger:
-		send "<##4b8bf2>&lSUGGESTION&7 Your suggestion has been submitted."
+		send "<##1063e8>&lSUGGESTION&7 Your suggestion has been submitted."
 		create embed:
 			set the colour of the embed to purple
 			add field named "Player" with value "%player%" to embed
@@ -61,4 +61,4 @@ command /suggest <text>:
 
 command /discord:
 	trigger:
-		send "<##4b8bf2>&lDISCORD&7 Click <link:https://discord.gg/8BQd8m2Z6B><##81aef7>here<reset>&7 to join the discord."
+		send "<##1063e8>&lDISCORD&7 Click <link:https://discord.gg/8BQd8m2Z6B><##2273f5>here<reset>&7 to join the discord."
