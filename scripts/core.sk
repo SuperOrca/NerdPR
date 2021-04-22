@@ -108,7 +108,7 @@ command /sc <text>:
 
 command /ad:
 	trigger:
-		send "&f&lAD&7 Click <suggest command:test>&fhere<reset>&7 to get the advertisment command you can use in the hub."
+		send "&f&lAD&7 Click <suggest command:/ad NerdPR Custom Prison Server>&fhere<reset>&7 to get the advertisment command you can use in the hub."
 
 every 5 minutes:
 	delete {reaction::*}
