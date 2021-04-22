@@ -235,3 +235,7 @@ command /forceleaderboards:
 on command:
 	command is "minecraft:me"
 	cancel event
+
+command /levelsneeded:
+	trigger:
+		send "<##4b8bf2>&lLEVELS<##81aef7> &7You need <##81aef7>%(({prestige::%{_u}%} ? 0) * 5 + 10)%<##81aef7> levels&7 to prestige."
