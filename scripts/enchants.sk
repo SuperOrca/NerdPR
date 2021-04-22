@@ -20,7 +20,7 @@ function updatePickaxe(t: item) :: item:
 	loop ((size of {_enchs::*})/2) times:
 		set {_level} to {_enchs::%loop-value * 2 - 1%}
 		set {_enchant} to {_enchs::%loop-value * 2%}
-		set line loop-value of {_t}'s lore to "&7%{_enchant}%&7 %{_level}%"
+		set line loop-value of {_t}'s lore to "&7%{_enchant}%&7 %insertComma({_level})%"
 	enchant {_t} with "efficiency %getTag({_t}, ""efficiency"")%" parsed as a enchantment type
 	return {_t}
 
@@ -105,7 +105,7 @@ function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
 	set {_level} to getTag({_tool}, {_enchant})
 	set {_max} to enchantMax({_enchant})
 
-	set {_item} to {_item} named "<##81aef7>%{_enchant} in proper case% &7(%{_level}%/%{_max}%)" with lore "" and "&7Price: <##81aef7>$%formatNumber(enchantPrice({_enchant}, {_level}))%" and "" and "<##81aef7>Click &7to buy one." and "<##81aef7>MMB &7to buy as many as possible."
+	set {_item} to {_item} named "<##81aef7>%{_enchant} in proper case% &7(%{_level}%/%insertComma({_max})%)" with lore "" and "&7Price: <##81aef7>$%formatNumber(enchantPrice({_enchant}, {_level}))%" and "" and "<##81aef7>Click &7to buy one." and "<##81aef7>MMB &7to buy as many as possible."
 	format gui slot {_slot} of {_p} with {_item} to run:
 		upgradePickaxe({_p}, {_tool}, {_enchant}, {_level}, {_max}, "%gui-click-type%")
 
