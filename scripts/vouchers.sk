@@ -1,14 +1,14 @@
-command /voucher [<text>] [<text>] <player=%player%>:
+command /voucher <text> <text> <integer> <player=%player%>:
 	permission: op
 	permission message: &cNo Permission.
 	trigger:
 		if arg-1 is "rank":
-			give shiny paper with nbt "{rank:%arg-2%}" named "<##81aef7>Rank Voucher (%arg-2 in uppercase%)" to arg-3
-			send "<##4b8bf2>&lVOUCHER&7 You have given <##81aef7>%arg-3%&7 a <##81aef7>%arg-2 in uppercase%&7 voucher."
+			give arg-3 of shiny paper with nbt "{rank:%arg-2%}" named "<##81aef7>Rank Voucher (%arg-2 in uppercase%)" to arg-4
+			send "<##4b8bf2>&lVOUCHER&7 You have given <##81aef7>%arg-4%&7 a <##81aef7>%arg-3%<##81aef7> %arg-2 in uppercase%&7 voucher."
 		else if arg-1 is "money":
 			set {_arg2} to arg-2 parsed as a number
-			give shiny paper with nbt "{money:%arg-2%}" named "<##81aef7>Money Voucher ($%formatNumber({_arg2})%)" to arg-3
-			send "<##4b8bf2>&lVOUCHER&7 You have given <##81aef7>%arg-3%&7 a <##81aef7>$%formatNumber({_arg2})%&7 voucher."
+			give arg-3 of shiny paper with nbt "{money:%arg-2%}" named "<##81aef7>Money Voucher ($%formatNumber({_arg2})%)" to arg-4
+			send "<##4b8bf2>&lVOUCHER&7 You have given <##81aef7>%arg-4%&7 a <##81aef7>%arg-3%<##81aef7> $%formatNumber({_arg2})%&7 voucher."
 		else:
 			send ""
 			send "&8/&7voucher &bmoney (amount)"
