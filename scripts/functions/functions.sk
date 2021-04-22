@@ -77,3 +77,7 @@ function progressBar(val: number, max: number, barsize: number, fill_first: text
 	loop {_barsize} times:
 		set {_bar} to "%{_bar} ? """"%|"
 	return "%{_fill_first}%%((first floor({_barsize} * ({_val}/{_max})) characters of {_bar}) ? """")%%{_fill_second}%%(last {_barsize} - floor({_barsize} * ({_val}/{_max})) characters of {_bar}) ? """"%"
+
+function broadcast(input: text) :: text:
+	send player title "%colored input%"
+	broadcast "<##4b8bf2>&lBROADCAST &f%colored input%"
