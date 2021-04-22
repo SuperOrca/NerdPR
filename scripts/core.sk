@@ -21,27 +21,27 @@ on tab complete:
 
 function updateScoreboard(p: player):
 	set {_u} to {_p}'s uuid
-	set title of {_p}'s scoreboard to "&f&lNERDPR &7&o(%size of all players%)"
+	set title of {_p}'s scoreboard to "<##4b8bf2>&lNERDPR &7&o(%size of all players%)"
 	set line 15 of {_p}'s scoreboard to ""
 	set {_level} to insertComma({level::%{_u}%} ? 0)
-	set line 14 of {_p}'s scoreboard to "&8| &7Level: &f%{_level}%"
+	set line 14 of {_p}'s scoreboard to "&8| &7Level: <##81aef7>%{_level}%"
 	set {_prestige} to insertComma({prestige::%{_u}%} ? 0)
-	set line 13 of {_p}'s scoreboard to "&8| &7Prestige: &f%{_prestige}%"
+	set line 13 of {_p}'s scoreboard to "&8| &7Prestige: <##81aef7>%{_prestige}%"
 	set {_rebirth} to insertComma({rebirth::%{_u}%} ? 0)
-	set line 12 of {_p}'s scoreboard to "&8| &7Rebirth: &f%{_rebirth}%"
+	set line 12 of {_p}'s scoreboard to "&8| &7Rebirth: <##81aef7>%{_rebirth}%"
 	set line 11 of {_p}'s scoreboard to ""
 	set {_mined} to formatNumber({mined::%{_u}%} ? 0)
-	set line 10 of {_p}'s scoreboard to "&8| &7Mined: &f%{_mined}%"
+	set line 10 of {_p}'s scoreboard to "&8| &7Mined: <##81aef7>%{_mined}%"
 	set {_balance} to formatNumber({balance::%{_u}%} ? 0)
-	set line 9 of {_p}'s scoreboard to "&8| &7Balance: &f$%{_balance}%"
-	set line 8 of {_p}'s scoreboard to "&8| &7Multiplier: &f1x"
+	set line 9 of {_p}'s scoreboard to "&8| &7Balance: <##81aef7>$%{_balance}%"
+	set line 8 of {_p}'s scoreboard to "&8| &7Multiplier: <##81aef7>1x"
 	set line 7 of {_p}'s scoreboard to ""
 	set line 6 of {_p}'s scoreboard to "&7&onerdpr.minehut.gg"
 
 on join:
-	set join message to "&f%player%&7 joined the game."
+	set join message to "<##81aef7>%player%&7 joined the game."
 	if player's inventory does not contain diamond pickaxe:
-		give player updatePickaxe(diamond pickaxe named "&f&lPICKAXE" with nbt "{HideFlags:7b}")
+		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b}")
 	toggle scoreboard of player to on
 	loop all players:
 		updateScoreboard(loop-player)
@@ -55,7 +55,7 @@ command /getpick:
 	permission: staff.getpick
 	permission message: &cNo Permission.
 	trigger:
-		give player updatePickaxe(diamond pickaxe named "&f&lPICKAXE" with nbt "{HideFlags:7b}")
+		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b}")
 
 command /getmaxedpick:
 	permission: op
@@ -64,7 +64,7 @@ command /getmaxedpick:
 		give player updatePickaxe(diamond pickaxe named "&c&lADMIN PICKAXE" with nbt "{HideFlags:7b,efficiency:500,fortune:1000000,jump:1,flight:1,tokenfinder:500,keyfinder:5000,explosive:500,jackhammer:1000,chunk:5000,tsunami:10000}")
 
 on quit:
-	set quit message to "&f%player%&7 left the game."
+	set quit message to "<##81aef7>%player%&7 left the game."
 	loop all players:
 		updateScoreboard(loop-player)
 
@@ -82,7 +82,7 @@ on drop:
 
 command /playtime <player=%player%>:
 	trigger:
-		send "&f%arg-1%'s&7 playtime is &f%time played of arg-1%&7."
+		send "<##81aef7>%arg-1%'s&7 playtime is <##81aef7>%time played of arg-1%&7."
 
 command /reloadall:
 	permission: *
@@ -104,28 +104,28 @@ command /sc <text>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /sc <text>
 	trigger:
-		send "&7&lSTAFFCHAT &f%player% &7%arg-1%" to all players where [input has permission "staff.chat"]
+		send "&7&lSTAFFCHAT <##81aef7>%player% &7%arg-1%" to all players where [input has permission "staff.chat"]
 
 command /ad:
 	trigger:
-		send "&f&lAD&7 Click <suggest command:/ad NerdPR Custom Prison Server>&fhere<reset>&7 to get the advertisment command you can use in the hub."
+		send "<##4b8bf2>&lAD&7 Click <suggest command:/ad NerdPR Custom Prison Server><##81aef7>here<reset>&7 to get the advertisment command you can use in the hub."
 
 every 5 minutes:
 	delete {reaction::*}
 	set {reaction::word} to random element out of {words::*}
 	set {reaction::start} to now
-	broadcast "&f&lREACTION&7 Type &f%{reaction::word}%&7 to win!"
+	broadcast "<##4b8bf2>&lREACTION&7 Type <##81aef7>%{reaction::word}%&7 to win!"
 
 on chat:
 	event is not canceled
 	if {reaction::word} is set:
 		if message is {reaction::word}:
 			cancel event
-			broadcast "&f&lREACTION&7 &f%player%&7 typed &f%{reaction::word}%&7 in &f%time since {reaction::start}%&7."
+			broadcast "<##4b8bf2>&lREACTION&7 <##81aef7>%player%&7 typed <##81aef7>%{reaction::word}%&7 in <##81aef7>%time since {reaction::start}%&7."
 			delete {reaction::*}
 
 function updateLeaderboards():
-	broadcast "&f&lLEADERBOARDS&7 Leaderboards are not updating. This may cause lag!"
+	broadcast "<##4b8bf2>&lLEADERBOARDS&7 Leaderboards are not updating. This may cause lag!"
 	set {_sorted::*} to sort((indices of {mined::*}), {mined::*})
 	set {_total} to formatNumber(sum({mined::*}))
 	set {_n} to 0
@@ -133,7 +133,7 @@ function updateLeaderboards():
 		add 1 to {_n}
 		set {_p} to loop-value parsed as a offline player
 		set {_v} to formatNumber({mined::%loop-value%})
-		make console execute command "hd setline mined %{_n} + 1% &7%{_n}%. &f%{_p}% &7%{_v}%"
+		make console execute command "hd setline mined %{_n} + 1% &7%{_n}%. <##81aef7>%{_p}% &7%{_v}%"
 		if {_n} >= 10:
 			exit loop
 	make console execute command "hd setline mined 12 &7&o(( Total: %{_total}% ))"

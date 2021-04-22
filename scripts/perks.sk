@@ -11,11 +11,11 @@ command /glow:
 	cooldown message: &cThis command is on cooldown.
 	trigger:
 		if metadata "glow" of player is set:
-			send "&f&lPERKS &7You can no longer &eglow&7."
+			send "<##4b8bf2>&lPERKS &7You can no longer &eglow&7."
 			remove glowing from player
 			delete metadata "glow" of player
 		else:
-			send "&f&lPERKS &7You can now &eglow&7."
+			send "<##4b8bf2>&lPERKS &7You can now &eglow&7."
 			apply glowing without particles to player for 999 days
 			set metadata "glow" of player to true
 
@@ -26,10 +26,10 @@ command /rainbow:
 	cooldown message: &cThis command is on cooldown.
 	trigger:
 		if metadata "rainbow" of player is set:
-			send formatted "&f&lPERKS &7You can no longer talk in %rainbow(""rainbow"")%&7."
+			send formatted "<##4b8bf2>&lPERKS &7You can no longer talk in %rainbow(""rainbow"")%&7."
 			delete metadata "rainbow" of player
 		else:
-			send formatted "&f&lPERKS &7You can now talk in %rainbow(""rainbow"")%&7."
+			send formatted "<##4b8bf2>&lPERKS &7You can now talk in %rainbow(""rainbow"")%&7."
 			set metadata "rainbow" of player to true
 
 command /nv:
@@ -37,11 +37,11 @@ command /nv:
 	cooldown message: &cThis command is on cooldown.
 	trigger:
 		if metadata "nv" of player is set:
-			send "&f&lPERKS &7You no longer have &dnight vision&7."
+			send "<##4b8bf2>&lPERKS &7You no longer have &dnight vision&7."
 			remove night vision from player
 			delete metadata "nv" of player
 		else:
-			send "&f&lPERKS &7You now have &dnight vision&7."
+			send "<##4b8bf2>&lPERKS &7You now have &dnight vision&7."
 			apply night vision without particles to player for 999 days
 			set metadata "nv" of player to true
 
@@ -52,7 +52,7 @@ command /slap <player>:
 	cooldown message: &cThis command is on cooldown.
 	usage: &c/slap <player>
 	trigger:
-		broadcast "&f%player% &7slapped &f%arg-1%&7. &cOuch!"
+		broadcast "<##81aef7>%player% &7slapped <##81aef7>%arg-1%&7. &cOuch!"
 
 command /kiss <player>:
 	permission: perks.kiss
@@ -61,12 +61,12 @@ command /kiss <player>:
 	cooldown message: &cThis command is on cooldown.
 	usage: &c/kiss <player>
 	trigger:
-		broadcast "&f%player% &7kissed &f%arg-1%&7. &dMWAH!"
+		broadcast "<##81aef7>%player% &7kissed <##81aef7>%arg-1%&7. &dMWAH!"
 
 function applyTag(p: player, tag: text):
 	set {_u} to {_p}'s uuid
 	close {_p}'s inventory
-	send "&f&lTAGS &7Applied tag &r%{_tag}%&7." to {_p}
+	send "<##4b8bf2>&lTAGS &7Applied tag &r%{_tag}%&7." to {_p}
 	set {suffix::%{_u}%} to {_tag}
 
 command /tags:
@@ -75,7 +75,7 @@ command /tags:
 	cooldown: 2 seconds
 	cooldown message: &cThis command is on cooldown.
 	trigger:
-		open virtual chest with 4 rows named "&f&lTAGS" to player
+		open virtual chest with 4 rows named "<##4b8bf2>&lTAGS" to player
 		fillSlots(player, 4)
 		format gui slot 10 of player with name tag named "&2&lRich" to run:
 			applyTag(player, "&2&lRich")
@@ -95,8 +95,8 @@ command /tags:
 			applyTag(player, "&5&lChad")
 		format gui slot 20 of player with name tag named "&3&lOnwer" to run:
 			applyTag(player, "&3&lOnwer")
-		format gui slot 21 of player with name tag named "&f&lBALD" to run:
-			applyTag(player, "&f&lBALD")
+		format gui slot 21 of player with name tag named "<##4b8bf2>&lBALD" to run:
+			applyTag(player, "<##4b8bf2>&lBALD")
 		format gui slot 22 of player with name tag named "&a&lSmart" to run:
 			applyTag(player, "&a&lSmart")
 		format gui slot 23 of player with name tag named "&9&lSmoll Brain" to run:
@@ -106,4 +106,4 @@ command /tags:
 		format gui slot 35 of player with barrier named "&cRemove Tag" to run:
 			close player's inventory
 			delete {suffix::%player's uuid%}
-			send "&f&lTAGS &7Removed your current tag."
+			send "<##4b8bf2>&lTAGS &7Removed your current tag."
