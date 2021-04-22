@@ -9,7 +9,7 @@ on right click:
 	if "%region at clicked block%" contains "iq_crate":
 		if player's held item is {@iq_key}:
 			if player is sneaking:	
-				set {_amount} to amount of player's tool that exist
+				set {_amount} to amount of player's tool
 				loop {_amount} times:
 					remove 1 of player's tool from player's tool
 					set {_num} to random integer between 1 and 100
@@ -65,7 +65,7 @@ on right click:
 	if "%region at clicked block%" contains "zop_crate":
 		if player's held item is {@zop_key}:
 			if player is sneaking:	
-				set {_amount} to amount of player's tool that exist
+				set {_amount} to amount of player's tool
 				loop {_amount} times:
 					set {_num} to random integer between 1 and 100
 					if {_num} is between 1 and 14:
@@ -123,7 +123,7 @@ on right click:
 	if "%region at clicked block%" contains "rebirth_crate":
 		if player's held item is {@rebirth_key}:
 			if player is sneaking:	
-				set {_amount} to amount of player's tool that exist
+				set {_amount} to amount of player's tool
 				loop {_amount} times:
 					set {_num} to random integer between 1 and 100
 					if {_num} is between 1 and 14:
