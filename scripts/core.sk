@@ -12,6 +12,22 @@ on load:
 	set {words::10} to "mouse"
 	set {words::11} to "webcam"
 
+	delete {mines::*}
+	set {mines::1} to {spawn}
+	set {mines::2} to location(-366, 85, -517, world "world")
+	set {mines::3} to location(-923, 69, -450, world "world")
+
+command /mine:
+	trigger:
+		open virtual chest with 3 rows named "<##4b8bf2>&lMINES" to player
+		fillSlots(player, 3)
+		format gui slot 10 of player with white terracotta named "&a&lMINE 1" to run:
+			teleport player to {mines::1}
+		format gui slot 11 of player with yellow terracotta named "&c&lMINE 2"
+		if {prestige::%player's uuid%} >= 2:
+			format gui slot 11 of player with yellow terracotta named "&a&lMINE 2" to run:
+				teleport player to {mines::2}
+
 on tab complete:
 	if event-string is "/skript" or "/sk":
 		set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"

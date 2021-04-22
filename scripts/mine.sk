@@ -1,5 +1,6 @@
 function getPrice(b: block) :: number:
 	return 500 if {_b} is white terracotta
+	return 1000 if {_b} is yellow terracotta
 	return 0
 
 function blockValidator(b: block) :: boolean:
@@ -44,9 +45,9 @@ on break:
 		set metadata "nuker_yes" of player to true
 		wait 5 seconds
 		if metadata "nuker" of player > 150:
-			send "&7&lANTICHEAT &8| &" to all players where [input has permission "staff"]
+			send "&7&lANTICHEAT &8| <##81aef7>%player%&7 might be using <##81aef7>Nuker&7." to all players where [input has permission "staff"]
 		if metadata "nuker" of player > 350:
-			send "you wouldve gotten banned"
+			make console execute command "ban %player% Nuker -s"
 		delete metadata "nuker" of player
 		delete metadata "nuker_yes" of player
 
