@@ -14,7 +14,7 @@ on guild message received seen by "{@bot}":
 		replace all "@" in {_message} with ""
 		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
 		if {_message} is not "":
-			broadcast "&b&lDISCORD &7%event-member%: <##81aef7>%{_message}%"
+			broadcast "&7%event-member%&7: %{_message}%"
 	if discord id of event-channel is "{@log-channel}":
 		make console execute command "%event-message%"
 
@@ -34,13 +34,15 @@ on load:
 		mark "{@bot}" as playing "nerdpr.minehut.gg"
 
 on join:
-	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 	wait 1 tick
+	player is online
+	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
 
 on quit:
-	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 	wait 1 tick
+	player is online
+	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
 	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
 
 on command:

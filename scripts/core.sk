@@ -56,6 +56,8 @@ function updateScoreboard(p: player):
 
 on join:
 	set join message to "<##81aef7>%player%&7 joined the game."
+	wait 1 tick
+	player is online
 	if player's inventory does not contain diamond pickaxe:
 		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b}")
 	toggle scoreboard of player to on
@@ -63,9 +65,12 @@ on join:
 		updateScoreboard(loop-player)
 
 on quit:
-	wait 1 tick
-	loop all players:
-		updateScoreboard(loop-player)
+	if {ban::%player's uuid%::type} is not set:
+		set quit message to "<##81aef7>%player%&7 left the game."
+		loop all players:
+			updateScoreboard(loop-player)
+	else:
+		set quit message to ""
 
 command /getpick:
 	permission: staff.getpick
@@ -78,11 +83,6 @@ command /getmaxedpick:
 	permission message: &cNo Permission.
 	trigger:
 		give player updatePickaxe(diamond pickaxe named "&c&lADMIN PICKAXE" with nbt "{HideFlags:7b,efficiency:500,fortune:1000000,jump:1,flight:1,tokenfinder:500,keyfinder:5000,explosive:500,jackhammer:1000,chunk:5000,tsunami:10000}")
-
-on quit:
-	set quit message to "<##81aef7>%player%&7 left the game."
-	loop all players:
-		updateScoreboard(loop-player)
 
 on item damage:
 	cancel event
