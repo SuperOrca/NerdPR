@@ -133,7 +133,7 @@ function updateLeaderboards():
 		add 1 to {_n}
 		set {_p} to loop-value parsed as a offline player
 		set {_v} to formatNumber({mined::%loop-value%})
-		make console execute command "hd setline mined %{_n} + 1% &7[%{_n}%.]. <##81aef7>%{_p}% &7(%{_v}%)"
+		make console execute command "hd setline mined %{_n} + 1% &7[%{_n}%.] <##81aef7>%{_p}% &7(%{_v}%)"
 		if {_n} >= 10:
 			exit loop
 	make console execute command "hd setline mined 12 &7&o(( Total: %{_total}% ))"
