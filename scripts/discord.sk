@@ -10,7 +10,9 @@ options:
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@chat-channel}":
 		set {_message} to "%event-message%"
-		replace all "&" and "*" and "~" and "`" and "_" and ">" and "<" and "@" in {_message} with ""
+		replace all ">" and "<" in {_message} with ""
+		replace all "@" in {_message} with ""
+		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
 		if {_message} is not "":
 			broadcast "&b&lDISCORD &7%event-member%: &f%{_message}%"
 	if discord id of event-channel is "{@log-channel}":
@@ -19,7 +21,9 @@ on guild message received seen by "{@bot}":
 on chat:
 	event is not canceled
 	set {_message} to message
-	replace all "&" and "*" and "~" and "`" and "_" and ">" and "<" and "@" in {_message} with ""
+	replace all ">" and "<" in {_message} with ""
+	replace all "@" in {_message} with ""
+	replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
 	send "**%player%**: %{_message}%" to channel with id "{@chat-channel}" with "{@bot}"
 
 on load:
