@@ -130,7 +130,7 @@ command /ad:
 	trigger:
 		send "<##4b8bf2>&lAD&7 Click <suggest command:/ad NerdPR Custom Prison Server><##81aef7>here<reset>&7 to get the advertisment command you can use in the hub."
 
-every 5 minutes:
+every 5.1 minutes:
 	delete {reaction::*}
 	set {reaction::word} to random element out of {words::*}
 	set {reaction::start} to now
