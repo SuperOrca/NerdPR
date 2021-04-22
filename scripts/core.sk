@@ -17,16 +17,25 @@ on load:
 	set {mines::2} to location(-366, 85, -517, world "world")
 	set {mines::3} to location(-923, 69, -450, world "world")
 
+	delete {alerts::*}
+	add "Remember to join our discord. (/discord)" to {alerts::*}
+	add "Right-click your pickaxe to enchant!" to {alerts::*}
+
 command /mine:
+	aliases: /mines
 	trigger:
 		open virtual chest with 3 rows named "<##4b8bf2>&lMINES" to player
 		fillSlots(player, 3)
-		format gui slot 10 of player with white terracotta named "&a&lMINE 1" to run:
+		format gui slot 10 of player with white terracotta named "&a&lMINE 1" with lore "" and "&7&o(( Requires no prestige. ))" to run:
 			teleport player to {mines::1}
-		format gui slot 11 of player with yellow terracotta named "&c&lMINE 2"
+		format gui slot 11 of player with yellow terracotta named "&c&lMINE 2" with lore "" and "&7&o(( Requires prestige 2. ))"
+		format gui slot 12 of player with blue terracotta named "&c&lMINE 3" with lore "" and "&7&o(( Requires prestige 5. ))"
 		if {prestige::%player's uuid%} >= 2:
-			format gui slot 11 of player with yellow terracotta named "&a&lMINE 2" to run:
+			format gui slot 11 of player with yellow terracotta named "&a&lMINE 2" with lore "" and "&7&o(( Requires prestige 2. ))" to run:
 				teleport player to {mines::2}
+		if {prestige::%player's uuid%} >= 5:
+			format gui slot 12 of player with blue terracotta named "&a&lMINE 3" with lore "" and "&7&o(( Requires prestige 5. ))" to run:
+				teleport player to {mines::3}
 
 on tab complete:
 	if event-string is "/skript" or "/sk":
@@ -34,6 +43,11 @@ on tab complete:
 		set tab completions for position 2 to all scripts
 	if event-string is "/voucher":
 		set tab completions for position 1 to "money" and "rank"
+
+function getMulti(p: player) :: number:
+	set {_u} to {_p}'s uuid
+	set {_prestige} to {prestige::%{_u}%} * 0.01
+	return 1 + {_prestige}
 
 function updateScoreboard(p: player):
 	set {_u} to {_p}'s uuid
@@ -50,9 +64,28 @@ function updateScoreboard(p: player):
 	set line 10 of {_p}'s scoreboard to "&8| &7Mined: <##81aef7>%{_mined}%"
 	set {_balance} to formatNumber({balance::%{_u}%} ? 0)
 	set line 9 of {_p}'s scoreboard to "&8| &7Balance: <##81aef7>$%{_balance}%"
-	set line 8 of {_p}'s scoreboard to "&8| &7Multiplier: <##81aef7>1x"
+	set line 8 of {_p}'s scoreboard to "&8| &7Multiplier: <##81aef7>%getMulti({_p})%x"
 	set line 7 of {_p}'s scoreboard to ""
 	set line 6 of {_p}'s scoreboard to "&7&onerdpr.minehut.gg"
+
+command /stats <player=%player%>:
+	trigger:
+		set {_p} to arg-1
+		set {_u} to arg-1's uuid
+		send "&8&m---------------------------"
+		set {_level} to insertComma({level::%{_u}%} ? 0)
+		send "&8| &7Level: <##81aef7>%{_level}%"
+		set {_prestige} to insertComma({prestige::%{_u}%} ? 0)
+		send "&8| &7Prestige: <##81aef7>%{_prestige}%"
+		set {_rebirth} to insertComma({rebirth::%{_u}%} ? 0)
+		send "&8| &7Rebirth: <##81aef7>%{_rebirth}%"
+		send ""
+		set {_mined} to formatNumber({mined::%{_u}%} ? 0)
+		send "&8| &7Mined: <##81aef7>%{_mined}%"
+		set {_balance} to formatNumber({balance::%{_u}%} ? 0)
+		send "&8| &7Balance: <##81aef7>$%{_balance}%"
+		send "&8| &7Multiplier: <##81aef7>%getMulti({_p})%x"
+		send "&8&m---------------------------"
 
 on join:
 	set join message to "<##81aef7>%player%&7 joined the game."
@@ -94,6 +127,7 @@ on offhand switch:
 	cancel event
 
 on drop:
+	player is not op
 	cancel event
 
 command /playtime <player=%player%>:
@@ -115,6 +149,10 @@ on pressure plate:
 	push player forwards at speed 2.5
 	push player upwards at speed 1.5
 
+command /multi <player=%player%>:
+	trigger:
+		send "<##4b8bf2>&lMULTI<##81aef7> %arg-1%<##81aef7>'s&7 multiplier is <##81aef7>%getMulti(arg-1)%&7."
+
 command /rules:
 	trigger:
 		send centered "don't be a bitch" to player
@@ -124,11 +162,14 @@ command /sc <text>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /sc <text>
 	trigger:
-		send "&7&lSTAFFCHAT <##81aef7>%player% &7%arg-1%" to all players where [input has permission "staff.chat"]
+		send "<##4b8bf2>&lSTAFFCHAT <##81aef7>%player% &f%arg-1%" to all players where [input has permission "staff.chat"]
 
 command /ad:
 	trigger:
 		send "<##4b8bf2>&lAD&7 Click <suggest command:/ad NerdPR Custom Prison Server><##81aef7>here<reset>&7 to get the advertisment command you can use in the hub."
+
+every 4.9 minutes:
+	make console execute command "broadcast %random element out of {alerts::*}%"
 
 every 5.1 minutes:
 	delete {reaction::*}
@@ -157,6 +198,30 @@ function updateLeaderboards():
 		if {_n} >= 10:
 			exit loop
 	make console execute command "hd setline mined 12 &7&o(( Total: %{_total}% ))"
+
+	set {_sorted::*} to sort((indices of {balance::*}), {balance::*})
+	set {_total} to formatNumber(sum({balance::*}))
+	set {_n} to 0
+	loop {_sorted::*}:
+		add 1 to {_n}
+		set {_p} to loop-value parsed as a offline player
+		set {_v} to formatNumber({balance::%loop-value%})
+		make console execute command "hd setline balance %{_n} + 1% &7[%{_n}%] <##81aef7>%{_p}% &7(%{_v}%)"
+		if {_n} >= 10:
+			exit loop
+	make console execute command "hd setline balance 12 &7&o(( Total: %{_total}% ))"
+
+	set {_sorted::*} to sort((indices of {prestige::*}), {prestige::*})
+	set {_total} to formatNumber(sum({prestige::*}))
+	set {_n} to 0
+	loop {_sorted::*}:
+		add 1 to {_n}
+		set {_p} to loop-value parsed as a offline player
+		set {_v} to formatNumber({prestige::%loop-value%})
+		make console execute command "hd setline prestige %{_n} + 1% &7[%{_n}%] <##81aef7>%{_p}% &7(%{_v}%)"
+		if {_n} >= 10:
+			exit loop
+	make console execute command "hd setline prestige 12 &7&o(( Total: %{_total}% ))"
 
 every 10 minutes:
 	updateLeaderboards()
