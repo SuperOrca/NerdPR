@@ -152,7 +152,6 @@ command /ec <player=%player%>:
 		send "<##4b8bf2>&lSTAFF&7 You are viewing <##81aef7>%arg-1%'s&7 enderchest."
 
 function alert(input: text):
-	send title "<##4b8bf2>%{_input}%" to all players for 5 seconds
 	broadcast "&7"
 	broadcast "<##4b8bf2>&lBROADCAST &f%{_input}%"
 	broadcast "&7"

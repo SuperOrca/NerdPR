@@ -231,3 +231,7 @@ command /forceleaderboards:
 	permission message: &cNo Permission.
 	trigger:
 		updateLeaderboards()
+
+on command:
+	command is "minecraft:me"
+	cancel event
