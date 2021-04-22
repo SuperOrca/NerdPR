@@ -1,6 +1,7 @@
 function getPrice(b: block) :: number:
 	return 500 if {_b} is white terracotta
 	return 1000 if {_b} is yellow terracotta
+	return 1500 if {_b} is blue terracotta
 	return 0
 
 function blockValidator(b: block) :: boolean:
@@ -45,7 +46,7 @@ on break:
 		set metadata "nuker_yes" of player to true
 		wait 5 seconds
 		if metadata "nuker" of player > 150:
-			send "&7&lANTICHEAT &8| <##81aef7>%player%&7 might be using <##81aef7>Nuker&7." to all players where [input has permission "staff"]
+			send "&7&lANTICHEAT &8| <##81aef7>%player%&7 might be using <##81aef7>Nuker&7. (Blocks: %round((metadata "nuker" of player)/5)%)" to all players where [input has permission "staff"]
 		if metadata "nuker" of player > 350:
 			make console execute command "ban %player% Nuker -s"
 		delete metadata "nuker" of player
@@ -55,17 +56,15 @@ on break:
 	set {_price} to getPrice(event-block)
 	set {_fort} to random integer between 1 and (getTag(player's tool, "fortune") + 1)
 	set {_total} to {_price} * {_fort}
+	set {_total} to {_total} * getMulti(player)
 	add {_total} to {balance::%player's uuid%}
 	add 1 to {xp::%player's uuid%}
 
 	set {_loc} to event-block's location
-	set {_x} to x-loc of event-block
-	set {_y} to y-loc of event-block
-	set {_z} to z-loc of event-block
 
 	if (random integer between 1 and 3000) <= getTag(player's tool, "jackhammer"):
-		set {_loc1} to location({_x} - 2, {_y}, {_z} - 2)
-		set {_loc2} to location({_x} + 2, {_y}, {_z} + 2)
+		set {_loc1} to {_loc} ~ vector(-2, 0, -2)
+		set {_loc2} to {_loc} ~ vector(2, 0, 2)
 		loop all blocks within {_loc1} and {_loc2}:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
