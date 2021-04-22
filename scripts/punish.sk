@@ -1,5 +1,5 @@
 options:
-	prefix: &7&lPUNISH &8|
+	prefix: <##4b8bf2>&lPUNISH
 
 on chat:
 	if event is not canceled:
