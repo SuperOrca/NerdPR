@@ -238,4 +238,4 @@ on command:
 
 command /levelsneeded:
 	trigger:
-		send "<##4b8bf2>&lLEVELS<##81aef7> &7You need <##81aef7>%(({prestige::%player's uuid%} ? 0) * 5 + 10)%<##81aef7> levels&7 to prestige."
+		send "<##f2b84b>&lLEVELS &7You need <##f7b481>%(({prestige::%player's uuid%} ? 0) * 5 + 10)%<##f7b481> levels&7 to prestige."
