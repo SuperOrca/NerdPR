@@ -28,7 +28,7 @@ command /withdraw <integer>:
 					remove arg-1 from {balance::%player's uuid%}
 					updateScoreboard(player)
 				else:
-					send "&cYou cannot withdraw more than $1b."
+					send "&cYou cannot withdraw more than $100B."
 			else:
 				send "&cYou must withdraw atleast $1k."
 		else:

@@ -23,6 +23,7 @@ on load:
 	set {mines::1} to {spawn}
 	set {mines::2} to location(-366, 85, -517, world "world")
 	set {mines::3} to location(-923, 69, -450, world "world")
+	set {mines:4} to location(-1439, 78, -345, world "world")
 
 	delete {alerts::*}
 	add "Remember to join our discord. (/discord)" to {alerts::*}
@@ -33,16 +34,20 @@ command /mine:
 	trigger:
 		open virtual chest with 3 rows named "<##4b8bf2>&lMINES" to player
 		fillSlots(player, 3)
-		format gui slot 10 of player with white terracotta named "&a&lMINE 1" with lore "" and "&7&o(( Requires no prestige. ))" to run:
+		format gui slot 10 of player with white terracotta named "&a&lMINE 1" with lore "" and "&7&o(( Requires no prestige ))" to run:
 			teleport player to {mines::1}
-		format gui slot 11 of player with yellow terracotta named "&c&lMINE 2" with lore "" and "&7&o(( Requires prestige 2. ))"
-		format gui slot 12 of player with blue terracotta named "&c&lMINE 3" with lore "" and "&7&o(( Requires prestige 5. ))"
+		format gui slot 11 of player with yellow terracotta named "&c&lMINE 2" with lore "" and "&7&o(( Requires prestige 2 ))"
+		format gui slot 12 of player with blue terracotta named "&c&lMINE 3" with lore "" and "&7&o(( Requires prestige 5 ))"
+		format gui slot 13 of player with green terracotta named "&c&lMINE 4" with lore "" and "&7&o(( Requires prestige 10 ))"
 		if {prestige::%player's uuid%} >= 2:
-			format gui slot 11 of player with yellow terracotta named "&a&lMINE 2" with lore "" and "&7&o(( Requires prestige 2. ))" to run:
+			format gui slot 11 of player with yellow terracotta named "&a&lMINE 2" with lore "" and "&7&o(( Requires prestige 2 ))" to run:
 				teleport player to {mines::2}
 		if {prestige::%player's uuid%} >= 5:
-			format gui slot 12 of player with blue terracotta named "&a&lMINE 3" with lore "" and "&7&o(( Requires prestige 5. ))" to run:
+			format gui slot 12 of player with blue terracotta named "&a&lMINE 3" with lore "" and "&7&o(( Requires prestige 5 ))" to run:
 				teleport player to {mines::3}
+		if {prestige::%player's uuid%} >= 10:
+			format gui slot 13 of player with green terracotta named "&a&lMINE 4" with lore "" and "&7&o(( Requires prestige 10 ))" to run:
+				teleport player to {mines::4}
 
 on tab complete:
 	if event-string is "/skript" or "/sk":
