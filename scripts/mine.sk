@@ -1,3 +1,8 @@
+options:
+	bot: NerdPR
+
+	anticheat-log: 835180339492028417
+
 function getPrice(b: block) :: number:
 	return 500 if {_b} is white terracotta
 	return 1000 if {_b} is yellow terracotta
@@ -47,7 +52,7 @@ on break:
 		wait 5 seconds
 		if metadata "nuker" of player > 150:
 			send "&7&lANTICHEAT &8| <##81aef7>%player%&7 might be using <##81aef7>Nuker&7. (BPS: %((metadata ""nuker"" of player))/5%&7)" to all players where [input has permission "staff"]
-			DiscordLog("anticheat", "`%player%` might be using **Nuker**. (BPS: %((metadata ""nuker"" of player))/5%)")
+			send "`%player%` might be using **Nuker**. (BPS: %((metadata ""nuker"" of player))/5%)" to channel with id "{@anticheat-log}" with {@bot}
 		if metadata "nuker" of player > 350:
 			make console execute command "ban %player% Nuker -s"
 		delete metadata "nuker" of player
