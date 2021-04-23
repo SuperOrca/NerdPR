@@ -23,7 +23,7 @@ on load:
 	set {mines::1} to {spawn}
 	set {mines::2} to location(-366, 85, -517, world "world")
 	set {mines::3} to location(-923, 69, -450, world "world")
-	set {mines:4} to location(-1439, 78, -345, world "world")
+	set {mines::4} to location(-1446, 79, -434, world "world")
 
 	delete {alerts::*}
 	add "Remember to join our discord. (/discord)" to {alerts::*}
