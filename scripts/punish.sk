@@ -110,9 +110,9 @@ command /tempmute <offline player> <text> <text>:
 		set {mute::%arg-1's uuid%::reason} to {_reason}
 		send "{@prefix} &7You were tempmuted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to arg-1
 		if arg-3 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was tempmuted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
-			broadcast "{@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
+			broadcast "{@prefix} <##f78181>%arg-1%&7 was tempmuted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
 		discordLog("punish", "`%arg-1%` was tempmuted by `%player%` for **%{_reason}%** for **%{_time}%**")
 
 command /mute <offline player> <text>:

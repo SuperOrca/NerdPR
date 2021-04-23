@@ -9,19 +9,15 @@ options:
 	anticheat-channel: 835180339492028417
 	punishment-channel: 827365242589151292
 
-function discordLog(t: text, m: object, c: number = 828275594985734184):
+function discordLog(t: text, m: text):
 	if {_t} is "chat":
 		send {_msg} to channel with id "{@chat-channel}" with "{@bot}"
-	if {_t} is "log":
+	else if {_t} is "log":
 		send {_msg} to channel with id "{@log-channel}" with "{@bot}"
-	if {_t} is "suggestion":
-		send {_msg} to channel with id "{@suggestion-channel}" with "{@bot}"
-	if {_t} is "anticheat":
+	else if {_t} is "anticheat":
 		send {_msg} to channel with id "{@anticheat-channel}" with "{@bot}"
-	if {_t} is "punish":
+	else if {_t} is "punish":
 		send {_msg} to channel with id "{@punishment-channel}" with "{@bot}"
-	else:
-		send {_msg} to channel with id "%{_c}%" with "{@bot}"
 
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@chat-channel}":
@@ -75,7 +71,7 @@ command /suggest <text>:
 			set the colour of the embed to purple
 			add field named "Player" with value "%player%" to embed
 			add field named "Suggestion" with value arg-1 to embed
-		discordLog("suggestion", last created embed)
+		send last created embed to channel with id "{@suggestion-channel}" with "{@bot}" and store it in {_msg}
 		add reactions ":thumbsup:" and ":thumbsdown:" to {_msg} with "{@bot}"
 
 command /discord:
