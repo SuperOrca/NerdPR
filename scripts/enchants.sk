@@ -10,17 +10,23 @@ function getTags(t: item) :: objects:
 	add (getTag({_t}, "keyfinder") and "Keyfinder") to {_e::*}
 	add (getTag({_t}, "explosive") and "Explosive") to {_e::*}
 	add (getTag({_t}, "jackhammer") and "Jackhammer") to {_e::*}
+	add (getTag({_t}, "slice") and "Slice") to {_e::*}
 	add (getTag({_t}, "chunk") and "Chunk") to {_e::*}
 	add (getTag({_t}, "tsunami") and "Tsunami") to {_e::*}
 	return {_e::*}
 
 function updatePickaxe(t: item) :: item:
 	updateScoreboard({_p})
+	set line 1 of {_t}'s lore to ""
+	set line 2 of {_t}'s lore to "&8| &7Level: &f0"
+	set line 3 of {_t}'s lore to "&8| &7Points: &f0"
+	set line 4 of {_t}'s lore to "&8| &7Progress: &f0%%"
+	set line 5 of {_t}'s lore to ""
 	set {_enchs::*} to getTags({_t})
 	loop ((size of {_enchs::*})/2) times:
 		set {_level} to {_enchs::%loop-value * 2 - 1%}
 		set {_enchant} to {_enchs::%loop-value * 2%}
-		set line loop-value of {_t}'s lore to "&7%{_enchant}%&7 %insertComma({_level})%"
+		set line (loop-value + 5) of {_t}'s lore to "&8&l| &7%{_enchant}%&7 %insertComma({_level})%"
 	enchant {_t} with "efficiency %getTag({_t}, ""efficiency"")%" parsed as a enchantment type
 	return {_t}
 
@@ -83,6 +89,7 @@ function enchantPrice(e: text, l: number) :: number:
 	return ({_l}*100000)^(1.155)+400000 if {_e} is "keyfinder"
 	return ({_l}*125000)^(1.14)+500000 if {_e} is "explosive"
 	return ({_l}*150000)^(1.15)+600000 if {_e} is "jackhammer"
+	return ({_l}*150000)^(1.15)+600000 if {_e} is "slice"
 	return ({_l}*175000)^(1.16)+750000 if {_e} is "chunk"
 	return ({_l}*250000)^(1.17)+1000000 if {_e} is "tsunami"
 	return 0
@@ -96,6 +103,7 @@ function enchantMax(e: text) :: number:
 	return 5000 if {_e} is "keyfinder"
 	return 500 if {_e} is "explosive"
 	return 1000 if {_e} is "jackhammer"
+	return 1000 if {_e} is "slice"
 	return 5000 if {_e} is "chunk"
 	return 10000 if {_e} is "tsunami"
 	return 0
@@ -115,16 +123,17 @@ function pickaxeInv(p: player):
 
 	format gui slot 4 of {_p} with {_p}'s skull
 
-	guiPickaxeItem({_p}, 20, hopper, "jackhammer")
+	guiPickaxeItem({_p}, 19, hopper, "jackhammer")
+	guiPickaxeItem({_p}, 21, iron sword, "slice")
 	guiPickaxeItem({_p}, 22, chest, "tokenfinder")
-	guiPickaxeItem({_p}, 24, emerald, "fortune")
-	guiPickaxeItem({_p}, 28, tnt, "explosive")
-	guiPickaxeItem({_p}, 30, arrow, "efficiency")
-	guiPickaxeItem({_p}, 32, feather, "flight")
-	guiPickaxeItem({_p}, 34, rabbit foot, "jump")
-	guiPickaxeItem({_p}, 38, anvil, "chunk")
-	guiPickaxeItem({_p}, 40, water bucket, "tsunami")
-	guiPickaxeItem({_p}, 42, lectern, "keyfinder")
+	guiPickaxeItem({_p}, 25, emerald, "fortune")
+	guiPickaxeItem({_p}, 29, tnt, "explosive")
+	guiPickaxeItem({_p}, 31, arrow, "efficiency")
+	guiPickaxeItem({_p}, 33, feather, "flight")
+	guiPickaxeItem({_p}, 37, rabbit foot, "jump")
+	guiPickaxeItem({_p}, 39, anvil, "chunk")
+	guiPickaxeItem({_p}, 41, water bucket, "tsunami")
+	guiPickaxeItem({_p}, 43, lectern, "keyfinder")
 
 on right click:
 	player's tool is pickaxe
