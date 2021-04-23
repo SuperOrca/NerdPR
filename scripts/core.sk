@@ -244,6 +244,11 @@ on command:
 	command is "minecraft:me"
 	cancel event
 
+on flight toggle:
+	player is not op
+	if "%region at player%" contains "event":
+		cancel event
+
 command /levelsneeded:
 	trigger:
 		send "<##f2b84b>&lLEVELS &7You need <##f7b481>%(({prestige::%player's uuid%} ? 0) * 5 + 10)%<##f7b481> levels&7 to prestige."
