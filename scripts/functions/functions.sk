@@ -39,7 +39,7 @@ function formatTime(time: text) :: timespan:
 		replace "w" in {_time} with " weeks" if {_def} contains "w"
 		replace "mo" in {_time} with " months" if {_def} contains "mo"
 		add {_time} parsed as a timespan to {_total}
-	return {_total}
+	return {_total} ? 0 seconds
 
 function fillSlots(p: player, size: number):
 	format gui slot (numbers between 0 and ({_size}*9)) of {_p} with black stained glass pane named "<##81aef7>"
