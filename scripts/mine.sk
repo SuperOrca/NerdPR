@@ -70,6 +70,14 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
+	if (random integer between 1 and 3000) <= getTag(player's tool, "slice"):
+		set {_loc1} to {_loc} ~ vector(0, -2, -2)
+		set {_loc2} to {_loc} ~ vector(0, 2, 2)
+		loop all blocks within {_loc1} and {_loc2}:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+
 	if (random integer between 1 and 7250) <= getTag(player's tool, "explosive"):
 		loop all blocks in radius 3 around event-block:
 			if blockValidator(loop-block) is true:
