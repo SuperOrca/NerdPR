@@ -46,13 +46,17 @@ on break:
 	player's tool is pickaxe
 	clear drops
 
+	if (distance between block above player and event-block) > 5.48:
+		send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (Distance: %distance between block above player and event-block%&7)" to all players where [input has permission "staff"]
+		send "`%player%` might be using **Nuker**. (Ping:%player's ping%) (Distance: %distance between block above player and event-block%)" to channel with id "{@anticheat-log}" with {@bot}
+
 	set metadata "nuker" of player to metadata "nuker" of player + 1
 	if metadata "nuker_yes" of player is not set:
 		set metadata "nuker_yes" of player to true
 		wait 5 seconds
 		if metadata "nuker" of player > 150:
-			send "&7&lANTICHEAT &8| <##81aef7>%player%&7 might be using <##81aef7>Nuker&7. (BPS: %((metadata ""nuker"" of player))/5%&7)" to all players where [input has permission "staff"]
-			send "`%player%` might be using **Nuker**. (BPS: %((metadata ""nuker"" of player))/5%)" to channel with id "{@anticheat-log}" with {@bot}
+			send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (BPS: %((metadata ""nuker"" of player))/5%&7)" to all players where [input has permission "staff"]
+			send "`%player%` might be using **Nuker**. (Ping:%player's ping%) (BPS: %((metadata ""nuker"" of player))/5%)" to channel with id "{@anticheat-log}" with {@bot}
 		if metadata "nuker" of player > 350:
 			make console execute command "ban %player% Nuker -s"
 		delete metadata "nuker" of player
