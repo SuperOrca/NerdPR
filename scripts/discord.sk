@@ -6,6 +6,22 @@ options:
 	chat-channel: 828275594985734184
 	log-channel: 827365241687113778
 	suggestion-channel: 827365231545024513
+	anticheat-channel: 835180339492028417
+	punishment-channel: 827365242589151292
+
+function discordLog(t: text, m: object, c: number = 828275594985734184):
+	if {_t} is "chat":
+		send {_msg} to channel with id "{@chat-channel}" with "{@bot}"
+	if {_t} is "log":
+		send {_msg} to channel with id "{@log-channel}" with "{@bot}"
+	if {_t} is "suggestion":
+		send {_msg} to channel with id "{@suggestion-channel}" with "{@bot}"
+	if {_t} is "anticheat":
+		send {_msg} to channel with id "{@anticheat-channel}" with "{@bot}"
+	if {_t} is "punish":
+		send {_msg} to channel with id "{@punishment-channel}" with "{@bot}"
+	else:
+		send {_msg} to channel with id "%{_c}%" with "{@bot}"
 
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@chat-channel}":
@@ -24,7 +40,7 @@ on chat:
 	replace all ">" and "<" with "" in message
 	replace all "@" with "" in message
 	replace all "&" and "*" and "~" and "`" and "_" with "" in message
-	send "**%player%**: %message%" to channel with id "{@chat-channel}" with "{@bot}"
+	discordLog("chat", "**%player%**: %message%")
 
 on load:
 	create vixio bot:
@@ -36,18 +52,18 @@ on load:
 on join:
 	wait 1 tick
 	player is online
-	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
+	discordLog("chat", "**%player% joined the game.**")
 	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
 
 on quit:
 	wait 1 tick
-	player is online
-	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
+	quit message is not ""
+	discordLog("chat", "**%player% left the game.**")
 	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
 
 on command:
-	if player is not console:
-		send "**%player%** issued command `%command% %arguments ? """"%`" to channel with id "{@log-channel}" with "{@bot}"
+	command is not "hd" or "broadcast"
+	discordLog("log", "**%player ? ""Console""%** issued command `%command% %arguments ? """"%`")
 
 command /suggest <text>:
 	cooldown: 15 seconds
@@ -59,7 +75,7 @@ command /suggest <text>:
 			set the colour of the embed to purple
 			add field named "Player" with value "%player%" to embed
 			add field named "Suggestion" with value arg-1 to embed
-		send last created embed to channel with id "{@suggestion-channel}" with "{@bot}" and store it in {_msg}
+		discordLog("suggestion", last created embed)
 		add reactions ":thumbsup:" and ":thumbsdown:" to {_msg} with "{@bot}"
 
 command /discord:

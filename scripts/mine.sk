@@ -46,7 +46,8 @@ on break:
 		set metadata "nuker_yes" of player to true
 		wait 5 seconds
 		if metadata "nuker" of player > 150:
-			send "&7&lANTICHEAT &8| <##81aef7>%player%&7 might be using <##81aef7>Nuker&7. (Blocks: %round((metadata ""nuker"" of player)/5)%&7)" to all players where [input has permission "staff"]
+			send "&7&lANTICHEAT &8| <##81aef7>%player%&7 might be using <##81aef7>Nuker&7. (BPS: %((metadata ""nuker"" of player))/5%&7)" to all players where [input has permission "staff"]
+			DiscordLog("anticheat", "`%player%` might be using **Nuker**. (BPS: %((metadata ""nuker"" of player))/5%)")
 		if metadata "nuker" of player > 350:
 			make console execute command "ban %player% Nuker -s"
 		delete metadata "nuker" of player

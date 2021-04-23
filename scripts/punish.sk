@@ -15,7 +15,7 @@ on chat:
 				send "{@prefix} <##f24b4b>&lMUTE%nl%&7Muted by: <##f78181>%{mute::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{mute::%player's uuid%::reason}%"
 				cancel event
 		if {chatmute} is true:
-			if player doesn't have permission "rank.staff":
+			if player doesn't have permission "staff":
 				send "&cChat is currently muted."
 				cancel event
 
@@ -47,9 +47,10 @@ command /tempban <offline player> <text> <text>:
 		set {ban::%arg-1's uuid%::reason} to {_reason}
 		kick arg-1 due to "{@prefix} &7You were tempbanned by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
 		if arg-3 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
+		discordLog("punish", "`%arg-1%` was tempbanned by `%player%` for **%{_reason}%** for **%{_time}%**")
 
 command /ban <offline player> <text>:
 	permission: punish.ban
@@ -63,9 +64,10 @@ command /ban <offline player> <text>:
 		set {ban::%arg-1's uuid%::reason} to {_reason}
 		kick arg-1 due to "{@prefix} &7You were permanently banned by <##f78181>%player%&7 for <##f78181>%{_reason}%&7."
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player%&7 for <##f78181>%{_reason}%&7."
+		discordLog("punish", "`%arg-1%` was banned by `%player%` for **%{_reason}%**")
 
 command /unban <offline player> [<text>]:
 	permission: punish.unban
@@ -74,9 +76,10 @@ command /unban <offline player> [<text>]:
 	trigger:
 		delete {ban::%arg-1's uuid%::*}
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player%&7." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player%&7."
+		discordLog("punish", "`%arg-1%` unbanned by `%player%`")
 
 command /kick <player> <text>:
 	permission: punish.kick
@@ -87,9 +90,10 @@ command /kick <player> <text>:
 		replace all "-s" with "" in {_reason}
 		kick arg-1 due to "{@prefix} &7You were kicked by <##f78181>%player% for <##f78181>%{_reason}%&7."
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player%&7 for <##f78181>%{_reason}%&7."
+		discordLog("punish", "`%arg-1%` was kicked by `%player%` for **%{_reason}%**")
 
 command /tempmute <offline player> <text> <text>:
 	permission: punish.tempmute
@@ -106,9 +110,10 @@ command /tempmute <offline player> <text> <text>:
 		set {mute::%arg-1's uuid%::reason} to {_reason}
 		send "{@prefix} &7You were tempmuted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to arg-1
 		if arg-3 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
+		discordLog("punish", "`%arg-1%` was tempmuted by `%player%` for **%{_reason}%** for **%{_time}%**")
 
 command /mute <offline player> <text>:
 	permission: punish.mute
@@ -122,9 +127,10 @@ command /mute <offline player> <text>:
 		set {mute::%arg-1's uuid%::reason} to {_reason}
 		send "{@prefix} &7You were permanently muted by <##f78181>%player%&7 for <##f78181>%{_reason}%&7." to arg-1
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player%&7 for <##f78181>%{_reason}%&7."
+		discordLog("punish", "`%arg-1%` was muted by `%player%` for **%{_reason}%**")
 
 command /unmute <offline player> [<text>]:
 	permission: punish.unmute
@@ -133,9 +139,10 @@ command /unmute <offline player> [<text>]:
 	trigger:
 		delete {mute::%arg-1's uuid%::*}
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player%&7." to all players where [input has permission "rank.staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player%&7."
+		discordLog("punish", "`%arg-1%` was unmuted by `%player%` for **%{_reason}%**")
 
 command /clearchat [<text>]:
 	permission: punish.clearchat
@@ -147,6 +154,7 @@ command /clearchat [<text>]:
 			broadcast "{@prefix} &7The chat was cleared."
 		else:
 			broadcast "{@prefix} &7The chat was cleared by <##f78181>%player%&7."
+		discordLog("punish", "Chat was cleared by `%player%`.")
 
 command /mutechat [<text>]:
 	permission: punish.mutechat
@@ -159,9 +167,11 @@ command /mutechat [<text>]:
 				broadcast "{@prefix} &7The chat was muted."
 			else:
 				broadcast "{@prefix} &7The chat was muted by <##f78181>%player%&7."
+			discordLog("punish", "Chat was muted by `%player%`.")
 		else:
 			delete {chatmute}
 			if arg-1 contains "-a":
 				broadcast "{@prefix} &7The chat was unmuted."
 			else:
 				broadcast "{@prefix} &7The chat was unmuted by <##f78181>%player%&7."
+			discordLog("punish", "Chat was unmuted by `%player%`.")

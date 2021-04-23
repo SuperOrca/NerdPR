@@ -1,3 +1,10 @@
+on skript load:
+	set {uptime} to now
+
+command /uptime:
+	trigger:
+		send "<##4b8bf2>&lUPTIME&7 The server has been online for <##81aef7>%time since {uptime}%&7."
+
 on load:
 	delete {words::*}
 	set {words::1} to "prisons"
@@ -100,6 +107,7 @@ on join:
 on quit:
 	if {ban::%player's uuid%::type} is not set:
 		set quit message to "<##81aef7>%player%&7 left the game."
+		wait 1 tick
 		loop all players:
 			updateScoreboard(loop-player)
 	else:
