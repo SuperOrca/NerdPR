@@ -78,19 +78,19 @@ function progressBar(val: number, max: number, barsize: number, fill_first: text
 		set {_bar} to "%{_bar} ? """"%|"
 	return "%{_fill_first}%%((first floor({_barsize} * ({_val}/{_max})) characters of {_bar}) ? """")%%{_fill_second}%%(last {_barsize} - floor({_barsize} * ({_val}/{_max})) characters of {_bar}) ? """"%"
 
-function giveKey(p: player, key: text n: integer)
+function giveKey(p: player, key: text n: integer):
 	if {_key} is "Rebirth":
 		if {_n} is set:
-			give {_p} {_n} tripwire hook named "&5&lRebirth Crate Key"
+			give {_n} tripwire hook named "&5&lRebirth Crate Key" to {_p}
 		else:
-			give {_p} 1 tripwire hook named "&5&lRebirth Crate Key"
+			give 1 tripwire hook named "&5&lRebirth Crate Key" to {_p}
 	else if {_key} is "iq":
 		if {_n} is set:
-			give {_p} {_n} tripwire hook named "<##4b8bf2>&lIQ Crate Key"
+			give {_n} tripwire hook named "<##4b8bf2>&lIQ Crate Key" to {_p}
 		else:
-			give {_p} 1 tripwire hook named "<##4b8bf2>&lIQ Crate Key"
+			give {_p} 1 tripwire hook named "<##4b8bf2>&lIQ Crate Key" to {_p}
 	else if {_key} is "zop":
 		if {_n} is set:
-			give {_p} {_n} tripwire hook named "&c&lZop Crate Key"
+			give {_n} tripwire hook named "&c&lZop Crate Key" to {_p}
 		else:
-			give {_p} 1 tripwire hook named "&c&lZop Crate Key"
+			give 1 tripwire hook named "&c&lZop Crate Key" to {_p}
