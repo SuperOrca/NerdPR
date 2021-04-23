@@ -18,9 +18,9 @@ function getTags(t: item) :: objects:
 function updatePickaxe(t: item) :: item:
 	updateScoreboard({_p})
 	set line 1 of {_t}'s lore to ""
-	set line 2 of {_t}'s lore to "&8| &7Level: &f0"
-	set line 3 of {_t}'s lore to "&8| &7Points: &f0"
-	set line 4 of {_t}'s lore to "&8| &7Progress: &f0%%"
+	set line 2 of {_t}'s lore to "<##f2b84b>&l| &7Level: &f0"
+	set line 3 of {_t}'s lore to "<##f2b84b>&l| &7Points: &f0"
+	set line 4 of {_t}'s lore to "<##f2b84b>&l| &7Progress: &f0%%"
 	set line 5 of {_t}'s lore to ""
 	set {_enchs::*} to getTags({_t})
 	loop ((size of {_enchs::*})/2) times:
@@ -125,7 +125,7 @@ function pickaxeInv(p: player):
 
 	guiPickaxeItem({_p}, 19, hopper, "jackhammer")
 	guiPickaxeItem({_p}, 21, iron sword, "slice")
-	guiPickaxeItem({_p}, 22, chest, "tokenfinder")
+	guiPickaxeItem({_p}, 23, chest, "tokenfinder")
 	guiPickaxeItem({_p}, 25, emerald, "fortune")
 	guiPickaxeItem({_p}, 29, tnt, "explosive")
 	guiPickaxeItem({_p}, 31, arrow, "efficiency")
