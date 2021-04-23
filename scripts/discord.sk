@@ -11,13 +11,13 @@ options:
 
 function discordLog(t: text, m: text):
 	if {_t} is "chat":
-		send {_msg} to channel with id "{@chat-channel}" with "{@bot}"
+		send {_m} to channel with id "{@chat-channel}" with "{@bot}"
 	else if {_t} is "log":
-		send {_msg} to channel with id "{@log-channel}" with "{@bot}"
+		send {_m} to channel with id "{@log-channel}" with "{@bot}"
 	else if {_t} is "anticheat":
-		send {_msg} to channel with id "{@anticheat-channel}" with "{@bot}"
+		send {_m} to channel with id "{@anticheat-channel}" with "{@bot}"
 	else if {_t} is "punish":
-		send {_msg} to channel with id "{@punishment-channel}" with "{@bot}"
+		send {_m} to channel with id "{@punishment-channel}" with "{@bot}"
 
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@chat-channel}":
