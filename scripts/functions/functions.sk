@@ -81,16 +81,16 @@ function progressBar(val: number, max: number, barsize: number, fill_first: text
 function giveKey(p: player, key: text n: integer):
 	if {_key} is "Rebirth":
 		if {_n} is set:
-			give {_n} tripwire hook named "&5&lRebirth Crate Key" to {_p}
+			give {_n} of tripwire hook named "&5&lRebirth Crate Key" to {_p}
 		else:
-			give 1 tripwire hook named "&5&lRebirth Crate Key" to {_p}
+			give 1 of tripwire hook named "&5&lRebirth Crate Key" to {_p}
 	else if {_key} is "iq":
 		if {_n} is set:
-			give {_n} tripwire hook named "<##4b8bf2>&lIQ Crate Key" to {_p}
+			give {_n} of tripwire hook named "<##4b8bf2>&lIQ Crate Key" to {_p}
 		else:
-			give {_p} 1 tripwire hook named "<##4b8bf2>&lIQ Crate Key" to {_p}
+			give {_p} 1 of tripwire hook named "<##4b8bf2>&lIQ Crate Key" to {_p}
 	else if {_key} is "zop":
 		if {_n} is set:
-			give {_n} tripwire hook named "&c&lZop Crate Key" to {_p}
+			give {_n} of tripwire hook named "&c&lZop Crate Key" to {_p}
 		else:
-			give 1 tripwire hook named "&c&lZop Crate Key" to {_p}
+			give 1 of tripwire hook named "&c&lZop Crate Key" to {_p}
