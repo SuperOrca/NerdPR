@@ -96,6 +96,7 @@ command /kick <player> <text>:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
+		send {_reason}
 		send "`%arg-1%` was kicked by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with {@bot}
 
 command /tempmute <offline player> <text> <text>:

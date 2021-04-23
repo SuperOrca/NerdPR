@@ -20,7 +20,7 @@ on guild message received seen by "{@bot}":
 			broadcast "&7%event-member%&7: %{_message}%"
 	if discord id of event-channel is "{@log-channel}":
 		make console execute command "%event-message%"
-	if discord id of event-channel is "{@staffchat-channel}"
+	if discord id of event-channel is "{@staffchat-channel}":
 		set {_message} to "%event-message%"
 		replace all ">" and "<" in {_message} with ""
 		replace all "@" in {_message} with ""
