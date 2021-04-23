@@ -2,7 +2,7 @@ options:
 	prefix: <##f24b4b>&lPUNISH
 
 	bot: NerdPR
-	punishment-log: 827365242589151292
+	punishment-channel: 827365242589151292
 
 on chat:
 	if event is not canceled:
@@ -53,7 +53,7 @@ command /tempban <offline player> <text> <text>:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
-		send "`%arg-1%` was tempbanned by `%player ? ""Console""%` for **%{_time}%** for **%{_reason}%**" to channel with id "{@punishment-log}" with {@bot}
+		send "`%arg-1%` was tempbanned by `%player ? ""Console""%` for **%{_time}%** for **%{_reason}%**" to channel with id "{@punishment-channel}" with {@bot}
 
 command /ban <offline player> <text>:
 	permission: punish.ban
@@ -70,7 +70,7 @@ command /ban <offline player> <text>:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
-		send "`%arg-1%` was banned by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-log}" with "{@bot}"
+		send "`%arg-1%` was banned by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
 
 command /unban <offline player> [<text>]:
 	permission: punish.unban
@@ -82,7 +82,7 @@ command /unban <offline player> [<text>]:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player ? ""Console""%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player ? ""Console""%&7."
-		send "`%arg-1%` unbanned by `%player ? ""Console""%`" to channel with id "{@punishment-log}" with "{@bot}"
+		send "`%arg-1%` unbanned by `%player ? ""Console""%`" to channel with id "{@punishment-channel}" with "{@bot}"
 
 command /kick <player> <text>:
 	permission: punish.kick
@@ -96,7 +96,7 @@ command /kick <player> <text>:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
-		send "`%arg-1%` was kicked by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-log}" with {@bot}
+		send "`%arg-1%` was kicked by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with {@bot}
 
 command /tempmute <offline player> <text> <text>:
 	permission: punish.tempmute
@@ -116,7 +116,7 @@ command /tempmute <offline player> <text> <text>:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was tempmuted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was tempmuted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
-		send "`%arg-1%` was tempmuted by `%player ? ""Console""%` for **%{_time}%** for **%{_reason}%**" to channel with id "{@punishment-log}" with "{@bot}"
+		send "`%arg-1%` was tempmuted by `%player ? ""Console""%` for **%{_time}%** for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
 
 command /mute <offline player> <text>:
 	permission: punish.mute
@@ -133,7 +133,7 @@ command /mute <offline player> <text>:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
-		send "`%arg-1%` was muted by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-log}" with "{@bot}"
+		send "`%arg-1%` was muted by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
 
 command /unmute <offline player> [<text>]:
 	permission: punish.unmute
@@ -145,7 +145,7 @@ command /unmute <offline player> [<text>]:
 			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player ? ""Console""%&7." to all players where [input has permission "staff"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player ? ""Console""%&7."
-		send "`%arg-1%` was unmuted by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-log}" with "{@bot}"
+		send "`%arg-1%` was unmuted by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
 
 command /clearchat [<text>]:
 	permission: punish.clearchat
@@ -157,7 +157,7 @@ command /clearchat [<text>]:
 			broadcast "{@prefix} &7The chat was cleared."
 		else:
 			broadcast "{@prefix} &7The chat was cleared by <##f78181>%player ? ""Console""%&7."
-		send "Chat was cleared by `%player ? ""Console""%`." to channel with id "{@punishment-log}" with "{@bot}"
+		send "Chat was cleared by `%player ? ""Console""%`." to channel with id "{@punishment-channel}" with "{@bot}"
 
 command /mutechat [<text>]:
 	permission: punish.mutechat
@@ -170,11 +170,11 @@ command /mutechat [<text>]:
 				broadcast "{@prefix} &7The chat was muted."
 			else:
 				broadcast "{@prefix} &7The chat was muted by <##f78181>%player ? ""Console""%&7."
-			send "Chat was muted by `%player ? ""Console""%`." to channel with id "{@punishment-log}" with "{@bot}"
+			send "Chat was muted by `%player ? ""Console""%`." to channel with id "{@punishment-channel}" with "{@bot}"
 		else:
 			delete {chatmute}
 			if arg-1 contains "-a":
 				broadcast "{@prefix} &7The chat was unmuted."
 			else:
 				broadcast "{@prefix} &7The chat was unmuted by <##f78181>%player ? ""Console""%&7."
-			send "Chat was unmuted by `%player ? ""Console""%`." to channel with id "{@punishment-log}" with "{@bot}"
+			send "Chat was unmuted by `%player ? ""Console""%`." to channel with id "{@punishment-channel}" with "{@bot}"

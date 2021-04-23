@@ -1,3 +1,8 @@
+options:
+	bot: NerdPR
+
+	staffchat-channel: 827365238856089600
+
 on skript load:
 	set {uptime} to now
 
@@ -23,7 +28,7 @@ on load:
 	set {mines::1} to {spawn}
 	set {mines::2} to location(-366, 85, -517, world "world")
 	set {mines::3} to location(-923, 69, -450, world "world")
-	set {mines::4} to location(-1446, 79, -434, world "world")
+	set {mines::4} to location(-1414, 78, -389, world "world", 90, 0)
 
 	delete {alerts::*}
 	add "Remember to join our discord. (/discord)" to {alerts::*}
@@ -174,8 +179,10 @@ command /sc <text>:
 	permission: staff.chat
 	permission message: &cNo Permission.
 	usage: &cUsage: /sc <text>
+	aliases: /staffchat
 	trigger:
 		send "<##4b8bf2>&lSTAFFCHAT <##81aef7>%player% &f%arg-1%" to all players where [input has permission "staff.chat"]
+		send "**%player%**: %arg-1%" to channel with id "{@staffchat-channel}" with "{@bot}"
 
 command /ad:
 	trigger:

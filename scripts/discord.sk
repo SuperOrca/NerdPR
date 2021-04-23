@@ -8,16 +8,7 @@ options:
 	suggestion-channel: 827365231545024513
 	anticheat-channel: 835180339492028417
 	punishment-channel: 827365242589151292
-
-function discordLog(t: text, m: text):
-	if {_t} is "chat":
-		send {_m} to channel with id "{@chat-channel}" with "{@bot}"
-	else if {_t} is "log":
-		send {_m} to channel with id "{@log-channel}" with "{@bot}"
-	else if {_t} is "anticheat":
-		send {_m} to channel with id "{@anticheat-channel}" with "{@bot}"
-	else if {_t} is "punish":
-		send {_m} to channel with id "{@punishment-channel}" with "{@bot}"
+	staffchat-channel: 827365238856089600
 
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@chat-channel}":
@@ -29,7 +20,14 @@ on guild message received seen by "{@bot}":
 			broadcast "&7%event-member%&7: %{_message}%"
 	if discord id of event-channel is "{@log-channel}":
 		make console execute command "%event-message%"
-
+	if discord id of event-channel is "{@staffchat-channel}"
+		set {_message} to "%event-message%"
+		replace all ">" and "<" in {_message} with ""
+		replace all "@" in {_message} with ""
+		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
+		if {_message} is not "":
+			send "<##4b8bf2>&lSTAFFCHAT <##81aef7>%event-member% &f%{_message}%" to all players where [input has permission "staff.chat"]
+	
 on chat:
 	event is not canceled
 	wait 1 tick
