@@ -47,9 +47,13 @@ on break:
 	player's tool is pickaxe
 	clear drops
 
-	if (distance between block above player and event-block) > 5.48:
+	if (distance between block above player and event-block) > 6.08:
 		send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (Distance: %distance between block above player and event-block%&7)" to all players where [input has permission "staff"]
 		send "`%player%` might be using **Nuker**. (Ping:%player's ping%) (Distance: %distance between block above player and event-block%)" to channel with id "{@anticheat-channel}" with {@bot}
+
+	# if (location of targeted block) is (location of event-block):
+	# 	send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (Wrong targeted block)" to all players where [input has permission "staff"]
+	# 	send "`%player%` might be using **Nuker**. (Ping:%player's ping%) (Wrong targeted block)" to channel with id "{@anticheat-channel}" with {@bot}
 
 	set metadata "nuker" of player to metadata "nuker" of player + 1
 	if metadata "nuker_yes" of player is not set:
