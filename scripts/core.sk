@@ -268,4 +268,4 @@ command /levelsneeded:
 command /suicide:
 	trigger:
 		make player execute command "/spawn"
-		broadcast"<##f2b84b>&lSUICIDE <##f7b481>%player% &7 did not want to live.
+		broadcast "<##f2b84b>&lSUICIDE <##f7b481>%player% &7 did not want to live."
