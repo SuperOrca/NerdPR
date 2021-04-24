@@ -163,3 +163,8 @@ command /broadcast <text>:
 	aliases: /bc
 	trigger:
 		alert(arg-1)
+
+command /suicide:
+	trigger:
+		make player execute command "/spawn"
+		broadcast "<##f2b84b>&lSUICIDE <##f7b481>%player% &7did not want to live."
