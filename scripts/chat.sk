@@ -1,11 +1,12 @@
 on chat:
-	event is not canceled
+	cancel event if message partially matches "discord\..*[A-Za-z]"
+	cancel event if message contains "nigger" or "nigga"
 	if player doesn't have permission "chat.bypass":
 		if time since (metadata "antispam" of player) < 2 seconds:
-			cancel event
 			send "&cYou must wait 2 seconds before chatting."
-			stop
+			cancel event
 		set metadata "antispam" of player to now
+	event is not canceled
 	set {_message} to message
 	set {_color} to {chatcolor::%player's uuid%} ? "&7"
 	set {_message} to emojify({_message}) if player has permission "perks.emoji"
@@ -14,4 +15,4 @@ on chat:
 		set {_display::*} to {_display::1}, "&a&l$", formatNumber({balance::%player's uuid%}), {_color}, and {_display::2}
 		set {_message} to join {_display::*}
 	set {_suffix} to " &8[%{suffix::%player's uuid%}%&8]" if {suffix::%player's uuid%} is set
-	set chat format to "&7[%{prestige::%player's uuid%} ? 0%] &7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color}%%{_message}%"
+	set chat format to "&7[%{rebirth::%player's uuid%} ? 0%] &7[%{prestige::%player's uuid%} ? 0%] &7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color}%%{_message}%"

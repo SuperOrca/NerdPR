@@ -195,7 +195,7 @@ every 5.1 minutes:
 	delete {reaction::*}
 	set {reaction::word} to random element out of {words::*}
 	set {reaction::start} to now
-	broadcast "<##4b8bf2>&lREACTION&7 Type <##81aef7>%{reaction::word}%&7 to win!"
+	broadcast "<##4b8bf2>&lREACTION&7 Type <##81aef7>%{reaction::word}%&7 to a reward!"
 
 on chat:
 	event is not canceled
@@ -203,6 +203,7 @@ on chat:
 		if message is {reaction::word}:
 			cancel event
 			broadcast "<##4b8bf2>&lREACTION&7 <##81aef7>%player%&7 typed <##81aef7>%{reaction::word}%&7 in <##81aef7>%time since {reaction::start}%&7."
+			giveKey(player, "iq")
 			delete {reaction::*}
 
 function updateLeaderboards():
@@ -260,6 +261,16 @@ on flight toggle:
 	player is not op
 	if "%region at player%" contains "event":
 		cancel event
+
+command /daily:
+	trigger:
+		if time since {daily::%player's uuid%} < 12 hours:
+			send "&cYou cannot claim this for another %12 hours - (time since {daily::%player's uuid%})%."
+			stop
+		set {daily::%player's uuid%} to now
+		send "<##4b8bf2>&lDAILY &7You claimed your daily reward."
+		giveKey(player, "zop")
+
 
 command /levelsneeded:
 	trigger:

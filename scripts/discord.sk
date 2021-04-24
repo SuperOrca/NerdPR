@@ -17,7 +17,7 @@ on guild message received seen by "{@bot}":
 		replace all "@" in {_message} with ""
 		replace all "&" and "*" and "~" and "`" and "_" in {_message} with ""
 		if {_message} is not "":
-			broadcast "&7%event-member%&7: %{_message}%"
+			broadcast "&7[DISCORD] @%event-member%&7: %{_message}%"
 	if discord id of event-channel is "{@log-channel}":
 		make console execute command "%event-message%"
 	if discord id of event-channel is "{@staffchat-channel}":
@@ -71,6 +71,38 @@ command /suggest <text>:
 			add field named "Suggestion" with value arg-1 to embed
 		send last created embed to channel with id "{@suggestion-channel}" with "{@bot}" and store it in {_msg}
 		add reactions ":thumbsup:" and ":thumbsdown:" to {_msg} with "{@bot}"
+
+command /link:
+	trigger:
+		if {linked::%uuid of player%} is not set:
+			set {_e} to random 8 char string from charset `a-zA-Z0-9`
+			set {code::%{_e}%} to player
+			send "<##4b8bf2>&lDISCORD &7You can link your account in ##bot-commands on our discord using <##81aef7><suggest command:!link %{_e}%>!link %{_e}%<reset>&7."
+		else:
+			send "<##4b8bf2>&lDISCORD &7Your account is already linked."
+
+discord command ?link [<text>]:
+	trigger:
+		if arg 1 is not set:
+			reply with "Please specify a code."
+			stop
+		else if {code::%arg-1%} is not set:
+			reply with "This code does not exist."
+			stop
+		else if {code::%arg-1%} is set:
+			if {discord::%discord id of event-member%::player} is not set:
+				set {discord::%discord id of event-member%::player} to {code::%arg-1%}
+				set {discord::%discord id of event-member%} to discord id of event-member
+				reply with "Your account was linked to `%{code::%arg-1%}%`."
+				# make console execute command "/givekey %{code::%arg-1%}% Titan 3"
+				send "<##4b8bf2>&lDISCORD &7Your account was linked to %event-member%&7." to {code::%arg-1%}
+				set {_uuid} to uuid of {code::%arg-1%}
+				set {linked::%{_uuid}%} to true
+				delete {code::%arg-1%}
+				# add role with id "803625464819482675" to roles of event-member
+			else:
+				reply with "Your account is already linked."
+			stop
 
 command /discord:
 	trigger:

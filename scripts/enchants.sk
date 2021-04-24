@@ -108,6 +108,34 @@ function enchantMax(e: text) :: number:
 	return 10000 if {_e} is "tsunami"
 	return 0
 
+function enchantChance(e: text) :: number:
+	return 500 if {_e} is "efficiency"
+	return 1000000 if {_e} is "fortune"
+	return 1 if {_e} is "jump"
+	return 1 if {_e} is "flight"
+	return 500 if {_e} is "tokenfinder"
+	return 5000 if {_e} is "keyfinder"
+	return 500 if {_e} is "explosive"
+	return 1000 if {_e} is "jackhammer"
+	return 1000 if {_e} is "slice"
+	return 5000 if {_e} is "chunk"
+	return 10000 if {_e} is "tsunami"
+	return 0
+
+function enchantDescription(e: text) :: text:
+	return "Makes you mine faster." if {_e} is "efficiency"
+	return "Makes you more money." if {_e} is "fortune"
+	return "Makes you jump higher." if {_e} is "jump"
+	return "Allows you to fly." if {_e} is "flight"
+	return "Makes you " if {_e} is "tokenfinder"
+	return 5000 if {_e} is "keyfinder"
+	return 500 if {_e} is "explosive"
+	return 1000 if {_e} is "jackhammer"
+	return 1000 if {_e} is "slice"
+	return 5000 if {_e} is "chunk"
+	return 10000 if {_e} is "tsunami"
+	return 0
+
 function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
 	set {_tool} to {_p}'s tool
 	set {_level} to getTag({_tool}, {_enchant})
