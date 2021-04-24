@@ -264,3 +264,8 @@ on flight toggle:
 command /levelsneeded:
 	trigger:
 		send "<##f2b84b>&lLEVELS &7You need <##f7b481>%(({prestige::%player's uuid%} ? 0) * 5 + 10)%<##f7b481> levels&7 to prestige."
+
+command /suicide:
+	trigger:
+		make player execute command "/spawn"
+		broadcast"<##f2b84b>&lSUICIDE <##f7b481>%player% &7 did not want to live.
