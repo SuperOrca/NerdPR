@@ -1,21 +1,17 @@
 on chat:
 	event is not canceled
-	set {antispam::%player's uuid%} to now
-	if difference between {antispam::%player's uuid%} and now < 3 seconds:
-		cancel event
-		set {_wait} to difference between {antispam::%player's uuid%} and now
-		set {_remain} to difference between {_wait} and 3 seconds
-		send "&cYou must wait %{_remain}%&c seconds."
-	else:
-		set {_message} to message
-		set {_color} to {chatcolor::%player's uuid%} ? "&7"
-		set {_message} to emojify({_message}) if player has permission "perks.emoji"
-		if uncolored message contains "[money]":
-			set {_display::*} to message split at "[money]"
-			set {_display::*} to {_display::1}, "&a&l$", formatNumber({balance::%player's uuid%}), {_color}, and {_display::2}
-			set {_message} to join {_display::*}
-		set {_suffix} to " &8[%{suffix::%player's uuid%}%&8]" if {suffix::%player's uuid%} is set
-		set chat format to "&7[%{prestige::%player's uuid%} ? 0%] &7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color}%%{_message}%"
-
-on join:
-	set {antispam::%player's uuid%} to now
+	if player doesn't have permission "chat.bypass":
+		if time since (metadata "antispam" of player) < 2 seconds:
+			cancel event
+			send "&cYou must wait 2 seconds before chatting."
+			stop
+		set metadata "antispam" of player to now
+	set {_message} to message
+	set {_color} to {chatcolor::%player's uuid%} ? "&7"
+	set {_message} to emojify({_message}) if player has permission "perks.emoji"
+	if uncolored message contains "[money]":
+		set {_display::*} to message split at "[money]"
+		set {_display::*} to {_display::1}, "&a&l$", formatNumber({balance::%player's uuid%}), {_color}, and {_display::2}
+		set {_message} to join {_display::*}
+	set {_suffix} to " &8[%{suffix::%player's uuid%}%&8]" if {suffix::%player's uuid%} is set
+	set chat format to "&7[%{prestige::%player's uuid%} ? 0%] &7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color}%%{_message}%"
