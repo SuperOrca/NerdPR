@@ -38,7 +38,7 @@ on right click:
 	set {_rank} to tag "rank" of nbt of player's tool
 	set {_money} to tag "money" of nbt of player's tool
 	if {_rank} is set:
-		make console execute command "lp user %player% parent set %{_rank}%"
+		make console execute command "lp user %player% parent add %{_rank}%"
 		remove 1 of player's tool from player's tool
 		updateScoreboard(player)
 	if {_money} is set:

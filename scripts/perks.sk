@@ -135,7 +135,7 @@ command /keyall:
 			alert("%player% did an IQ keyall")
 			stop			
 		if player has permission "rank.nerd":	
-			if difference between {keyall::%player's uuid%} and now > 4 hours: 
+			if time since {keyall::%player's uuid%} > 4 hours: 
 				give tripwire hook named "<##4b8bf2>&lIQ Crate Key" to all players
 				alert("%player% did an IQ keyall")
 				set {keyall::%player's uuid%} to now
