@@ -16,3 +16,10 @@ on chat:
 		set {_message} to join {_display::*}
 	set {_suffix} to " &8[%{suffix::%player's uuid%}%&8]" if {suffix::%player's uuid%} is set
 	set chat format to "&7[%{rebirth::%player's uuid%} ? 0%] &7[%{prestige::%player's uuid%} ? 0%] &7%player's prefix%%player%%{_suffix} ? """"%&7: %{_color}%%{_message}%"
+
+	loop all players:
+		if message contains "%loop-player%":
+			if {vanish::*} does not contain loop-player:
+				set {_player} to loop-player
+				replace "%{_player}%" in {_msg} with "&b@%{_player}%%{_color}%"
+				play sound "ENTITY_EXPERIENCE_ORB_PICKUP" to loop-player
