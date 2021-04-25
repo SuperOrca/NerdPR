@@ -125,3 +125,9 @@ function applyChatcolor(p: player, color: text):
 	close {_p}'s inventory
 	send "<##4b8bf2>&lCOLOR &7Applied %{_color}%color&7." to {_p}
 	set {chatcolor::%{_u}%} to {_color}
+
+command /testinvsee [<player>]:
+	trigger:
+		set {inv::%arg-1's uuid%} to arg-1's slot 1
+		open virtual chest with 1 rows named "%Arg-1%'s Inventory" to player
+		format gui slot 5 of player to {inv::%arg-1's uuid%}
