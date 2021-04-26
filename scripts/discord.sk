@@ -77,7 +77,7 @@ command /link:
 		if {linked::%uuid of player%} is not set:
 			set {_e} to random 8 char string from charset `a-zA-Z0-9`
 			set {code::%{_e}%} to player
-			send "<##4b8bf2>&lDISCORD &7You can link your account in ##bot-commands on our discord using <##81aef7><suggest command:!link %{_e}%>!link %{_e}%<reset>&7."
+			send formatted "<##4b8bf2>&lDISCORD &7You can link your account in ##bot-commands on our discord using <##81aef7><suggest command:!link %{_e}%>!link %{_e}%<reset>&7."
 		else:
 			send "<##4b8bf2>&lDISCORD &7Your account is already linked."
 
