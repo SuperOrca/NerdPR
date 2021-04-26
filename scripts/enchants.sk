@@ -1,7 +1,7 @@
 function getTag(t: item, e: text) :: number:
 	return (tag {_e} of nbt of {_t}) ? 0
 
-function getTags(t: item) :: objects:
+function getPickaxeEnchants(t: item) :: objects:
 	add (getTag({_t}, "efficiency") and "Efficiency") to {_e::*}
 	add (getTag({_t}, "fortune") and "Fortune") to {_e::*}
 	add (getTag({_t}, "jump") and "Jump") to {_e::*}
@@ -30,7 +30,7 @@ function updatePickaxeLevel(t: item) :: item:
 function updatePickaxe(t: item) :: item:
 	updateScoreboard({_p})
 	set {_t} to updatePickaxeLevel({_t})
-	set {_enchs::*} to getTags({_t})
+	set {_enchs::*} to getPickaxeEnchants({_t})
 	loop ((size of {_enchs::*})/2) times:
 		set {_level} to {_enchs::%loop-value * 2 - 1%}
 		set {_enchant} to {_enchs::%loop-value * 2%}
