@@ -1,0 +1,74 @@
+#usage: %animation:NAME%
+animations:
+  ServerName:
+    change-interval: 300
+    texts:
+      - "&9&lNERDPR"
+      - "&b&lN&9&lERDPR"
+      - "&9&lN&b&lE&9&lRDPR"
+      - "&9&lNE&b&lR&9&lDPR"
+      - "&9&lNER&b&lD&9&lPR"
+      - "&9&lNERD&b&lP&9&lR"
+      - "&9&lNERDP&b&lR"
+  web:
+    change-interval: 400
+    texts:
+      - "&9discord.io/NerdPR"
+      - "&9discord.io/NerdPR"
+      - "&9discord.io/NerdPR"
+      - "&9discord.io/NerdPR"
+      - "&fdiscord.io/NerdPR"
+      - "&fdiscord.io/NerdPR"
+      - "&fdiscord.io/NerdPR"
+      - "&fdiscord.io/NerdPR"
+  vote:
+    change-interval: 1000
+    texts:
+      - "&avote.domain.com"
+      - "&a&nvote.domain.com"
+      - "&5vote.domain.com"
+      - "&5&nvote.domain.com"
+  Welcome:
+    change-interval: 400
+    texts:
+      - "&7&lW_"
+      - "&7&lW_"
+      - "&7&lWe_"
+      - "&7&lWel_"
+      - "&7&lWelc_"
+      - "&7&lWelco_"
+      - "&7&lWelcom_"
+      - "&7&lWelcome_"
+      - "&7&lWelcome_"
+      - "&7&lWelcome_"
+      - "&7&lWelcome_"
+      - "&7&lWelcom_"
+      - "&7&lWelco_"
+      - "&7&lWelc_"
+      - "&7&lWel_"
+      - "&7&lWe_"
+      - "&7&lW_"
+      - "&7&lW_"
+  time:
+    change-interval: 900
+    texts:
+      - "&7Time &b%time%"
+      - "&7> Time &b%time% &7<"
+      - "&7>> Time &b%time% &7<<"
+      - "&7>>> Time &b%time% &7<<<"
+      - "&7Date &b%date%"
+      - "&7> Date &b%date% &7<"
+      - "&7>> Date &b%date% &7<<"
+      - "&7>>> Date &b%date% &7<<<"
+  ping-tps:
+    change-interval: 5000
+    texts:
+      - "&aPing: &2&n%ping%&r &ams"
+      - "&bServer TPS: &8%tps%"
+  barcolors:
+    change-interval: 1000
+    texts:
+      - "RED"
+      - "BLUE"
+      - "GREEN"
+      - "YELLOW"

@@ -131,19 +131,19 @@ command /keyall:
 	permission message: &cNo Permission.
 	trigger:
 		if player has permission "op":
-			give tripwire hook named "<##4b8bf2>&lIQ Crate Key" to all players
+			give tripwire hook named "&f&lIQ Crate Key" to all players
 			alert("%player% did an IQ keyall")
 			stop			
 		if player has permission "rank.nerd":	
 			if time since {keyall::%player's uuid%} > 4 hours: 
-				give tripwire hook named "<##4b8bf2>&lIQ Crate Key" to all players
+				give tripwire hook named "&f&lIQ Crate Key" to all players
 				alert("%player% did an IQ keyall")
 				set {keyall::%player's uuid%} to now
 			else:
 				send "&cYou must wait for your cooldown to end before doing this again."
 		else if player has permission "rank.braincell":
 			if difference between {keyall::%player's uuid%} and now > 8 hours: 
-				give tripwire hook named "<##4b8bf2>&lIQ Crate Key" to all players
+				give tripwire hook named "&f&lIQ Crate Key" to all players
 				alert("%player% did an IQ keyall")
 				set {keyall::%player's uuid%} to now
 			else:

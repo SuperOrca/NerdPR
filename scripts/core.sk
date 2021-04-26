@@ -109,7 +109,7 @@ on join:
 	wait 1 tick
 	player is online
 	if player's inventory does not contain diamond pickaxe:
-		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b,xpn:50}")
+		give player updatePickaxe(diamond pickaxe named "&e&lPICKAXE" with nbt "{HideFlags:7b,xpn:50}")
 	toggle scoreboard of player to on
 	loop all players:
 		updateScoreboard(loop-player)
@@ -127,7 +127,7 @@ command /getpick:
 	permission: staff.getpick
 	permission message: &cNo Permission.
 	trigger:
-		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b,xpn:50}")
+		give player updatePickaxe(diamond pickaxe named "&e&lPICKAXE" with nbt "{HideFlags:7b,xpn:50}")
 
 command /getmaxedpick:
 	permission: op

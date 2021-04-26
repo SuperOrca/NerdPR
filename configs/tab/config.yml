@@ -1,0 +1,150 @@
+# Detailed explanation of all options available at https://github.com/NEZNAMY/TAB/wiki/config.yml
+
+change-nametag-prefix-suffix: true
+change-tablist-prefix-suffix: true
+enable-header-footer: true
+header:
+- '#<4b8bf2>&n                                                                              '
+- ''
+- '#<4b8bf2>&lNerdPR'
+- ''
+- '#<4b8bf2>&lWelcome, &f%nick%'
+- ''
+- '&7Online players: &f%online%'
+- ''
+footer:
+- ''
+- '%animation:web%'
+- ''
+- '#<4b8bf2>&n                                                                              '
+- ' '
+group-sorting-priority-list:
+- owner
+- manager
+- sr-admin
+- admin
+- builder
+- mod
+- helper
+- default
+Groups:
+  Owner:
+    tabprefix: '&4&lOWNER&7 '
+    tagprefix: '&4&lOWNER&7 '
+  Manager:
+    tabprefix: '&6&lMANAGER&7 '
+    tagprefix: '&6&lMANAGER&7 '
+  sr-Admin:
+    tabprefix: '&c&lSR.ADMIN&7 '
+    tagprefix: '&c&lSR.ADMIN&7 '
+  Admin:
+    tabprefix: '&c&lADMIN&7 '
+    tagprefix: '&c&lADMIN&7 '
+  SrMod:
+    tabprefix: '&2&lSRMOD&7 '
+    tagprefix: '&2&lSRMOD&7 '
+  builder:
+    tabprefix: '&b&lBUILDER&7 '
+    tagprefix: '&b&lBUILDER&7 '
+  Mod:
+    tabprefix: '&2&lMOD &7'
+    tagprefix: '&2&lMOD &7'
+  Helper:
+    tabprefix: '&a&lHELPER&7 '
+    tagprefix: '&a&lHELPER&7 '
+  _OTHER_:
+    tabprefix: '%vault-prefix% '
+    tagprefix: '%vault-prefix% '
+    tabsuffix: '%afk%'
+    tagsuffix: '%afk%'
+    customtabname: '%essentialsnick%'
+    customtagname: '%essentialsnick%'
+Users: null
+enable-collision: true
+do-not-move-spectators: false
+unlimited-nametag-prefix-suffix-mode:
+  enabled: false
+  modify-npc-names: false
+per-world-settings:
+  world1:
+    header:
+    - an example of world with custom
+    footer:
+    - header/footer and prefix/suffix
+    Groups:
+      Owner:
+        tabprefix: '&0&l[&a&lOwner&0&l] &a'
+        tagprefix: '&2&lOwner &a'
+        header:
+        - ur server man
+        footer:
+        - welcome
+      Admin:
+        tabprefix: '&2&lAdmin &1&l'
+        tagprefix: '&2&lAdmin &1&l'
+      Player:
+        tabprefix: '&5&lPlayer &3&l'
+        tagprefix: '&5&lPlayer &3&l'
+    Users:
+      Player1:
+        tabprefix: 'Hi '
+placeholders:
+  afk-yes: ' &8&l&oAFK'
+  afk-no: ''
+  date-format: dd.MM.yyyy
+  time-format: '[HH:mm:ss / h:mm a]'
+  time-offset: 0
+  remove-strings:
+  - '[] '
+  - '< > '
+rank-aliases:
+  Admin: '&4&lADMIN'
+  Mod: '&b&lMOD'
+  Premium: '&6&lPREMIUM'
+  Ultra: '&b&lULTRA'
+  Legend: '&a&lLEGEND'
+  Titan: '&c&lTITAN'
+  Youtuber: '&c&lYOUTUBE'
+  _OTHER_: '&7No Rank'
+disable-features-in-worlds:
+  header-footer:
+  - disabledworld
+  tablist-names:
+  - disabledworld
+  nametag:
+  - disabledworld
+  bossbar:
+  - disabledworld
+  belowname:
+  - disabledworld
+  yellow-number:
+  - disabledworld
+revert-collision-rule-in-worlds:
+- revertedworld
+yellow-number-in-tablist: '%ping%'
+classic-vanilla-belowname:
+  enabled: true
+  number: '%health%'
+  text: Health
+placeholderapi-refresh-intervals:
+  default-refresh-interval: 100
+  server:
+    '%server_uptime%': 1000
+    '%server_tps_1_colored%': 1000
+  player:
+    '%vault_prefix%': 1000
+    '%player_health%': 200
+    '%player_ping%': 1000
+  relational:
+    '%rel_factionsuuid_relation_color%': 500
+sort-players-by-permissions: false
+use-primary-group: true
+assign-groups-by-permissions: false
+primary-group-finding-list:
+- Owner
+- Admin
+- Helper
+- default
+fix-pet-names: false
+per-world-playerlist:
+  enabled: false
