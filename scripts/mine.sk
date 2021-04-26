@@ -21,6 +21,16 @@ function simMine(p: player, t: number):
 	add {_t} to {balance::%{_u}%}
 	add 1 to {xp::%{_u}%}
 	add 1 to {mined::%{_u}%}
+	set {_xpn} to tag "xpn" of nbt of {_p}'s tool
+	set {_xp} to tag "xp" of nbt of {_p}'s tool
+	set {_level} to tag "level" of nbt of {_p}'s tool
+	set {_points} to tag "points" of nbt of {_p}'s tool
+	if {_xp} >= {_xpn}:
+		set tag "level" of nbt of {_p}'s tool to {_level} + 1
+		set tag "xpn" of nbt of {_p}'s tool to {_xpn}^1.001
+		set tag "xp" of nbt of {_p}'s tool to {_xpn} - {_xp}
+		set tag "points" of nbt of {_p}'s tool to {_points} + 1
+
 
 function mineActionBar(p: player):
 	set {_u} to {_p}'s uuid
@@ -47,14 +57,6 @@ on break:
 	player's tool is pickaxe
 	clear drops
 
-	if (distance between block above player and event-block) > 6.08:
-		send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (Distance: %distance between block above player and event-block%&7)" to all players where [input has permission "staff"]
-		send "`%player%` might be using **Nuker**. (Ping:%player's ping%) (Distance: %distance between block above player and event-block%)" to channel with id "{@anticheat-channel}" with {@bot}
-
-	# if (location of targeted block) is (location of event-block):
-	# 	send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (Wrong targeted block)" to all players where [input has permission "staff"]
-	# 	send "`%player%` might be using **Nuker**. (Ping:%player's ping%) (Wrong targeted block)" to channel with id "{@anticheat-channel}" with {@bot}
-
 	set metadata "nuker" of player to metadata "nuker" of player + 1
 	if metadata "nuker_yes" of player is not set:
 		set metadata "nuker_yes" of player to true
@@ -67,17 +69,16 @@ on break:
 		delete metadata "nuker" of player
 		delete metadata "nuker_yes" of player
 
-	add 1 to {mined::%player's uuid%}
 	set {_price} to getPrice(event-block)
 	set {_fort} to random integer between 1 and (getTag(player's tool, "fortune") + 1)
 	set {_total} to {_price} * {_fort}
 	set {_total} to {_total} * getMulti(player)
 	add {_total} to {balance::%player's uuid%}
-	add 1 to {xp::%player's uuid%}
+	simMine(player, {_total})
 
 	set {_loc} to event-block's location
 
-	if (random integer between 1 and 3000) <= getTag(player's tool, "jackhammer"):
+	if (random integer between 1 and (enchantChance("jackhammer"))) <= getTag(player's tool, "jackhammer"):
 		set {_loc1} to {_loc} ~ vector(-2, 0, -2)
 		set {_loc2} to {_loc} ~ vector(2, 0, 2)
 		loop all blocks within {_loc1} and {_loc2}:
@@ -85,7 +86,7 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and 3000) <= getTag(player's tool, "slice"):
+	if (random integer between 1 and (enchantChance("slice")))) <= getTag(player's tool, "slice"):
 		set {_loc1} to {_loc} ~ vector(0, -2, -2)
 		set {_loc2} to {_loc} ~ vector(0, 2, 2)
 		loop all blocks within {_loc1} and {_loc2}:
@@ -93,24 +94,59 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and 7250) <= getTag(player's tool, "explosive"):
+	if (random integer between 1 and (enchantChance("explosive")))) <= getTag(player's tool, "explosive"):
 		loop all blocks in radius 3 around event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and 25000000) <= getTag(player's tool, "chunk"):
+	if (random integer between 1 and (enchantChance("layer")))) <= getTag(player's tool, "layer"):
+		set {_loc1} to {_loc} ~ vector(-20, 0, -20)
+		set {_loc2} to {_loc} ~ vector(20, 0, 20)
+		loop all blocks within {_loc1} and {_loc2}:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+
+	if (random integer between 1 and (enchantChance("laser")))) <= getTag(player's tool, "laser"):
+		set {_loc1} to {_loc} ~ vector(20, 0, 0)
+		set {_loc2} to {_loc} ~ vector(-20, 0, 0)
+		set {_loc3} to {_loc} ~ vector(0, 0, 20)
+		set {_loc4} to {_loc} ~ vector(0, 0, -20)
+		loop all blocks within {_loc1} and {_loc2}:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+		loop all blocks within {_loc3} and {_loc4}:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+
+	if (random integer between 1 and (enchantChance("cube")))) <= getTag(player's tool, "cube"):
+		set {_loc1} to {_loc} ~ vector(1, 1, 1)
+		set {_loc2} to {_loc} ~ vector(-1, -1,- 1)
+		loop all blocks within {_loc} and {_loc2}:
+			if blockValidator(loop-block) is true:
+				simMine(player, {_total})
+				set loop-block to air
+
+	if (random integer between 1 and (enchantChance("xpfinder")))) <= getTag(player's tool, "xpfinder"):
+		add {xpn::%player's uuid%} * 3 to {xp::%player's uuid%}
+		send "<##4b8bf2>&lENCHANTS&7 Your <##81aef7>xpfinder&7 has found <##81aef7>%round ({xpn::%player's uuid%} * 3)%XP&7."
+
+	if (random integer between 1 and (enchantChance("chunk")))) <= getTag(player's tool, "chunk"):
 		loop all blocks within chunk at event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and 100000000) <= getTag(player's tool, "tsunami"):
+	if (random integer between 1 and (enchantChance("tsunami")))) <= getTag(player's tool, "tsunami"):
 		loop all blocks in radius 40 around event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
+	set player's tool to updatePickaxeLevel(player's tool)
 	mineActionBar(player)
 	updateLevel(player)
 	updateScoreboard(player)

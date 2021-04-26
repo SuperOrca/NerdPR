@@ -6,22 +6,30 @@ function getTags(t: item) :: objects:
 	add (getTag({_t}, "fortune") and "Fortune") to {_e::*}
 	add (getTag({_t}, "jump") and "Jump") to {_e::*}
 	add (getTag({_t}, "flight") and "Flight") to {_e::*}
-	add (getTag({_t}, "tokenfinder") and "Tokenfinder") to {_e::*}
 	add (getTag({_t}, "keyfinder") and "Keyfinder") to {_e::*}
 	add (getTag({_t}, "explosive") and "Explosive") to {_e::*}
 	add (getTag({_t}, "jackhammer") and "Jackhammer") to {_e::*}
 	add (getTag({_t}, "slice") and "Slice") to {_e::*}
+	add (getTag({_t}, "layer") and "Layer") to {_e::*}
+	add (getTag({_t}, "laser") and "Laser") to {_e::*}
+	add (getTag({_t}, "cube") and "Cube") to {_e::*}
+	add (getTag({_t}, "xpfinder") and "Xpfinder") to {_e::*}
 	add (getTag({_t}, "chunk") and "Chunk") to {_e::*}
 	add (getTag({_t}, "tsunami") and "Tsunami") to {_e::*}
 	return {_e::*}
 
+function updatePickaxeLevel(t: item) :: item:
+	set line 1 of {_t}'s lore to ""
+	set line 2 of {_t}'s lore to "<##f2b84b>&l| &7Level: &f%getTag({_t}, ""level"")%"
+	set line 3 of {_t}'s lore to "<##f2b84b>&l| &7Points: &f%getTag({_t}, ""points"")%"
+	set {_progress} to round (((getTag({_t}, "xp"))/(getTag({_t}, "xpn"))) * 100)
+	set line 4 of {_t}'s lore to "<##f2b84b>&l| &7Progress: &f%{_progress}%%%"
+	set line 5 of {_t}'s lore to ""
+	return {_t}
+
 function updatePickaxe(t: item) :: item:
 	updateScoreboard({_p})
-	set line 1 of {_t}'s lore to ""
-	set line 2 of {_t}'s lore to "<##f2b84b>&l| &7Level: &f0"
-	set line 3 of {_t}'s lore to "<##f2b84b>&l| &7Points: &f0"
-	set line 4 of {_t}'s lore to "<##f2b84b>&l| &7Progress: &f0%%"
-	set line 5 of {_t}'s lore to ""
+	set {_t} to updatePickaxeLevel({_t})
 	set {_enchs::*} to getTags({_t})
 	loop ((size of {_enchs::*})/2) times:
 		set {_level} to {_enchs::%loop-value * 2 - 1%}
@@ -85,11 +93,14 @@ function enchantPrice(e: text, l: number) :: number:
 	return ({_l}*12500)^(1.17)+25000 if {_e} is "fortune"
 	return 10000000 if {_e} is "jump"
 	return 50000000 if {_e} is "flight"
-	return ({_l}*250000)^(1.14)+1000000 if {_e} is "tokenfinder"
 	return ({_l}*100000)^(1.155)+400000 if {_e} is "keyfinder"
 	return ({_l}*125000)^(1.14)+500000 if {_e} is "explosive"
 	return ({_l}*150000)^(1.15)+600000 if {_e} is "jackhammer"
 	return ({_l}*150000)^(1.15)+600000 if {_e} is "slice"
+	return 0 if {_e} is "layer"
+	return 0 if {_e} is "laser"
+	return 0 if {_e} is "cube"
+	return 0 if {_e} is "xpfinder"
 	return ({_l}*175000)^(1.16)+750000 if {_e} is "chunk"
 	return ({_l}*250000)^(1.17)+1000000 if {_e} is "tsunami"
 	return 0
@@ -99,41 +110,45 @@ function enchantMax(e: text) :: number:
 	return 1000000 if {_e} is "fortune"
 	return 1 if {_e} is "jump"
 	return 1 if {_e} is "flight"
-	return 500 if {_e} is "tokenfinder"
 	return 5000 if {_e} is "keyfinder"
 	return 500 if {_e} is "explosive"
 	return 1000 if {_e} is "jackhammer"
 	return 1000 if {_e} is "slice"
+	return 500 if {_e} is "layer"
+	return 500 if {_e} is "laser"
+	return 500 if {_e} is "cube"
+	return 500 if {_e} is "xpfinder"
 	return 5000 if {_e} is "chunk"
 	return 10000 if {_e} is "tsunami"
 	return 0
 
 function enchantChance(e: text) :: number:
-	return 500 if {_e} is "efficiency"
-	return 1000000 if {_e} is "fortune"
-	return 1 if {_e} is "jump"
-	return 1 if {_e} is "flight"
-	return 500 if {_e} is "tokenfinder"
-	return 5000 if {_e} is "keyfinder"
-	return 500 if {_e} is "explosive"
-	return 1000 if {_e} is "jackhammer"
-	return 1000 if {_e} is "slice"
-	return 5000 if {_e} is "chunk"
-	return 10000 if {_e} is "tsunami"
+	return 4000 if {_e} is "jackhammer"
+	return 4000 if {_e} is "slice"
+	return 3000 if {_e} is "laser"
+	return 4000 if {_e} is "layer"
+	return 5000 if {_e} if "cube"
+	return 1000 if {_e} is "xpfinder"
+	return 7250 if {_e} is "explosive"
+	return 25000000 if {_e} is "chunk"
+	return 100000000 if {_e} is "tsunami"
 	return 0
 
 function enchantDescription(e: text) :: text:
-	return "Makes you mine faster." if {_e} is "efficiency"
-	return "Makes you more money." if {_e} is "fortune"
-	return "Makes you jump higher." if {_e} is "jump"
-	return "Allows you to fly." if {_e} is "flight"
-	return "Makes you " if {_e} is "tokenfinder"
-	return 5000 if {_e} is "keyfinder"
-	return 500 if {_e} is "explosive"
-	return 1000 if {_e} is "jackhammer"
-	return 1000 if {_e} is "slice"
-	return 5000 if {_e} is "chunk"
-	return 10000 if {_e} is "tsunami"
+	return "Makes you mine faster" if {_e} is "efficiency"
+	return "Makes you more money" if {_e} is "fortune"
+	return "Makes you jump higher" if {_e} is "jump"
+	return "Allows you to fly" if {_e} is "flight"
+	return "Chance to find a key" if {_e} is "keyfinder"
+	return "Chance to explode" if {_e} is "explosive"
+	return "5x5 Horizontal" if {_e} is "jackhammer"
+	return "5x5 Verticle" if {_e} is "slice"
+	return "Makes the entire layer" if {_e} is "layer"
+	return "Makes a cross in the mine" if {_e} is "laser"
+	return "Makes 3x3x3 cube" if {_e} is "cube"
+	return "Chance to find more XP" if {_e} is "xpfinder"
+	return "Mines an entire chunk" if {_e} is "chunk"
+	return "Chance to explode the entire mine" if {_e} is "tsunami"
 	return 0
 
 function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
@@ -142,6 +157,11 @@ function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
 	set {_max} to enchantMax({_enchant})
 
 	set {_item} to {_item} named "<##81aef7>%{_enchant} in proper case% &7(%insertComma({_level})%/%insertComma({_max})%)" with lore "" and "&7Price: <##81aef7>$%formatNumber(enchantPrice({_enchant}, {_level}))%" and "" and "<##81aef7>Click &7to buy one." and "<##81aef7>MMB &7to buy as many as possible."
+	set line 6 of lore of {_item} to ""
+	set line 7 of lore of {_item} to "&7&o(( %enchantDescription({_enchant})% ))"
+	if enchantChance({_enchant}) is not 0:
+		set {_chance} to round (({_level}/(enchantChance({_enchant}))) * 100)
+		set line 8 of lore of {_item} to "&7&o(( Chance: %{_chance}%%% ))"
 	format gui slot {_slot} of {_p} with {_item} to run:
 		upgradePickaxe({_p}, {_tool}, {_enchant}, {_level}, {_max}, "%gui-click-type%")
 
@@ -152,16 +172,19 @@ function pickaxeInv(p: player):
 	format gui slot 4 of {_p} with {_p}'s skull
 
 	guiPickaxeItem({_p}, 19, hopper, "jackhammer")
-	guiPickaxeItem({_p}, 21, iron sword, "slice")
-	guiPickaxeItem({_p}, 23, chest, "tokenfinder")
-	guiPickaxeItem({_p}, 25, emerald, "fortune")
-	guiPickaxeItem({_p}, 29, tnt, "explosive")
-	guiPickaxeItem({_p}, 31, arrow, "efficiency")
-	guiPickaxeItem({_p}, 33, feather, "flight")
-	guiPickaxeItem({_p}, 37, rabbit foot, "jump")
-	guiPickaxeItem({_p}, 39, anvil, "chunk")
-	guiPickaxeItem({_p}, 41, water bucket, "tsunami")
-	guiPickaxeItem({_p}, 43, lectern, "keyfinder")
+	guiPickaxeItem({_p}, 20, iron sword, "slice")
+	guiPickaxeItem({_p}, 21, emerald, "fortune")
+	guiPickaxeItem({_p}, 22, tnt, "explosive")
+	guiPickaxeItem({_p}, 24, arrow, "efficiency")
+	guiPickaxeItem({_p}, 25, feather, "flight")
+	guiPickaxeItem({_p}, 28, rabbit foot, "jump")
+	guiPickaxeItem({_p}, 29, anvil, "chunk")
+	guiPickaxeItem({_p}, 30, water bucket, "tsunami")
+	guiPickaxeItem({_p}, 31, lectern, "keyfinder")
+	guiPickaxeItem({_p}, 32, red carpet, "layer")
+	guiPickaxeItem({_p}, 33, redstone torch, "laser")
+	guiPickaxeItem({_p}, 34, stone, "cube")
+	guiPickaxeItem({_p}, 35, xp bottle, "xpfinder")
 
 on right click:
 	player's tool is pickaxe
@@ -173,13 +196,10 @@ on join:
 	remove jump boost from player
 
 on hotbar switch:
-	if metadata "thread" of player is true:
-		cancel event
-	if getTag(player's tool, "jump") > 0:
-		apply jump boost of tier 2 without any particles to player for 999 days
-	if getTag(player's tool, "flight") > 0:
-		set player's flight mode to true
+	cancel event if metadata "thread" of player is true
+	apply jump boost of tier 2 without any particles to player for 999 days if getTag(player's tool, "jump") > 0
+	set player's flight mode to true if getTag(player's tool, "flight") > 0
 
 on inventory open:
 	metadata "thread" of player is true
-	cancel event
+	close player's inventory

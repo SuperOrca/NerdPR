@@ -89,7 +89,7 @@ command /stats <player=%player%>:
 	trigger:
 		set {_p} to arg-1
 		set {_u} to arg-1's uuid
-		send "&8&m---------------------------"
+		send centered "&8&m------------ &r<##81aef7>%{_p}%'s Statistics &8&m--------------" to player
 		set {_level} to insertComma({level::%{_u}%} ? 0)
 		send "&8| &7Level: <##81aef7>%{_level}%"
 		set {_prestige} to insertComma({prestige::%{_u}%} ? 0)
@@ -102,38 +102,35 @@ command /stats <player=%player%>:
 		set {_balance} to formatNumber({balance::%{_u}%} ? 0)
 		send "&8| &7Balance: <##81aef7>$%{_balance}%"
 		send "&8| &7Multiplier: <##81aef7>%getMulti({_p})%x"
-		send "&8&m---------------------------"
+		send centered "&8&m------------ --------------" to player
 
 on join:
 	set join message to "<##81aef7>%player%&7 joined the game."
 	wait 1 tick
 	player is online
 	if player's inventory does not contain diamond pickaxe:
-		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b}")
+		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b,xpn:50}")
 	toggle scoreboard of player to on
 	loop all players:
 		updateScoreboard(loop-player)
 
 on quit:
-	if {ban::%player's uuid%::type} is not set:
-		set quit message to "<##81aef7>%player%&7 left the game."
-		wait 1 tick
-		loop all players:
-			updateScoreboard(loop-player)
-	else:
-		set quit message to ""
+	set quit message to "<##81aef7>%player%&7 left the game.", if {ban::%player's uuid%::type} is not set, else ""
+	wait 1 tick
+	loop all players:
+		updateScoreboard(loop-player)
 
 command /getpick:
 	permission: staff.getpick
 	permission message: &cNo Permission.
 	trigger:
-		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b}")
+		give player updatePickaxe(diamond pickaxe named "<##4b8bf2>&lPICKAXE" with nbt "{HideFlags:7b,xpn:50}")
 
 command /getmaxedpick:
 	permission: op
 	permission message: &cNo Permission.
 	trigger:
-		give player updatePickaxe(diamond pickaxe named "&c&lADMIN PICKAXE" with nbt "{HideFlags:7b,efficiency:500,fortune:1000000,jump:1,flight:1,tokenfinder:500,keyfinder:5000,explosive:500,jackhammer:1000,slice:1000,chunk:5000,tsunami:10000}")
+		give player updatePickaxe(diamond pickaxe named "&c&lADMIN PICKAXE" with nbt "{HideFlags:7b,efficiency:500,fortune:1000000,jump:1,flight:1,tokenfinder:500,keyfinder:5000,explosive:500,jackhammer:1000,slice:1000,chunk:5000,tsunami:10000,xpn:50}")
 
 on item damage:
 	cancel event
