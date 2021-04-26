@@ -3,7 +3,13 @@ options:
 	zop_key: tripwire hook named "&c&lZop Crate Key"
 	rebirth_key: tripwire hook named "&5&lRebirth Crate Key"
 
-
+function giveKey(p: player, key: text, n: number = 1):
+	if {_key} is "rebirth":
+		give {_n} of tripwire hook named "&5&lRebirth Crate Key" to {_p}
+	else if {_key} is "iq":
+		give {_n} of tripwire hook named "&f&lIQ Crate Key" to {_p}
+	else if {_key} is "zop":
+		give {_n} of tripwire hook named "&c&lZop Crate Key" to {_p}
 
 on right click:
 	if "%region at clicked block%" contains "iq_crate":
