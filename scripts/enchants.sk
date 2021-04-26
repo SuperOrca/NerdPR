@@ -128,11 +128,11 @@ function enchantMax(e: text) :: number:
 function enchantChance(e: text) :: number:
 	return 4000 if {_e} is "jackhammer"
 	return 4000 if {_e} is "slice"
-	return 3000 if {_e} is "laser"
-	return 4000 if {_e} is "layer"
-	return 5000 if {_e} is "cube"
-	return 7500 if {_e} is "xpfinder"
-	return 7250 if {_e} is "explosive"
+	return 4000 if {_e} is "laser"
+	return 5000 if {_e} is "layer"
+	return 6000 if {_e} is "cube"
+	return 250000 if {_e} is "xpfinder"
+	return 8250 if {_e} is "explosive"
 	return 25000000 if {_e} is "chunk"
 	return 100000000 if {_e} is "tsunami"
 	return 0
