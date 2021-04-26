@@ -72,8 +72,8 @@ on right click:
 				set {_amount} to item amount of player's tool
 				loop {_amount} times:
 					set {_num} to random integer between 1 and 100
-					if {_num} is between 1 and 14:
-						give player 3 {@iq_key}
+					if {_num} is between 1 and 15:
+						give player 1 {@iq_key}
 					else if {_num} is between 16 and 25:
 						add 100 to {level::%player's uuid%}
 					else if {_num} is between 26 and 30:
@@ -81,20 +81,19 @@ on right click:
 					else if {_num} is between 31 and 35:
 						give player 2 {@zop_key}
 					else if {_num} is between 36 and 40:
-						give player 3 {@zop_key}
+						give player 2 {@zop_key}
 					if {_num} is between 41 and 50:
 						add 3 to {multiplier::%player's uuid%}
 					if {_num} is between 51 and 60:
 						add 2 to {multiplier::%player's uuid%}
 					if {_num} is between 61 and 100:
 						add 1 to {multiplier::%player's uuid%}
-					if {_num} is between 15 and 15:
 				send "<##4b8bf2>&lCRATES &7You have opened <##81aef7>%{_num}%&7 ZOP Crates." to player
 			else:
 				remove 1 of player's tool from player's tool
 				set {_num} to random integer between 1 and 100
 				if {_num} is between 1 and 14:
-					give player 3 {@iq_key}
+					give player 1 {@iq_key}
 					send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 IQ Crate Keys" to player
 				else if {_num} is between 16 and 25:
 					add 100 to {level::%player's uuid%}
@@ -106,7 +105,7 @@ on right click:
 					give player 2 {@zop_key}
 					send "<##4b8bf2>&lCRATES &7You've won <##81aef7>2 ZOP Crate Keys" to player
 				else if {_num} is between 36 and 40:
-					give player 3 {@zop_key}
+					give player 2 {@zop_key}
 					send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 ZOP Crate Keys" to player
 				if {_num} is between 41 and 50:
 					add 3 to {multiplier::%player's uuid%}
@@ -133,7 +132,7 @@ on right click:
 				loop {_amount} times:
 					set {_num} to random integer between 1 and 100
 					if {_num} is between 1 and 14:
-						give player 3 {@rebirth_key}
+						give player 1 {@rebirth_key}
 					else if {_num} is between 16 and 25:
 						add 100 to {level::%player's uuid%}
 						send "<##4b8bf2>&lCRATES &7You've won <##81aef7>+100 Levels" to player
@@ -144,7 +143,7 @@ on right click:
 					else if {_num} is between 31 and 35:
 						give player 2 {@rebirth_key}
 					else if {_num} is between 36 and 40:
-						give player 3 {@zop_key}
+						give player 2 {@zop_key}
 					if {_num} is between 41 and 50:
 						add 3 to {multiplier::%player's uuid%}
 					if {_num} is between 51 and 60:
@@ -158,7 +157,7 @@ on right click:
 				remove 1 of player's tool from player's tool
 				set {_num} to random integer between 1 and 100
 				if {_num} is between 1 and 14:
-					give player 3 {@rebirth_key}
+					give player 1 {@rebirth_key}
 					send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 REBIRTH Crate Keys" to player
 				else if {_num} is between 16 and 25:
 					add 100 to {level::%player's uuid%}
@@ -172,7 +171,7 @@ on right click:
 					give player 2 {@rebirth_key}
 					send "<##4b8bf2>&lCRATES &7You've won <##81aef7>2 REBIRTH Crate Keys" to player
 				else if {_num} is between 36 and 40:
-					give player 3 {@zop_key}
+					give player 2 {@zop_key}
 					send "<##4b8bf2>&lCRATES &7You've won <##81aef7>3 ZOP Crate Keys" to player
 				if {_num} is between 41 and 50:
 					add 3 to {multiplier::%player's uuid%}

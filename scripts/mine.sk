@@ -86,7 +86,7 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and (enchantChance("slice")))) <= getTag(player's tool, "slice"):
+	if (random integer between 1 and (enchantChance("slice"))) <= getTag(player's tool, "slice"):
 		set {_loc1} to {_loc} ~ vector(0, -2, -2)
 		set {_loc2} to {_loc} ~ vector(0, 2, 2)
 		loop all blocks within {_loc1} and {_loc2}:
@@ -94,13 +94,13 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and (enchantChance("explosive")))) <= getTag(player's tool, "explosive"):
+	if (random integer between 1 and (enchantChance("explosive"))) <= getTag(player's tool, "explosive"):
 		loop all blocks in radius 3 around event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and (enchantChance("layer")))) <= getTag(player's tool, "layer"):
+	if (random integer between 1 and (enchantChance("layer"))) <= getTag(player's tool, "layer"):
 		set {_loc1} to {_loc} ~ vector(-20, 0, -20)
 		set {_loc2} to {_loc} ~ vector(20, 0, 20)
 		loop all blocks within {_loc1} and {_loc2}:
@@ -108,7 +108,7 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and (enchantChance("laser")))) <= getTag(player's tool, "laser"):
+	if (random integer between 1 and (enchantChance("laser"))) <= getTag(player's tool, "laser"):
 		set {_loc1} to {_loc} ~ vector(20, 0, 0)
 		set {_loc2} to {_loc} ~ vector(-20, 0, 0)
 		set {_loc3} to {_loc} ~ vector(0, 0, 20)
@@ -122,25 +122,25 @@ on break:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and (enchantChance("cube")))) <= getTag(player's tool, "cube"):
+	if (random integer between 1 and (enchantChance("cube"))) <= getTag(player's tool, "cube"):
 		set {_loc1} to {_loc} ~ vector(1, 1, 1)
-		set {_loc2} to {_loc} ~ vector(-1, -1,- 1)
+		set {_loc2} to {_loc} ~ vector(-1, -1, -1)
 		loop all blocks within {_loc} and {_loc2}:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and (enchantChance("xpfinder")))) <= getTag(player's tool, "xpfinder"):
+	if (random integer between 1 and (enchantChance("xpfinder"))) <= getTag(player's tool, "xpfinder"):
 		add {xpn::%player's uuid%} * 3 to {xp::%player's uuid%}
 		send "<##4b8bf2>&lENCHANTS&7 Your <##81aef7>xpfinder&7 has found <##81aef7>%round ({xpn::%player's uuid%} * 3)%XP&7."
 
-	if (random integer between 1 and (enchantChance("chunk")))) <= getTag(player's tool, "chunk"):
+	if (random integer between 1 and (enchantChance("chunk"))) <= getTag(player's tool, "chunk"):
 		loop all blocks within chunk at event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
-	if (random integer between 1 and (enchantChance("tsunami")))) <= getTag(player's tool, "tsunami"):
+	if (random integer between 1 and (enchantChance("tsunami"))) <= getTag(player's tool, "tsunami"):
 		loop all blocks in radius 40 around event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})

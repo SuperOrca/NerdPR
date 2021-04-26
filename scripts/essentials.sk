@@ -47,10 +47,10 @@ command /invsee <player>:
 	trigger:
 		if player is op:
 			send "<##03fc66>&lSTAFF&7 Opened <##7dffb1>%arg-1%'s &7inventory."
-			open arg-1's inventory named "<##7dffb1>%arg-1%'s Inventory" to player
+			open arg-1's inventory to player
 		else:
-			send "<##03fc66>&lINVSEE&7 Opened <##7dffb1>%arg-1%'s &7inventory."
-			open virtual chest with 4 rows named "<##7dffb1>%arg-1%'s Inventory"
+			send "<##03fc66>&lINVSEE&7 Opened <##7dffb1>%arg-sk re1%'s &7inventory."
+			open virtual chest with 4 rows named "<##7dffb1>%arg-1%'s Inventory" to player
 			set {_n} to 0
 			loop all items in arg-1's inventory:
 				format gui slot {_n} of player with loop-item

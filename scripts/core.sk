@@ -115,7 +115,10 @@ on join:
 		updateScoreboard(loop-player)
 
 on quit:
-	set quit message to "<##81aef7>%player%&7 left the game.", if {ban::%player's uuid%::type} is not set, else ""
+	if {ban::%player's uuid%::type} is not set:
+		set quit message to "<##81aef7>%player%&7 left the game."
+	else:
+		set quit message to ""
 	wait 1 tick
 	loop all players:
 		updateScoreboard(loop-player)
@@ -262,7 +265,8 @@ on flight toggle:
 command /daily:
 	trigger:
 		if time since {daily::%player's uuid%} < 12 hours:
-			send "&cYou cannot claim this for another %12 hours - (time since {daily::%player's uuid%})%."
+			set {_} to difference between 12 hours and (time since {daily::%player's uuid%})
+			send "&cYou cannot claim this for another %{_}%."
 			stop
 		set {daily::%player's uuid%} to now
 		send "<##4b8bf2>&lDAILY &7You claimed your daily reward."
@@ -271,4 +275,4 @@ command /daily:
 
 command /levelsneeded:
 	trigger:
-		send "<##f2b84b>&lLEVELS &7You need <##f7b481>%(({prestige::%player's uuid%} ? 0) * 5 + 10)%<##f7b481> levels&7 to prestige.
+		send "<##f2b84b>&lLEVELS &7You need <##f7b481>%(({prestige::%player's uuid%} ? 0) * 5 + 10)%<##f7b481> levels&7 to prestige."
