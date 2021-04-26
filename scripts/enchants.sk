@@ -20,8 +20,8 @@ function getTags(t: item) :: objects:
 
 function updatePickaxeLevel(t: item) :: item:
 	set line 1 of {_t}'s lore to ""
-	set line 2 of {_t}'s lore to "<##f2b84b>&l| &7Level: &f%getTag({_t}, ""level"")%"
-	set line 3 of {_t}'s lore to "<##f2b84b>&l| &7Points: &f%getTag({_t}, ""points"")%"
+	set line 2 of {_t}'s lore to "<##f2b84b>&l| &7Level: &f%insertComma(getTag({_t}, ""level""))%"
+	set line 3 of {_t}'s lore to "<##f2b84b>&l| &7Points: &f%insertComma(getTag({_t}, ""points""))%"
 	set {_progress} to round (((getTag({_t}, "xp"))/(getTag({_t}, "xpn"))) * 100)
 	set line 4 of {_t}'s lore to "<##f2b84b>&l| &7Progress: &f%{_progress}%%%"
 	set line 5 of {_t}'s lore to ""
@@ -44,24 +44,27 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 		close {_p}'s inventory
 		set metadata "thread" of {_p} to true
 		while 1 = 1:
-			set {_l} to getTag({_p}'s tool, {_e})
-			set {_pr} to enchantPrice({_e}, {_l})
-			if {balance::%{_u}%} >= {_pr}:
-				if {_l} < {_m}:
-					add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
-					remove {_pr} from {balance::%{_u}%}
-					playSound({_p}, "ENTITY_VILLAGER_YES")
-					send "<##4b8bf2>&lENCHANT &7Purchased <##81aef7>%{_e}%&7 for <##81aef7>$%formatNumber({_pr})%&7." to {_p}
-					set {_p}'s tool to updatePickaxe({_t})
-					updateScoreboard({_p})
-					wait 1 tick
+			if {_p} is online:
+				set {_l} to getTag({_p}'s tool, {_e})
+				set {_pr} to enchantPrice({_e}, {_l})
+				if {balance::%{_u}%} >= {_pr}:
+					if {_l} < {_m}:
+						add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
+						remove {_pr} from {balance::%{_u}%}
+						playSound({_p}, "ENTITY_VILLAGER_YES")
+						send "<##4b8bf2>&lENCHANT &7Purchased <##81aef7>%{_e}%&7 for <##81aef7>$%formatNumber({_pr})%&7." to {_p}
+						set {_p}'s tool to updatePickaxe({_t})
+						updateScoreboard({_p})
+						wait 1 tick
+					else:
+						playSound({_p}, "ENTITY_VILLAGER_NO")
+						send "&cYou already maxed this enchant." to {_p}
+						exit loop
 				else:
 					playSound({_p}, "ENTITY_VILLAGER_NO")
-					send "&cYou already maxed this enchant." to {_p}
+					send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
 					exit loop
 			else:
-				playSound({_p}, "ENTITY_VILLAGER_NO")
-				send "&cYou need $%formatNumber({_pr} - {balance::%{_u}%})%&c more to buy this!" to {_p}
 				exit loop
 		delete metadata "thread" of {_p}
 	else:
@@ -97,10 +100,10 @@ function enchantPrice(e: text, l: number) :: number:
 	return ({_l}*150000)^(1.15)+600000 if {_e} is "explosive"
 	return ({_l}*125000)^(1.14)+550000 if {_e} is "jackhammer"
 	return ({_l}*125000)^(1.14)+550000 if {_e} is "slice"
-	return ({_l}*150000)^(1.15)+600000 if {_e} is "layer"
+	return ({_l}*125000)^(1.15)+600000 if {_e} is "layer"
 	return ({_l}*125000)^(1.14)+550000 if {_e} is "laser"
-	return ({_l}*150000)^(1.15)+600000 if {_e} is "cube"
-	return ({_l}*100000)^(1.16)+100000 if {_e} is "xpfinder"
+	return ({_l}*125000)^(1.15)+600000 if {_e} is "cube"
+	return ({_l}*150000)^(1.16)+250000 if {_e} is "xpfinder"
 	return ({_l}*175000)^(1.16)+750000 if {_e} is "chunk"
 	return ({_l}*250000)^(1.17)+1000000 if {_e} is "tsunami"
 	return 0
@@ -117,7 +120,7 @@ function enchantMax(e: text) :: number:
 	return 500 if {_e} is "layer"
 	return 500 if {_e} is "laser"
 	return 500 if {_e} is "cube"
-	return 500 if {_e} is "xpfinder"
+	return 250 if {_e} is "xpfinder"
 	return 5000 if {_e} is "chunk"
 	return 10000 if {_e} is "tsunami"
 	return 0
@@ -128,7 +131,7 @@ function enchantChance(e: text) :: number:
 	return 3000 if {_e} is "laser"
 	return 4000 if {_e} is "layer"
 	return 5000 if {_e} is "cube"
-	return 1000 if {_e} is "xpfinder"
+	return 7500 if {_e} is "xpfinder"
 	return 7250 if {_e} is "explosive"
 	return 25000000 if {_e} is "chunk"
 	return 100000000 if {_e} is "tsunami"
@@ -160,7 +163,7 @@ function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
 	set line 6 of lore of {_item} to ""
 	set line 7 of lore of {_item} to "&7&o(( %enchantDescription({_enchant})% ))"
 	if enchantChance({_enchant}) is not 0:
-		set {_chance} to round (({_level}/(enchantChance({_enchant}))) * 100)
+		set {_chance} to (({_level}/(enchantChance({_enchant}))) * 100)
 		set line 8 of lore of {_item} to "&7&o(( Chance: %{_chance}%%% ))"
 	format gui slot {_slot} of {_p} with {_item} to run:
 		upgradePickaxe({_p}, {_tool}, {_enchant}, {_level}, {_max}, "%gui-click-type%")
@@ -169,22 +172,23 @@ function pickaxeInv(p: player):
 	set {_u} to {_p}'s uuid
 	set {_t} to {_p}'s tool
 
-	format gui slot 4 of {_p} with {_p}'s skull
+	format gui slot 12 of {_p} with {_p}'s skull
+	format gui slot 14 of {_p} with {_t}
 
-	guiPickaxeItem({_p}, 19, hopper, "jackhammer")
-	guiPickaxeItem({_p}, 20, iron sword, "slice")
-	guiPickaxeItem({_p}, 21, emerald, "fortune")
-	guiPickaxeItem({_p}, 22, tnt, "explosive")
-	guiPickaxeItem({_p}, 24, arrow, "efficiency")
-	guiPickaxeItem({_p}, 25, feather, "flight")
-	guiPickaxeItem({_p}, 28, rabbit foot, "jump")
-	guiPickaxeItem({_p}, 29, anvil, "chunk")
-	guiPickaxeItem({_p}, 30, water bucket, "tsunami")
-	guiPickaxeItem({_p}, 31, lectern, "keyfinder")
-	guiPickaxeItem({_p}, 32, red carpet, "layer")
-	guiPickaxeItem({_p}, 33, redstone torch, "laser")
-	guiPickaxeItem({_p}, 34, stone, "cube")
-	guiPickaxeItem({_p}, 35, xp bottle, "xpfinder")
+	guiPickaxeItem({_p}, 28, hopper, "jackhammer")
+	guiPickaxeItem({_p}, 29, iron sword, "slice")
+	guiPickaxeItem({_p}, 30, emerald, "fortune")
+	guiPickaxeItem({_p}, 31, tnt, "explosive")
+	guiPickaxeItem({_p}, 32, arrow, "efficiency")
+	guiPickaxeItem({_p}, 33, feather, "flight")
+	guiPickaxeItem({_p}, 34, rabbit foot, "jump")
+	guiPickaxeItem({_p}, 37, anvil, "chunk")
+	guiPickaxeItem({_p}, 38, water bucket, "tsunami")
+	guiPickaxeItem({_p}, 39, lectern, "keyfinder")
+	guiPickaxeItem({_p}, 40, red carpet, "layer")
+	guiPickaxeItem({_p}, 41, redstone torch, "laser")
+	guiPickaxeItem({_p}, 42, stone, "cube")
+	guiPickaxeItem({_p}, 43, xp bottle, "xpfinder")
 
 on right click:
 	player's tool is pickaxe
@@ -202,4 +206,5 @@ on hotbar switch:
 
 on inventory open:
 	metadata "thread" of player is true
+	wait 1 tick
 	close player's inventory

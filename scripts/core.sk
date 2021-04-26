@@ -133,7 +133,7 @@ command /getmaxedpick:
 	permission: op
 	permission message: &cNo Permission.
 	trigger:
-		give player updatePickaxe(diamond pickaxe named "&c&lADMIN PICKAXE" with nbt "{HideFlags:7b,efficiency:500,fortune:1000000,jump:1,flight:1,tokenfinder:500,keyfinder:5000,explosive:500,jackhammer:1000,slice:1000,chunk:5000,tsunami:10000,xpn:50}")
+		give player updatePickaxe(diamond pickaxe named "&c&lADMIN PICKAXE" with nbt "{HideFlags:7b,efficiency:500,fortune:1000000,jump:1,flight:1,tokenfinder:500,keyfinder:5000,explosive:500,jackhammer:1000,slice:1000,layer:500,laser:500,cube:500,xpfinder:250,chunk:5000,tsunami:10000,xpn:50}")
 
 on item damage:
 	cancel event
