@@ -93,7 +93,7 @@ function displayPickaxeInv(p: player):
 
 function enchantPrice(e: text, l: number) :: number:
 	return ({_l}*5000)^(1.14)+20000 if {_e} is "efficiency"
-	return ({_l}*12500)^(1.18)+25000 if {_e} is "fortune"
+	return ({_l}*12500)^(1.19)+25000 if {_e} is "fortune"
 	return 10000000 if {_e} is "jump"
 	return 50000000 if {_e} is "flight"
 	return ({_l}*200000)^(1.155)+400000 if {_e} is "keyfinder"
@@ -131,7 +131,7 @@ function enchantChance(e: text) :: number:
 	return 5000 if {_e} is "laser"
 	return 20000 if {_e} is "layer"
 	return 7000 if {_e} is "cube"
-	return 400000 if {_e} is "xpfinder"
+	return 300000 if {_e} is "xpfinder"
 	return 9250 if {_e} is "explosive"
 	return 25000000 if {_e} is "chunk"
 	return 100000000 if {_e} is "tsunami"

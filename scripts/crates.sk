@@ -45,15 +45,16 @@ on right click:
 					updateScoreboard(player)
 					send "<##4b8bf2>&lCRATES &7You won <##81aef7>%insertComma(round ({xpn::%player's uuid%} * 3))%<##81aef7>XP&7." to player
 				else if {_num} is between 61 and 88:
-					set {_} to random integer between 100000 and 10000000
-					add {_} to {balance::%player's uuid%}
-					send "<##4b8bf2>&lCRATES &7You won <##81aef7>%insertComma({_})%&7." to player
-				else if {_num} is between 89 and 98:
+					set {_rand} to random integer between 100000 and 10000000
+					add {_rand} to {balance::%player's uuid%}
+					send "<##4b8bf2>&lCRATES &7You won <##81aef7>$%insertComma({_rand})%&7." to player
+				else if {_num} is between 89 and 99:
 					give player 1 {@zop_key}
 					send "<##4b8bf2>&lCRATES &7You won <##81aef7>1 zop key&7." to player
-				if {_num} is between 99 and 100:
+				else if {_num} is 100:
 					add 0.01 to {multiplier::%player's uuid%}
 					send "<##4b8bf2>&lCRATES &7You won <##81aef7>0.01x multiplier&7." to player
+			updateScoreboard(player)
 		else:
 			send "&cYou must be holding a IQ key."
 

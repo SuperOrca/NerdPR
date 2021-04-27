@@ -254,7 +254,7 @@ command /forceleaderboards:
 		updateLeaderboards()
 
 on command:
-	command is "minecraft:me"
+	command is "minecraft:me" or "me"
 	cancel event
 
 on flight toggle:

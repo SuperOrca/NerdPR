@@ -139,12 +139,11 @@ on break:
 				set loop-block to air
 
 	if (random integer between 1 and (enchantChance("tsunami"))) <= getTag(player's tool, "tsunami"):
-		loop all blocks in radius 40 around event-block:
+		loop all blocks in radius 30 around event-block:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
 				set loop-block to air
 
-	set player's tool to updatePickaxeLevel(player's tool)
 	mineActionBar(player)
 	updateLevel(player)
 	updateScoreboard(player)

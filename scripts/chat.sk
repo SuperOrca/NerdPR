@@ -5,6 +5,7 @@ on chat:
 		if time since (metadata "antispam" of player) < 2 seconds:
 			send "&cYou must wait 2 seconds before chatting."
 			cancel event
+			stop
 		set metadata "antispam" of player to now
 	event is not canceled
 	set {_message} to message
