@@ -72,7 +72,6 @@ on break:
 	set {_fort} to random integer between 1 and (getTag(player's tool, "fortune") + 1)
 	set {_total} to {_price} * {_fort}
 	set {_total} to {_total} * getMulti(player)
-	add {_total} to {balance::%player's uuid%}
 	simMine(player, {_total})
 
 	set {_loc} to event-block's location
@@ -100,8 +99,8 @@ on break:
 				set loop-block to air
 
 	if (random integer between 1 and (enchantChance("layer"))) <= getTag(player's tool, "layer"):
-		set {_loc1} to {_loc} ~ vector(-20, 0, -20)
-		set {_loc2} to {_loc} ~ vector(20, 0, 20)
+		set {_loc1} to {_loc} ~ vector(-10, 0, -10)
+		set {_loc2} to {_loc} ~ vector(10, 0, 10)
 		loop all blocks within {_loc1} and {_loc2}:
 			if blockValidator(loop-block) is true:
 				simMine(player, {_total})
