@@ -181,3 +181,8 @@ on right click:
 # 		else:
 # 			cancel event
 # 			send "&cYou must be holding a rebirth key."
+
+command /givekey [<player>] [<text>] [<number>]:
+	permission: op
+	trigger:
+		giveKey(arg-1, "%arg-2%", arg-3)
