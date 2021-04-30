@@ -1,5 +1,5 @@
 options:
-	prefix: <##f24b4b>&lPUNISH
+	prefix: <##f24b4b>&lPUNISH &8|
 
 	bot: NerdPR
 	punishment-channel: 827365242589151292
@@ -10,12 +10,12 @@ on chat:
 			if {mute::%player's uuid%::type} is "temp":
 				set {_waited} to time since {mute::%player's uuid%::time}
 				if {_waited} < {mute::%player's uuid%::span}:
-					send "{@prefix} <##f24b4b>&lTEMPMTUE%nl%&7Muted by: <##f78181>%{mute::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{mute::%player's uuid%::reason}%%nl%&7Time left: <##f78181>%difference between {mute::%player's uuid%::span} and {_waited}%"
+					send "{@prefix} <##f24b4b>&lTEMPMTUE &8|%nl%&7Muted by: <##f78181>%{mute::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{mute::%player's uuid%::reason}%%nl%&7Time left: <##f78181>%difference between {mute::%player's uuid%::span} and {_waited}%"
 					cancel event
 				else:
 					delete {mute::%player's uuid%::*}
 			else if {mute::%player's uuid%::type} is "perm":
-				send "{@prefix} <##f24b4b>&lMUTE%nl%&7Muted by: <##f78181>%{mute::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{mute::%player's uuid%::reason}%"
+				send "{@prefix} <##f24b4b>&lMUTE &8|%nl%&7Muted by: <##f78181>%{mute::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{mute::%player's uuid%::reason}%"
 				cancel event
 		if {chatmute} is true:
 			if player doesn't have permission "staff":
@@ -27,12 +27,12 @@ on join:
 		if {ban::%player's uuid%::type} is "temp":
 			set {_waited} to time since {ban::%player's uuid%::time}
 			if {_waited} < {ban::%player's uuid%::span}:
-				kick player due to "{@prefix} <##f24b4b>&lTEMPBAN%nl%&7Banned by: <##f78181>%{ban::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{ban::%player's uuid%::reason}%%nl%&7Time left: <##f78181>%difference between {ban::%player's uuid%::span} and {_waited}%"
+				kick player due to "{@prefix} <##f24b4b>&lTEMPBAN &8|%nl%&7Banned by: <##f78181>%{ban::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{ban::%player's uuid%::reason}%%nl%&7Time left: <##f78181>%difference between {ban::%player's uuid%::span} and {_waited}%"
 				set join message to ""
 			else:
 				delete {ban::%player's uuid%::*}
 		else if {ban::%player's uuid%::type} is "perm":
-			kick player due to "{@prefix} <##f24b4b>&lBAN%nl%&7Banned by: <##f78181>%{ban::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{ban::%player's uuid%::reason}%"
+			kick player due to "{@prefix} <##f24b4b>&lBAN &8|%nl%&7Banned by: <##f78181>%{ban::%player's uuid%::by}%%nl%&7Reason: <##f78181>%{ban::%player's uuid%::reason}%"
 			set join message to ""
 
 command /tempban <offline player> <text> <text>:

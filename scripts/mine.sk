@@ -28,7 +28,7 @@ function simMine(p: player, t: number):
 	set {_points} to tag "points" of nbt of {_p}'s tool
 	if {_xp} >= {_xpn}:
 		add "{level:%{_level} + 1%,xpn:%{_xpn}^1.004%,xp:%{_xpn} - {_xp}%,points:%{_points} + 1%}" to nbt of {_p}'s tool
-		send "&7Your picked leveled up to level <##81aef7>%{_level} + 1%&7!" to {_p}
+		send "&8| &7Your picked leveled up to level <##81aef7>%{_level} + 1%&7!" to {_p}
 
 
 function mineActionBar(p: player):
@@ -43,13 +43,13 @@ function updateLevel(p: player):
 		add 1 to {level::%{_u}%}
 		remove ({xpn::%{_u}%} ? 100) from {xp::%{_u}%}
 		set {xpn::%{_u}%} to round ({xpn::%{_u}%} ? 100)^1.005
-		send "<##f2b84b>&lLEVEL &7Leveled up to level <##f7b481>%{level::%{_u}%}%&7." to {_p}
+		send "<##f2b84b>&lLEVEL &8| &7Leveled up to level <##f7b481>%{level::%{_u}%}%&7." to {_p}
 		wait 1 tick
 	while {level::%{_u}%} >= (({prestige::%{_u}%} ? 0) * 5 + 10):
 		remove (({prestige::%{_u}%} ? 0) * 5 + 10) from {level::%{_u}%}
 		delete {xpn::%{_u}%}
 		add 1 to {prestige::%{_u}%}
-		broadcast "<##f2b84b>&lPRESTIGE <##f7b481>%{_p}%&7 prestiged to <##f7b481>%{prestige::%{_u}%}%&7."
+		broadcast "<##f2b84b>&lPRESTIGE &8| <##f7b481>%{_p}%&7 prestiged to <##f7b481>%{prestige::%{_u}%}%&7."
 		wait 1 tick
 
 on break:
@@ -71,7 +71,7 @@ on break:
 	set {_price} to getPrice(event-block)
 	set {_fort} to random integer between 1 and (getTag(player's tool, "fortune") + 1)
 	set {_total} to {_price} * {_fort}
-	set {_total} to {_total} * getMulti(player)
+	set {_total} to {_total} * getMulti(player) * (tag "moneymult" of nbt of player's helmet)
 	simMine(player, {_total})
 
 	set {_loc} to event-block's location
@@ -130,7 +130,7 @@ on break:
 
 	if (random integer between 1 and (enchantChance("xpfinder"))) <= getTag(player's tool, "xpfinder"):
 		add {xpn::%player's uuid%} * 1.5 to {xp::%player's uuid%}
-		send "<##4b8bf2>&lENCHANT&7 Your <##81aef7>xpfinder&7 has found <##81aef7>%insertComma(round ({xpn::%player's uuid%} * 1.5))%<##81aef7>XP&7."
+		send "<##4b8bf2>&lENCHANT &8| &7Your <##81aef7>xpfinder&7 has found <##81aef7>%insertComma(round ({xpn::%player's uuid%} * 1.5))%<##81aef7>XP&7."
 
 	if (random integer between 1 and (enchantChance("chunk"))) <= getTag(player's tool, "chunk"):
 		loop all blocks within chunk at event-block:

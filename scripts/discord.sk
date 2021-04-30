@@ -64,7 +64,7 @@ command /suggest <text>:
 	cooldown message: &cThis command is on cooldown.
 	usage: &cUsage: /suggest <suggestion>
 	trigger:
-		send "<##4b8bf2>&lSUGGESTION&7 Your suggestion has been submitted."
+		send "<##4b8bf2>&lSUGGESTION &8| &7Your suggestion has been submitted."
 		create embed:
 			set the colour of the embed to purple
 			add field named "Player" with value "%player%" to embed
@@ -77,9 +77,9 @@ command /link:
 		if {linked::%uuid of player%} is not set:
 			set {_e} to random 8 char string from charset `a-zA-Z0-9`
 			set {code::%{_e}%} to player
-			send formatted "<##4b8bf2>&lDISCORD &7You can link your account in ##bot-commands on our discord using <##81aef7><suggest command:?link %{_e}%>?link %{_e}%<reset>&7."
+			send formatted "<##4b8bf2>&lDISCORD &8| &7You can link your account in ##bot-commands on our discord using <##81aef7><suggest command:?link %{_e}%>?link %{_e}%<reset>&7."
 		else:
-			send "<##4b8bf2>&lDISCORD &7Your account is already linked."
+			send "<##4b8bf2>&lDISCORD &8| &7Your account is already linked."
 
 discord command ?link [<text>]:
 	trigger:
@@ -94,7 +94,7 @@ discord command ?link [<text>]:
 				set {discord::%discord id of event-member%::player} to {code::%arg-1%}
 				set {discord::%discord id of event-member%} to discord id of event-member
 				reply with "Your account was linked to `%{code::%arg-1%}%`."
-				send "<##4b8bf2>&lDISCORD &7Your account was linked to %event-member%&7." to {code::%arg-1%}
+				send "<##4b8bf2>&lDISCORD &8| &7Your account was linked to %event-member%&7." to {code::%arg-1%}
 				set {_uuid} to uuid of {code::%arg-1%}
 				set {linked::%{_uuid}%} to true
 				delete {code::%arg-1%}
@@ -105,4 +105,4 @@ discord command ?link [<text>]:
 
 command /discord:
 	trigger:
-		send "<##4b8bf2>&lDISCORD&7 Click <link:https://discord.gg/8BQd8m2Z6B><##81aef7>here<reset>&7 to join the discord."
+		send "<##4b8bf2>&lDISCORD &8| &7Click <link:https://discord.gg/8BQd8m2Z6B><##81aef7>here<reset>&7 to join the discord."

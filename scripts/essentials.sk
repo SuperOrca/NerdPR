@@ -5,7 +5,7 @@ command /setspawn:
 	permission: essentials.setspawn
 	permission message: &cNo Permission
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Set spawn to <##7dffb1>%player's location%&7."
+		send "<##03fc66>&lSTAFF &8| &7Set spawn to <##7dffb1>%player's location%&7."
 		set {spawn} to player's location
 
 command /spawn:
@@ -16,28 +16,28 @@ command /gmc <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>CREATIVE&7."
+		send "<##03fc66>&lSTAFF &8| &7Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>CREATIVE&7."
 		set arg-1's gamemode to creative
 
 command /gms <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>SURVIVAL&7."
+		send "<##03fc66>&lSTAFF &8| &7Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>SURVIVAL&7."
 		set arg-1's gamemode to survival
 
 command /gmsp <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>SPECTATOR&7."
+		send "<##03fc66>&lSTAFF &8| &7Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>SPECTATOR&7."
 		set arg-1's gamemode to spectator
 
 command /gma <player=%player%>:
 	permission: essentials.gamemode
 	permission message: &cNo Permission.
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>ADVENTURE&7."
+		send "<##03fc66>&lSTAFF &8| &7Set <##7dffb1>%arg-1%'s&7 gamemode to <##7dffb1>ADVENTURE&7."
 		set arg-1's gamemode to adventure
 
 command /invsee <player>:
@@ -46,10 +46,10 @@ command /invsee <player>:
 	usage: &cUsage: /invsee <player>
 	trigger:
 		if player is op:
-			send "<##03fc66>&lSTAFF&7 Opened <##7dffb1>%arg-1%'s &7inventory."
+			send "<##03fc66>&lSTAFF &8| &7Opened <##7dffb1>%arg-1%'s &7inventory."
 			open arg-1's inventory to player
 		else:
-			send "<##03fc66>&lINVSEE&7 Opened <##7dffb1>%arg-1%'s &7inventory."
+			send "<##03fc66>&lINVSEE &8| &7Opened <##7dffb1>%arg-1%'s &7inventory."
 			open virtual chest with 4 rows named "<##7dffb1>%arg-1%'s Inventory" to player
 			set {_n} to 0
 			loop all items in arg-1's inventory:
@@ -61,7 +61,7 @@ command /tp <player>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /tp <player>
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Teleported to <##7dffb1>%arg-1%&7."
+		send "<##03fc66>&lSTAFF &8| &7Teleported to <##7dffb1>%arg-1%&7."
 		teleport player to arg-1's location
 
 command /tphere <player>:
@@ -69,7 +69,7 @@ command /tphere <player>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /tphere <player>
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Teleported <##7dffb1>%arg-1%&7 to you."
+		send "<##03fc66>&lSTAFF &8| &7Teleported <##7dffb1>%arg-1%&7 to you."
 		teleport arg-1 to player's location
 
 command /sudo <player> <text>:
@@ -77,7 +77,7 @@ command /sudo <player> <text>:
 	permission message: &cNo Permission.
 	usage: &cUsage: /sudo <player> <text>
 	trigger:
-		send "<##03fc66>&lSTAFF&7 Made <##7dffb1>%arg-1%&7 execute <##7dffb1>'%arg-2%'&7."
+		send "<##03fc66>&lSTAFF &8| &7Made <##7dffb1>%arg-1%&7 execute <##7dffb1>'%arg-2%'&7."
 		make arg-1 say arg-2
 
 command /speed <number>:
@@ -89,7 +89,7 @@ command /speed <number>:
 			set player's flying speed to arg-1
 		else:
 			set player's walking speed to arg-1
-		send "<##03fc66>&lSTAFF&7 Set your speed to <##7dffb1>%arg-1%&7."
+		send "<##03fc66>&lSTAFF &8| &7Set your speed to <##7dffb1>%arg-1%&7."
 
 command /rename <text>:
 	permission: essentials.rename
@@ -97,7 +97,7 @@ command /rename <text>:
 	usage: &cUsage: /rename <text>
 	trigger:
 		set tool's name to arg-1
-		send "<##03fc66>&lSTAFF&7 Set your tool's name to <##7dffb1>%arg-1%&7."
+		send "<##03fc66>&lSTAFF &8| &7Set your tool's name to <##7dffb1>%arg-1%&7."
 
 command /skull <offline player>:
 	permission: essentials.skull
@@ -105,7 +105,7 @@ command /skull <offline player>:
 	usage: &cUsage: /skull <player>
 	trigger:
 		give arg-1's skull to player
-		send "<##03fc66>&lSTAFF&7 Given <##7dffb1>%arg-1%'s &7skull."
+		send "<##03fc66>&lSTAFF &8| &7Given <##7dffb1>%arg-1%'s &7skull."
 
 command /i <item>:
 	permission: essentials.i
@@ -113,7 +113,7 @@ command /i <item>:
 	usage: &cUsage: /i <item>
 	trigger:
 		give player arg-1
-		send "<##03fc66>&lSTAFF&7 Given <##7dffb1>%arg-1%&7."
+		send "<##03fc66>&lSTAFF &8| &7Given <##7dffb1>%arg-1%&7."
 
 command /clear <player=%player%>:
 	permission: essentials.clear
@@ -122,7 +122,7 @@ command /clear <player=%player%>:
 	aliases: /ci
 	trigger:
 		clear arg-1's inventory
-		send "<##03fc66>&lSTAFF&7 Cleared <##7dffb1>%arg-1%'s &7inventory."
+		send "<##03fc66>&lSTAFF &8| &7Cleared <##7dffb1>%arg-1%'s &7inventory."
 
 command /setwarp <text>:
 	permission: essentials.setwarp
@@ -147,21 +147,21 @@ command /fly <player=%player%>:
 	trigger:
 		if player's fly mode is false:
 			set arg-1's fly mode to true
-			send "<##03fc66>&lSTAFF&7 <##7dffb1>%arg-1% &7can now fly."
+			send "<##03fc66>&lSTAFF &8| &7<##7dffb1>%arg-1% &7can now fly."
 		else:
 			set arg-1's fly mode to false
-			send "<##03fc66>&lSTAFF&7 <##7dffb1>%arg-1% &7can no longer fly."
+			send "<##03fc66>&lSTAFF &8| &7<##7dffb1>%arg-1% &7can no longer fly."
 
 command /ec <player=%player%>:
 	permission: essentials.enderchest
 	permission message: &cNo Permission.
 	trigger:
 		open arg-1's ender chest to player
-		send "<##03fc66>&lSTAFF&7 You are viewing <##7dffb1>%arg-1%'s&7 enderchest."
+		send "<##03fc66>&lSTAFF &8| &7You are viewing <##7dffb1>%arg-1%'s&7 enderchest."
 
 function alert(input: text):
 	broadcast "&7"
-	broadcast "<##03fc66>&lBROADCAST &f%{_input}%"
+	broadcast "<##03fc66>&lBROADCAST &8| &f%{_input}%"
 	broadcast "&7"
 	allSound("ENTITY_EXPERIENCE_ORB_PICKUP")
 
@@ -175,4 +175,4 @@ command /broadcast <text>:
 command /suicide:
 	trigger:
 		make player execute command "/spawn"
-		broadcast "<##03fc66>&lSUICIDE <##7dffb1>%player% &7did not want to live."
+		broadcast "<##03fc66>&lSUICIDE &8| <##7dffb1>%player% &7did not want to live."
