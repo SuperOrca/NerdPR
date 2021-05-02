@@ -16,10 +16,10 @@ function blockValidator(b: block) :: boolean:
 			return true
 	return false
 
-function simMine(p: player, t: number, b: number = 1):
+function simMine(p: player, t: number, x: number, b: number = 1):
 	set {_u} to {_p}'s uuid
 	add {_t} * {_b} to {balance::%{_u}%}
-	add 1 * {_b} to {xp::%{_u}%}
+	add {_x} * {_b} to {xp::%{_u}%}
 	add 1 * {_b} to {mined::%{_u}%}
 	set {_xp} to getTag(({_p}'s tool), "xp") + 1 * {_b}
 	add "{xp:%{_xp}%}" to nbt of {_p}'s tool
@@ -28,7 +28,8 @@ function simMine(p: player, t: number, b: number = 1):
 	set {_points} to tag "points" of nbt of {_p}'s tool
 	if {_xp} >= {_xpn}:
 		add "{level:%{_level} + 1%,xpn:%{_xpn}^1.004%,xp:%{_xpn} - {_xp}%,points:%{_points} + 1%}" to nbt of {_p}'s tool
-		send "&8| &7Your picked leveled up to level <##81aef7>%{_level} + 1%&7!" to {_p}
+		send "&8| &7Your pickaxe leveled up to level <##81aef7>%{_level} + 1%&7!" to {_p}
+	set {_p}'s tool to updatePickaxeLevel({_p}'s tool)
 
 
 function mineActionBar(p: player):
@@ -71,8 +72,11 @@ on break:
 	set {_price} to getPrice(event-block)
 	set {_fort} to random integer between 1 and (getTag(player's tool, "fortune") + 1)
 	set {_total} to {_price} * {_fort}
-	set {_total} to {_total} * getMulti(player) # * (tag "moneymult" of nbt of player's helmet)
-	simMine(player, {_total})
+	set {_total} to {_total} * getMulti(player) * (tag "moneymult" of nbt of player's offhand)
+
+	set {_xp} to 1 * tag ("xpmult" of nbt of player's offhand)
+
+	simMine(player, {_total}, {_xp})
 
 	set {_loc} to event-block's location
 
@@ -81,26 +85,26 @@ on break:
 		set {_loc2} to {_loc} ~ vector(2, 0, 2)
 		set {_b::*} to all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true]
 		set all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	if (random integer between 1 and (enchantChance("slice"))) <= getTag(player's tool, "slice"):
 		set {_loc1} to {_loc} ~ vector(0, -2, -2)
 		set {_loc2} to {_loc} ~ vector(0, 2, 2)
 		set {_b::*} to all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true]
 		set all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	if (random integer between 1 and (enchantChance("explosive"))) <= getTag(player's tool, "explosive"):
 		set {_b::*} to all blocks in radius 3 around event-block where [blockValidator(input) is true]
 		set all blocks in radius 3 around event-block where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	if (random integer between 1 and (enchantChance("layer"))) <= getTag(player's tool, "layer"):
 		set {_loc1} to {_loc} ~ vector(-10, 0, -10)
 		set {_loc2} to {_loc} ~ vector(10, 0, 10)
 		set {_b::*} to all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true]
 		set all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	if (random integer between 1 and (enchantChance("laser"))) <= getTag(player's tool, "laser"):
 		set {_loc1} to {_loc} ~ vector(20, 0, 0)
@@ -109,17 +113,17 @@ on break:
 		set {_loc4} to {_loc} ~ vector(0, 0, -20)
 		set {_b::*} to all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true]
 		set all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 		set {_b::*} to all blocks within {_loc3} and {_loc4} where [blockValidator(input) is true]
 		set all blocks within {_loc3} and {_loc4} where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	if (random integer between 1 and (enchantChance("cube"))) <= getTag(player's tool, "cube"):
 		set {_loc1} to {_loc} ~ vector(1, 1, 1)
 		set {_loc2} to {_loc} ~ vector(-1, -1, -1)
 		set {_b::*} to all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true]
 		set all blocks within {_loc1} and {_loc2} where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	if (random integer between 1 and (enchantChance("xpfinder"))) <= getTag(player's tool, "xpfinder"):
 		add {xpn::%player's uuid%} * 1.5 to {xp::%player's uuid%}
@@ -128,12 +132,12 @@ on break:
 	if (random integer between 1 and (enchantChance("chunk"))) <= getTag(player's tool, "chunk"):
 		set {_b::*} to all blocks within chunk at event-block where [blockValidator(input) is true]
 		set all blocks within chunk at event-block where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	if (random integer between 1 and (enchantChance("tsunami"))) <= getTag(player's tool, "tsunami"):
 		set {_b::*} to all blocks in radius 40 around event-block where [blockValidator(input) is true]
 		set all blocks in radius 40 around event-block where [blockValidator(input) is true] to air
-		simMine(player, {_total}, (size of {_b::*}))
+		simMine(player, {_total}, {_xp}, (size of {_b::*}))
 
 	mineActionBar(player)
 	updateLevel(player)

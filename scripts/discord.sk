@@ -47,13 +47,13 @@ on join:
 	wait 1 tick
 	player is online
 	send "**%player% joined the game.**" to channel with id "{@chat-channel}" with "{@bot}"
-	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
+	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%%nl%**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%%nl%**Unique:** %size of all offline players%" with "{@bot}"
 
 on quit:
 	wait 1 tick
 	quit message is not ""
 	send "**%player% left the game.**" to channel with id "{@chat-channel}" with "{@bot}"
-	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%\n**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%\n**Unique:** %size of all offline players%" with "{@bot}"
+	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%%nl%**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%%nl%**Unique:** %size of all offline players%" with "{@bot}"
 
 on command:
 	command is not "hd" or "broadcast"

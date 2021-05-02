@@ -1,4 +1,5 @@
 on load:
+	delete {heads::*}
 	set {heads::1} to "MHF_Cow" parsed as a offline player
 	set {heads::2} to "MHF_Squid" parsed as a offline player
 	set {heads::3} to "7bt" parsed as a offline player
@@ -7,19 +8,20 @@ options:
 	bot: NerdPR
 	ad-channel: 828387080219918356
 
-function givePet(pet: text) :: item:
+function givePet(pet: text) :: itemtype:
 	if {_pet} is "cow":
-		return {heads::1} with nbt "{moneymult:1.02,keymult:1.00}" named "&f&lCOW PET" with lore "" and "&a&lMONEY &8&l➤ &f1.02x" and "&b&lKEYS &8&l➤ &f1.00x" and "" and "&f&lCOMMON"
+		return {heads::1} with nbt "{moneymult:1.05,xpmult:1.00}" named "&f&lCOW PET" with lore "" and "&a&lMONEY &8&l➤ &f1.05x" and "&b&lXP &8&l➤ &f1.00x" and "" and "&f&lCOMMON" and "&7&o(( Hold me in your offhand ))"
 	else if {_pet} is "squid":
-		return {heads::2} with nbt "{moneymult:1.00,keymult:1.02}" named "&9&lSQUID PET" with lore "" and "&a&lMONEY &8&l➤ &f1.00x" and "&b&lKEYS &8&l➤ &f1.02x" and "" and "&9&lRARE"
+		return {heads::2} with nbt "{moneymult:1.00,xpmult:1.05}" named "&9&lSQUID PET" with lore "" and "&a&lMONEY &8&l➤ &f1.00x" and "&b&lXP &8&l➤ &f1.05x" and "" and "&9&lRARE" and "&7&o(( Hold me in your offhand ))"
 	else if {_pet} is "phoenix":
-		return {heads::3} with nbt "{moneymult:1.02,keymult:1.02}" named "&e&lPHOENIX PET" with lore "" and "&a&lMONEY &8&l➤ &f1.02x" and "&b&lKEYS &8&l➤ &f1.02x" and "" and "&6&lLEGENDARY"
+		return {heads::3} with nbt "{moneymult:1.05,xpmult:1.05}" named "&e&lPHOENIX PET" with lore "" and "&a&lMONEY &8&l➤ &f1.05x" and "&b&lXP &8&l➤ &f1.05x" and "" and "&6&lLEGENDARY" and "&7&o(( Hold me in your offhand ))"
 
 on guild message received seen by "{@bot}":
 	if discord id of event-channel is "{@ad-channel}":
 		set {_p} to "%event-message%" parsed as a offline player
 		set {_u} to {_p}'s uuid
 		add 1 to {ad::%{_u}%}
+		broadcast "<##4b8bf2>&lADS &8| <##81aef7>%{_p}%&7 just advertised for an ad point. (/adshop)"
 
 command /ad:
 	aliases: /ads
@@ -37,11 +39,11 @@ command /adshop:
 				remove 5 from {ad::%player's uuid%}
 			else:
 				send "&cYou need %5 - {ad::%player's uuid%}%&c ads."
-		format gui slot 13 of player with {heads::1} named "&9&lSQUID PET" with lore "" and "&7Price: <##81aef7>10" to run:
-			if {ad::%player's uuid%} >= 10:
+		format gui slot 13 of player with {heads::1} named "&9&lSQUID PET" with lore "" and "&7Price: <##81aef7>15" to run:
+			if {ad::%player's uuid%} >= 15:
 				close player's inventory
 				give player givePet("squid")
-				remove 10 from {ad::%player's uuid%}
+				remove 15 from {ad::%player's uuid%}
 			else:
 				send "&cYou need %10 - {ad::%player's uuid%}%&c ads."
 		format gui slot 16 of player with {heads::1} named "&e&lPHOENIX PET" with lore "" and "&7Price: <##81aef7>30" to run:

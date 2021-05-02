@@ -203,7 +203,7 @@ on chat:
 			delete {reaction::*}
 
 function updateLeaderboards():
-	broadcast "<##4b8bf2>&lLEADERBOARDS &8| &7Leaderboards are not updating. This may cause lag!"
+	broadcast "<##4b8bf2>&lLEADERBOARDS &8| &7Leaderboards are updating. This may cause lag!"
 	set {_sorted::*} to sort((indices of {mined::*}), {mined::*})
 	set {_total} to formatNumber(sum({mined::*}))
 	set {_n} to 0
@@ -211,7 +211,7 @@ function updateLeaderboards():
 		add 1 to {_n}
 		set {_p} to loop-value parsed as a offline player
 		set {_v} to formatNumber({mined::%loop-value%})
-		make console execute command "hd setline mined %{_n} + 1% &7%{_n}%. <##81aef7>%{_p}% &7%{_v}%"
+		make console execute command "hd setline mined %{_n} + 1% <##81aef7>%{_n}%. &f%{_p}% <##81aef7>%{_v}%"
 		if {_n} >= 10:
 			exit loop
 	make console execute command "hd setline mined 12 &7&o(( Total: %{_total}% ))"
@@ -223,7 +223,7 @@ function updateLeaderboards():
 		add 1 to {_n}
 		set {_p} to loop-value parsed as a offline player
 		set {_v} to formatNumber({balance::%loop-value%})
-		make console execute command "hd setline balance %{_n} + 1% &7%{_n}%. <##81aef7>%{_p}% &7%{_v}%"
+		make console execute command "hd setline balance %{_n} + 1% <##81aef7>%{_n}%. &f%{_p}% <##81aef7>%{_v}%"
 		if {_n} >= 10:
 			exit loop
 	make console execute command "hd setline balance 12 &7&o(( Total: %{_total}% ))"
@@ -235,7 +235,7 @@ function updateLeaderboards():
 		add 1 to {_n}
 		set {_p} to loop-value parsed as a offline player
 		set {_v} to formatNumber({prestige::%loop-value%})
-		make console execute command "hd setline prestige %{_n} + 1% &7%{_n}%. <##81aef7>%{_p}% &7%{_v}%"
+		make console execute command "hd setline prestige %{_n} + 1% <##81aef7>%{_n}%. &f%{_p}% <##81aef7>%{_v}%"
 		if {_n} >= 10:
 			exit loop
 	make console execute command "hd setline prestige 12 &7&o(( Total: %{_total}% ))"
