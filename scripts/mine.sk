@@ -69,12 +69,15 @@ on break:
 		delete metadata "nuker" of player
 		delete metadata "nuker_yes" of player
 
+	set {_moneymult} to (tag "moneymult" of nbt of player's offhand tool) ? 1
+	set {_xpmult} to (tag "xpmult" of nbt of player's offhand tool) ? 1
+
 	set {_price} to getPrice(event-block)
 	set {_fort} to random integer between 1 and (getTag(player's tool, "fortune") + 1)
 	set {_total} to {_price} * {_fort}
-	set {_total} to {_total} * getMulti(player) * (tag "moneymult" of nbt of player's offhand)
+	set {_total} to {_total} * getMulti(player) * {_moneymult}
 
-	set {_xp} to 1 * tag ("xpmult" of nbt of player's offhand)
+	set {_xp} to 1 * {_xpmult}
 
 	simMine(player, {_total}, {_xp})
 
