@@ -20,7 +20,7 @@ on right click:
 					if {_num} is between 1 and 30:
 						give player 2 {@iq_key}
 					else if {_num} is between 31 and 60:
-						add {xpn::%player's uuid%} * 3 to {xp::%player's uuid%}
+						add ({xpn::%player's uuid%} ? 100) * 3 to {xp::%player's uuid%}
 						updateLevel(player)
 						updateScoreboard(player)
 					else if {_num} is between 61 and 88:
@@ -37,7 +37,7 @@ on right click:
 					give player 2 {@iq_key}
 					send "<##4b8bf2>&lCRATES &8| &7You won <##81aef7>2 iq keys&7." to player
 				else if {_num} is between 31 and 60:
-					add {xpn::%player's uuid%} * 3 to {xp::%player's uuid%}
+					add ({xpn::%player's uuid%} ? 100) * 3 to {xp::%player's uuid%}
 					updateLevel(player)
 					updateScoreboard(player)
 					send "<##4b8bf2>&lCRATES &8| &7You won <##81aef7>%insertComma(round ({xpn::%player's uuid%} * 3))%<##81aef7>XP&7." to player

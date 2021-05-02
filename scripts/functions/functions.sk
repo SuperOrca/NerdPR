@@ -21,24 +21,15 @@ function sort(indices: strings, values: numbers, descending: boolean = true) :: 
 
 function formatTime(time: text) :: timespan:
 	set {_def} to {_time}
-	if {_time} contains ",":
-		loop {_time} split at ",":
-			set {_char} to loop-value
-			replace "s" in {_char} with " seconds" if {_def} contains "s"
-			replace "m" in {_char} with " minutes" if {_def} contains "m"
-			replace "h" in {_char} with " hours" if {_def} contains "h"
-			replace "d" in {_char} with " days" if {_def} contains "d"
-			replace "w" in {_char} with " weeks" if {_def} contains "w"
-			replace "mo" in {_char} with " months" if {_def} contains "mo"
-			add {_char} parsed as a timespan to {_total}
-	else:
-		replace "s" in {_time} with " seconds" if {_def} contains "s"
-		replace "m" in {_time} with " minutes" if {_def} contains "m"
-		replace "h" in {_time} with " hours" if {_def} contains "h"
-		replace "d" in {_time} with " days" if {_def} contains "d"
-		replace "w" in {_time} with " weeks" if {_def} contains "w"
-		replace "mo" in {_time} with " months" if {_def} contains "mo"
-		add {_time} parsed as a timespan to {_total}
+	loop {_time} split at ",":
+		set {_char} to loop-value
+		replace "s" in {_char} with " seconds" if {_def} contains "s"
+		replace "m" in {_char} with " minutes" if {_def} contains "m"
+		replace "h" in {_char} with " hours" if {_def} contains "h"
+		replace "d" in {_char} with " days" if {_def} contains "d"
+		replace "w" in {_char} with " weeks" if {_def} contains "w"
+		replace "mo" in {_char} with " months" if {_def} contains "mo"
+		add {_char} parsed as a timespan to {_total}
 	return {_total} ? 0 seconds
 
 function fillSlots(p: player, size: number):

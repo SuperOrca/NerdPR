@@ -40,6 +40,7 @@ command /tempban <offline player> <text> <text>:
 	permission message: &cNo Permission.
 	usage: &7Usage: /tempban <player> <time ex:24h> <reason> [-s]
 	trigger:
+		stop if arg-1 is op
 		set {_time} to formatTime(arg-2)
 		set {ban::%arg-1's uuid%::type} to "temp"
 		set {ban::%arg-1's uuid%::by} to player ? "Console"
@@ -60,6 +61,7 @@ command /ban <offline player> <text>:
 	permission message: &cNo Permission.
 	usage: &7Usage: /ban <player> <reason> [-s]
 	trigger:
+		stop if arg-1 is op
 		set {ban::%arg-1's uuid%::type} to "perm"
 		set {ban::%arg-1's uuid%::by} to player ? "Console"
 		set {_reason} to arg-2
@@ -104,6 +106,7 @@ command /tempmute <offline player> <text> <text>:
 	permission message: &cNo Permission.
 	usage: &7Usage: /tempmute <player> <time ex:24h> <reason> [-s]
 	trigger:
+		stop if arg-1 is op
 		set {_time} to formatTime(arg-2)
 		set {mute::%arg-1's uuid%::type} to "temp"
 		set {mute::%arg-1's uuid%::by} to player ? "Console"
@@ -124,6 +127,7 @@ command /mute <offline player> <text>:
 	permission message: &cNo Permission.
 	usage: &7Usage: /mute <player> <reason> [-s]
 	trigger:
+		stop if arg-1 is op
 		set {mute::%arg-1's uuid%::type} to "perm"
 		set {mute::%arg-1's uuid%::by} to player ? "Console"
 		set {_reason} to arg-2
