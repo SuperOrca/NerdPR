@@ -23,6 +23,7 @@ on load:
 	set {words::9} to "keyboard"
 	set {words::10} to "mouse"
 	set {words::11} to "webcam"
+	set {words::12} to "pneumonoultramicroscopicsilicovolcanoconiosis"
 
 	delete {mines::*}
 	set {mines::1} to {spawn}

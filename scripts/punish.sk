@@ -51,7 +51,7 @@ command /tempban <offline player> <text> <text>:
 		set {ban::%arg-1's uuid%::reason} to {_reason}
 		kick arg-1 due to "{@prefix} &7You were tempbanned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
 		if arg-3 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff.notify"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
 		send "`%arg-1%` was tempbanned by `%player ? ""Console""%` for **%{_time}%** for **%{_reason}%**" to channel with id "{@punishment-channel}" with {@bot}
@@ -69,7 +69,7 @@ command /ban <offline player> <text>:
 		set {ban::%arg-1's uuid%::reason} to {_reason}
 		kick arg-1 due to "{@prefix} &7You were permanently banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff.notify"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was banned by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
 		send "`%arg-1%` was banned by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
@@ -81,7 +81,7 @@ command /unban <offline player> [<text>]:
 	trigger:
 		delete {ban::%arg-1's uuid%::*}
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player ? ""Console""%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player ? ""Console""%&7." to all players where [input has permission "staff.notify"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was unbanned by <##f78181>%player ? ""Console""%&7."
 		send "`%arg-1%` unbanned by `%player ? ""Console""%`" to channel with id "{@punishment-channel}" with "{@bot}"
@@ -95,7 +95,7 @@ command /kick <player> <text>:
 		replace all "-s" with "" in {_reason}
 		kick arg-1 due to "{@prefix} &7You were kicked by <##f78181>%player ? ""Console""% for <##f78181>%{_reason}%&7."
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff.notify"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was kicked by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
 		send {_reason}
@@ -117,7 +117,7 @@ command /tempmute <offline player> <text> <text>:
 		set {mute::%arg-1's uuid%::reason} to {_reason}
 		send "{@prefix} &7You were tempmuted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to arg-1
 		if arg-3 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was tempmuted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was tempmuted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff.notify"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was tempmuted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_time}%&7 for <##f78181>%{_reason}%&7."
 		send "`%arg-1%` was tempmuted by `%player ? ""Console""%` for **%{_time}%** for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
@@ -135,7 +135,7 @@ command /mute <offline player> <text>:
 		set {mute::%arg-1's uuid%::reason} to {_reason}
 		send "{@prefix} &7You were permanently muted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to arg-1
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7." to all players where [input has permission "staff.notify"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was muted by <##f78181>%player ? ""Console""%&7 for <##f78181>%{_reason}%&7."
 		send "`%arg-1%` was muted by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
@@ -147,7 +147,7 @@ command /unmute <offline player> [<text>]:
 	trigger:
 		delete {mute::%arg-1's uuid%::*}
 		if arg-2 contains "-s":
-			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player ? ""Console""%&7." to all players where [input has permission "staff"]
+			send "&7[SILENT] {@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player ? ""Console""%&7." to all players where [input has permission "staff.notify"]
 		else:
 			broadcast "{@prefix} <##f78181>%arg-1%&7 was unmuted by <##f78181>%player ? ""Console""%&7."
 		send "`%arg-1%` was unmuted by `%player ? ""Console""%` for **%{_reason}%**" to channel with id "{@punishment-channel}" with "{@bot}"
@@ -183,3 +183,6 @@ command /mutechat [<text>]:
 			else:
 				broadcast "{@prefix} &7The chat was unmuted by <##f78181>%player ? ""Console""%&7."
 			send "Chat was unmuted by `%player ? ""Console""%`." to channel with id "{@punishment-channel}" with "{@bot}"
+
+command /vanish:
+	

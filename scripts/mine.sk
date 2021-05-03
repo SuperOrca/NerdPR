@@ -10,6 +10,17 @@ function getPrice(b: block) :: number:
 	return 2000 if {_b} is green terracotta
 	return 0
 
+command /nomine:
+	permission: *
+	permission message: &cNo Permission.
+	trigger:
+		if {nomine} is true:
+			delete {nomine}
+			alert("Mining enabled.")
+		else:
+			set {nomine} to true
+			alert("Mining disabled.")
+
 function blockValidator(b: block) :: boolean:
 	if {_b} is not air:
 		if "%region at {_b}%" contains "mine":
@@ -57,12 +68,16 @@ on break:
 	player's tool is pickaxe
 	clear drops
 
+	if {nomine} is true:
+		cancel event
+		stop
+
 	set metadata "nuker" of player to metadata "nuker" of player + 1
 	if metadata "nuker_yes" of player is not set:
 		set metadata "nuker_yes" of player to true
 		wait 5 seconds
 		if metadata "nuker" of player > 150:
-			send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (BPS: %((metadata ""nuker"" of player))/5%&7)" to all players where [input has permission "staff"]
+			send "<##f24b4b>&lANTICHEAT &8| <##f78181>%player%&7 might be using <##f78181>Nuker&7. (Ping: %player's ping%&7) (BPS: %((metadata ""nuker"" of player))/5%&7)" to all players where [input has permission "staff.anticheat"]
 			send "`%player%` might be using **Nuker**. (Ping:%player's ping%) (BPS: %((metadata ""nuker"" of player))/5%)" to channel with id "{@anticheat-channel}" with {@bot}
 		if metadata "nuker" of player > 350:
 			make console execute command "ban %player% Nuker"

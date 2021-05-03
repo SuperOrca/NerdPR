@@ -1,0 +1,73 @@
+FastPlace:
+  cancel_seconds: 1
+Jesus:
+  check_speed: true
+  check_repeated_movement: true
+  check_horizontal_movement: true
+  check_swimming: true
+  check_walking: true
+  check_upwards_movement: true
+  check_liquid_exit: true
+  check_y_position: true
+  minimum_limit_in_blocks: 0.0
+Fly:
+  check_neutral: true
+  check_fly: true
+  check_glide: true
+  check_packets: true
+  avoid_block_hitboxes: false
+FastHeal:
+  check_unusual: true
+  check_illegal: false
+Speed:
+  check_sneaking: true
+  check_walking: true
+  minimum_limit_in_blocks: 0.0
+ImpossibleInventory:
+  check_sneaking: false
+  check_sprinting: false
+  check_walking: false
+  check_sleeping: true
+  check_dead: true
+  check_sprint_jumping: true
+  check_walk_jumping: true
+  check_jumping: true
+KillAura:
+  detection:
+    players: true
+    entities: true
+  check_overall: true
+  check_hit_accuracy: true
+  check_angle: true
+  check_block_raytrace: true
+  check_combined: true
+  check_direction: true
+  check_entity_raytrace: true
+  check_hits_per_second: true
+  check_relative_aim: true
+  check_impossible_hits: true
+  check_item_usage: false
+  check_pitch: true
+  check_yaw: true
+  check_rapid_hits: true
+  check_rotations: true
+  check_hitbox: true
+  check_aim_consistency: true
+  check_aim_accuracy: true
+  check_modulo: true
+  check_stability: true
+  check_precision: true
+  check_area: true
+  check_distance: true
+  aimbot_max_distance: 9.0
+HitReach:
+  horizontal_distance: 3.25
+  vertical_distance: 4.0
+  exempt_player_chasing: true
+  account_speed_effect: false
+FastBreak:
+  check_delay: true
+  check_frequency: false
+  check_moves_in_between: true
+  max_breaks_per_second: 40
+  cancel_seconds: 2
