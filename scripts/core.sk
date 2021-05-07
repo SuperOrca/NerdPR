@@ -181,14 +181,30 @@ command /rules:
 	trigger:
 		send centered "don't be a bitch" to player
 
-command /sc <text>:
+function staffchat(p: player, m: text):
+	send "<##4b8bf2>&lSTAFFCHAT &8| <##81aef7>%player% &f%{_m}%" to all players where [input has permission "staff.chat"]
+	send "**%player%**: %{_m}%" to channel with id "{@staffchat-channel}" with "{@bot}"
+
+command /sc [<text>]:
 	permission: staff.chat
 	permission message: &cNo Permission.
 	usage: &cUsage: /sc <text>
 	aliases: /staffchat
 	trigger:
-		send "<##4b8bf2>&lSTAFFCHAT &8| <##81aef7>%player% &f%arg-1%" to all players where [input has permission "staff.chat"]
-		send "**%player%**: %arg-1%" to channel with id "{@staffchat-channel}" with "{@bot}"
+		if arg-1 is not set:
+			if metadata "staffchat" of player is not set:
+				set metadata "staffchat" of player to true
+				send "<##4b8bf2>&lSTAFFCHAT &8|&7 Toggled on."
+			else:
+				delete metadata "staffchat" of player
+				send "<##4b8bf2>&lSTAFFCHAT &8|&7 Toggled off."
+		else:
+			staffchat(player, message)
+
+on chat:
+	metadata "staffchat" of player is set
+	cancel event
+	staffchat(player, message)
 
 every 4.9 minutes:
 	make console execute command "broadcast %random element out of {alerts::*}%"
