@@ -1,6 +1,6 @@
 on chat:
 	cancel event if message partially matches "discord\..*[A-Za-z]"
-	cancel event if message contains "nigger" or "nigga"
+	cancel event if message contains "nigger" or "nigga" or "n1gga"
 	if player doesn't have permission "chat.bypass":
 		if time since (metadata "antispam" of player) < 2 seconds:
 			send "&cYou must wait 2 seconds before chatting."
