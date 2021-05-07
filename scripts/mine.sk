@@ -8,6 +8,7 @@ function getPrice(b: block) :: number:
 	return 1000 if {_b} is yellow terracotta
 	return 1500 if {_b} is blue terracotta
 	return 2000 if {_b} is green terracotta
+	return 2500 if {_b} is red terracotta
 	return 0
 
 command /nomine:

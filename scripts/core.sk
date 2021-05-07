@@ -30,6 +30,7 @@ on load:
 	set {mines::2} to location(-366, 85, -517, world "world")
 	set {mines::3} to location(-923, 69, -450, world "world")
 	set {mines::4} to location(-1414, 78, -389, world "world", 90, 0)
+	set {mines::5} to location(-1338, 61, -795, world "world", 90, 0)
 
 	delete {alerts::*}
 	add "Remember to join our discord. (/discord)" to {alerts::*}
@@ -45,6 +46,7 @@ command /mine:
 		format gui slot 11 of player with yellow terracotta named "&c&lMINE 2" with lore "" and "&7&o(( Requires prestige 2 ))"
 		format gui slot 12 of player with blue terracotta named "&c&lMINE 3" with lore "" and "&7&o(( Requires prestige 5 ))"
 		format gui slot 13 of player with green terracotta named "&c&lMINE 4" with lore "" and "&7&o(( Requires prestige 10 ))"
+		format gui slot 14 of player with red terracotta named "&c&lMINE 5" with lore "" and "&7&o(( Requires prestige 20 ))"
 		if {prestige::%player's uuid%} >= 2:
 			format gui slot 11 of player with yellow terracotta named "&a&lMINE 2" with lore "" and "&7&o(( Requires prestige 2 ))" to run:
 				teleport player to {mines::2}
@@ -54,6 +56,9 @@ command /mine:
 		if {prestige::%player's uuid%} >= 10:
 			format gui slot 13 of player with green terracotta named "&a&lMINE 4" with lore "" and "&7&o(( Requires prestige 10 ))" to run:
 				teleport player to {mines::4}
+		if {prestige::%player's uuid%} >= 20:
+			format gui slot 14 of player with red terracotta named "&a&lMINE 4" with lore "" and "&7&o(( Requires prestige 20 ))" to run:
+				teleport player to {mines::5}
 
 on tab complete:
 	if event-string is "/skript" or "/sk":
@@ -271,5 +276,6 @@ command /daily:
 
 
 command /levelsneeded:
+	aliases: /prestige
 	trigger:
 		send "<##f2b84b>&lLEVELS &8| &7You need <##f7b481>%(({prestige::%player's uuid%} ? 0) * 5 + 10)%<##f7b481> levels&7 to prestige."

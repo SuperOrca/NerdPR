@@ -56,7 +56,7 @@ on quit:
 	set topic of channel with id "{@chat-channel}" to "**Online:** %size of all players%%nl%**TPS:** %tps from last 1 minute% %tps from last 5 minutes% %tps from last 15 minutes%%nl%**Unique:** %size of all offline players%" with "{@bot}"
 
 on command:
-	command is not "hd" or "broadcast"
+	command is not "hd" or "broadcast" or "execute"
 	send "**%player ? ""Console""%** issued command `%command% %arguments ? """"%`" to channel with id "{@log-channel}" with "{@bot}"
 
 command /suggest <text>:
