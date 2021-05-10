@@ -201,6 +201,26 @@ command /sc [<text>]:
 		else:
 			staffchat(player, message)
 
+command /vanish:
+	permission: staff.vanish
+	permission message: &cNo Permission.
+	usage: &cUsage: /vanish
+	aliases: /v
+	trigger:
+		if metadata "vanish" of player is not set:
+			set metadata "vanish" of player to true
+			hide player from all players where [input does not have permission "staff.vanish"]
+			make player execute command "sc"
+		else:
+			delete metadata "vanish" of palyer
+			reveal player from all players
+			make player execute command "sc"
+
+on join:
+	delete metadata "vanish" of player
+	if player has permission "staff.vanish":
+		hide all players where [metadata "vanish" of player is true] from player
+
 on chat:
 	metadata "staffchat" of player is set
 	cancel event
@@ -223,6 +243,20 @@ on chat:
 			broadcast "<##4b8bf2>&lREACTION &8| &7<##81aef7>%player%&7 typed <##81aef7>%{reaction::word}%&7 in <##81aef7>%time since {reaction::start}%&7."
 			giveKey(player, "iq")
 			delete {reaction::*}
+
+command /reaction [<text>]:
+	permission: op
+	permission message: &cNo Permission.
+	trigger:
+		delete {reaction::*}
+		if arg-1 is set:
+			set {reaction::word} to arg-1
+			set {reaction::start} to now
+			broadcast "<##4b8bf2>&lREACTION &8| &7Type <##81aef7>%{reaction::word}%&7 to a reward!"
+		else:
+			set {reaction::word} to random element out of {words::*}
+			set {reaction::start} to now
+			broadcast "<##4b8bf2>&lREACTION &8| &7Type <##81aef7>%{reaction::word}%&7 to a reward!"
 
 function updateLeaderboards():
 	broadcast "<##4b8bf2>&lLEADERBOARDS &8| &7Leaderboards are updating. This may cause lag!"

@@ -55,7 +55,7 @@ function updateLevel(p: player):
 	while {xp::%{_u}%} >= ({xpn::%{_u}%} ? 100):
 		add 1 to {level::%{_u}%}
 		remove ({xpn::%{_u}%} ? 100) from {xp::%{_u}%}
-		set {xpn::%{_u}%} to round ({xpn::%{_u}%} ? 100)^1.005
+		set {xpn::%{_u}%} to round ({xpn::%{_u}%} ? 100)^1.004
 		send "<##f2b84b>&lLEVEL &8| &7Leveled up to level <##f7b481>%{level::%{_u}%}%&7." to {_p}
 		wait 1 tick
 	while {level::%{_u}%} >= (({prestige::%{_u}%} ? 0) * 5 + 10):
