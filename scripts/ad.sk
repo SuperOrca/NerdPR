@@ -21,32 +21,32 @@ on guild message received seen by "{@bot}":
 		set {_p} to "%event-message%" parsed as a offline player
 		set {_u} to {_p}'s uuid
 		add 1 to {ad::%{_u}%}
-		broadcast "<##4b8bf2>&lADS &8| <##81aef7>%{_p}%&7 just advertised for an ad point. (/adshop)"
+		broadcast "<##f24b4b>&lADS &8| <##f78181>%{_p}%&7 just advertised for an ad point. (/adshop)"
 
 command /ad:
 	aliases: /ads
 	trigger:
-		send "<##4b8bf2>&lADS &8| &7You have <##81aef7>%{ad::%player's uuid%} ? 0%&7 ads."
+		send "<##f24b4b>&lADS &8| &7You have <##f78181>%{ad::%player's uuid%} ? 0%&7 ads."
 
 command /adshop:
 	trigger:
-		open virtual chest with 3 rows named "<##4b8bf2>&lAD REWARDS" to player
+		open virtual chest with 3 rows named "<##f24b4b>&lAD REWARDS" to player
 		fillSlots(player, 3)
-		format gui slot 10 of player with {heads::1}'s skull named "&f&lCOW PET" with lore "" and "&7Price: <##81aef7>5 ads" to run:
+		format gui slot 10 of player with {heads::1}'s skull named "&f&lCOW PET" with lore "" and "&7Price: <##f78181>5 ads" to run:
 			if {ad::%player's uuid%} >= 5:
 				close player's inventory
 				give player givePet("cow")
 				remove 5 from {ad::%player's uuid%}
 			else:
 				send "&cYou need %5 - {ad::%player's uuid%}%&c more ads."
-		format gui slot 13 of player with {heads::2}'s skull named "&9&lSQUID PET" with lore "" and "&7Price: <##81aef7>15 ads" to run:
+		format gui slot 13 of player with {heads::2}'s skull named "&9&lSQUID PET" with lore "" and "&7Price: <##f78181>15 ads" to run:
 			if {ad::%player's uuid%} >= 15:
 				close player's inventory
 				give player givePet("squid")
 				remove 15 from {ad::%player's uuid%}
 			else:
 				send "&cYou need %10 - {ad::%player's uuid%}%&c more ads."
-		format gui slot 16 of player with {heads::3}'s skull named "&e&lPHOENIX PET" with lore "" and "&7Price: <##81aef7>30 ads" to run:
+		format gui slot 16 of player with {heads::3}'s skull named "&e&lPHOENIX PET" with lore "" and "&7Price: <##f78181>30 ads" to run:
 			if {ad::%player's uuid%} >= 30:
 				close player's inventory
 				give player givePet("phoenix")

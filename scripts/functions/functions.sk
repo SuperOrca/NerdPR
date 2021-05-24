@@ -33,7 +33,7 @@ function formatTime(time: text) :: timespan:
 	return {_total} ? 0 seconds
 
 function fillSlots(p: player, size: number):
-	format gui slot (numbers between 0 and ({_size}*9)) of {_p} with black stained glass pane named "<##81aef7>"
+	format gui slot (numbers between 0 and ({_size}*9)) of {_p} with black stained glass pane named "<##f78181>"
 
 function fancyTime(time: timespan) :: string:
 	set {_time} to "%{_time}%"

@@ -172,7 +172,3 @@ command /broadcast <text>:
 	trigger:
 		alert(arg-1)
 
-command /suicide:
-	trigger:
-		make player execute command "/spawn"
-		broadcast "<##03fc66>&lSUICIDE &8| <##7dffb1>%player% &7did not want to live."

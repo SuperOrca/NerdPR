@@ -40,7 +40,7 @@ function simMine(p: player, t: number, x: number, b: number = 1):
 	set {_points} to tag "points" of nbt of {_p}'s tool
 	if {_xp} >= {_xpn}:
 		add "{level:%{_level} + 1%,xpn:%{_xpn}^1.004%,xp:%{_xpn} - {_xp}%,points:%{_points} + 1%}" to nbt of {_p}'s tool
-		send "&8| &7Your pickaxe leveled up to level <##81aef7>%{_level} + 1%&7!" to {_p}
+		send "&8| &7Your pickaxe leveled up to level <##f78181>%{_level} + 1%&7!" to {_p}
 	set {_p}'s tool to updatePickaxeLevel({_p}'s tool)
 
 
@@ -48,7 +48,7 @@ function mineActionBar(p: player):
 	set {_u} to {_p}'s uuid
 	set {_mined} to formatNumber({mined::%{_u}%} ? 0)
 	set {_xp} to round ((({xp::%{_u}%} ? 0)/({xpn::%{_u}%} ? 100)) * 100)
-	send action bar "&7Progress: <##81aef7>%{_xp}%%% &8| &7Mined: <##81aef7>%{_mined}%" to {_p}
+	send action bar "&7Progress: <##f78181>%{_xp}%%% &8| &7Mined: <##f78181>%{_mined}%" to {_p}
 
 function updateLevel(p: player):
 	set {_u} to {_p}'s uuid
@@ -146,7 +146,7 @@ on break:
 
 	if (random integer between 1 and (enchantChance("xpfinder"))) <= getTag(player's tool, "xpfinder"):
 		add {xpn::%player's uuid%} * 1.5 to {xp::%player's uuid%}
-		send "<##4b8bf2>&lENCHANT &8| &7Your <##81aef7>xpfinder&7 has found <##81aef7>%insertComma(round ({xpn::%player's uuid%} * 1.5))%<##81aef7>XP&7."
+		send "<##f24b4b>&lENCHANT &8| &7Your <##f78181>xpfinder&7 has found <##f78181>%insertComma(round ({xpn::%player's uuid%} * 1.5))%<##f78181>XP&7."
 
 	if (random integer between 1 and (enchantChance("chunk"))) <= getTag(player's tool, "chunk"):
 		set {_b::*} to all blocks within chunk at event-block where [blockValidator(input) is true]

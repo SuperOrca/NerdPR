@@ -52,7 +52,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 						add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
 						remove {_pr} from {balance::%{_u}%}
 						playSound({_p}, "ENTITY_VILLAGER_YES")
-						send "<##4b8bf2>&lENCHANT &8| &7Purchased <##81aef7>%{_e}%&7 for <##81aef7>$%formatNumber({_pr})%&7." to {_p}
+						send "<##f24b4b>&lENCHANT &8| &7Purchased <##f78181>%{_e}%&7 for <##f78181>$%formatNumber({_pr})%&7." to {_p}
 						set {_p}'s tool to updatePickaxe({_t})
 						updateScoreboard({_p})
 						wait 1 tick
@@ -74,7 +74,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 				add "{%{_e}%:%getTag({_t}, {_e})+1%}" to nbt of {_t}
 				remove {_pr} from {balance::%{_u}%}
 				playSound({_p}, "ENTITY_VILLAGER_YES")
-				send "<##4b8bf2>&lENCHANT &8| &7Purchased <##81aef7>%{_e}%&7 for <##81aef7>$%formatNumber({_pr})%&7." to {_p}
+				send "<##f24b4b>&lENCHANT &8| &7Purchased <##f78181>%{_e}%&7 for <##f78181>$%formatNumber({_pr})%&7." to {_p}
 				set {_p}'s tool to updatePickaxe({_t})
 				updateScoreboard({_p})
 			else:
@@ -86,7 +86,7 @@ function upgradePickaxe(p: player, t: item, e: text, l: number, m: number, gct: 
 		pickaxeInv({_p})
 
 function displayPickaxeInv(p: player):
-	open virtual chest with 6 rows named "<##4b8bf2>&lUPGRADE PICKAXE" to {_p}
+	open virtual chest with 6 rows named "<##f24b4b>&lUPGRADE PICKAXE" to {_p}
 	fillSlots({_p}, 6)
 	playSound({_p}, "ENTITY_BAT_TAKEOFF")
 	pickaxeInv({_p})
@@ -159,7 +159,7 @@ function guiPickaxeItem(p: player, slot: number, item: item, enchant: text):
 	set {_level} to getTag({_tool}, {_enchant})
 	set {_max} to enchantMax({_enchant})
 
-	set {_item} to {_item} named "<##81aef7>%{_enchant} in proper case% &7(%insertComma({_level})%/%insertComma({_max})%)" with lore "" and "&7Price: <##81aef7>$%formatNumber(enchantPrice({_enchant}, {_level}))%" and "" and "<##81aef7>Click &7to buy one." and "<##81aef7>MMB &7to buy as many as possible."
+	set {_item} to {_item} named "<##f78181>%{_enchant} in proper case% &7(%insertComma({_level})%/%insertComma({_max})%)" with lore "" and "&7Price: <##f78181>$%formatNumber(enchantPrice({_enchant}, {_level}))%" and "" and "<##f78181>Click &7to buy one." and "<##f78181>MMB &7to buy as many as possible."
 	set line 6 of lore of {_item} to ""
 	set line 7 of lore of {_item} to "&7&o(( %enchantDescription({_enchant})% ))"
 	if enchantChance({_enchant}) is not 0:
@@ -208,3 +208,17 @@ on inventory open:
 	metadata "thread" of player is true
 	wait 1 tick
 	close player's inventory
+
+function pointInv(p: player):
+	set {_u} to {_p}'s uuid
+	set {_t} to {_p}'s tool
+
+command /pointshop:
+	trigger:
+		if player's tool is pickaxe:
+			open virtual chest with 3 rows named "<##f24b4b>&POINTSHOP" to player
+			fillSlots(player, 3)
+			playSound(player, "ENTITY_BAT_TAKEOFF")
+			pointInv(player)
+		else:
+			send "&cYou must be holding a pickaxe."

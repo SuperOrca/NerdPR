@@ -1,0 +1,7 @@
+command /lottery:
+	aliases: /lot
+	trigger:
+
+
+every 30 minutes:
+	

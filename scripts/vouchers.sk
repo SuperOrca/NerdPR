@@ -4,11 +4,11 @@ command /voucher <text> <text> <integer> <player=%player%>:
 	trigger:
 		if arg-1 is "rank":
 			give arg-3 of shiny paper with nbt "{rank:%arg-2%}" named "&eRank Voucher (%arg-2 in uppercase%&e)" to arg-4
-			send "<##4b8bf2>&lVOUCHER &8| &7You have given <##81aef7>%arg-4%&7 a <##81aef7>%arg-3%<##81aef7> %arg-2 in uppercase%&7 voucher."
+			send "<##f24b4b>&lVOUCHER &8| &7You have given <##f78181>%arg-4%&7 a <##f78181>%arg-3%<##f78181> %arg-2 in uppercase%&7 voucher."
 		else if arg-1 is "money":
 			set {_arg2} to arg-2 parsed as a number
 			give arg-3 of shiny paper with nbt "{money:%arg-2%}" named "&eMoney Voucher ($%formatNumber({_arg2})%&e)" to arg-4
-			send "<##4b8bf2>&lVOUCHER &8| &7You have given <##81aef7>%arg-4%&7 a <##81aef7>%arg-3%<##81aef7> $%formatNumber({_arg2})%&7 voucher."
+			send "<##f24b4b>&lVOUCHER &8| &7You have given <##f78181>%arg-4%&7 a <##f78181>%arg-3%<##f78181> $%formatNumber({_arg2})%&7 voucher."
 		else:
 			send ""
 			send "&8/&7voucher &bmoney (amount)"
@@ -24,7 +24,7 @@ command /withdraw <integer>:
 				if arg-2 <= 100000000000:
 					set {_arg1} to "%arg-1%"
 					give shiny paper with nbt "{money:%{_arg1}%}" named "&eMoney Voucher ($%formatNumber(arg-1)%&e)" to player
-					send "<##4b8bf2>&lWITHDRAW &8| &7You withdrew <##81aef7>$%formatNumber(arg-1)%&7."
+					send "<##f24b4b>&lWITHDRAW &8| &7You withdrew <##f78181>$%formatNumber(arg-1)%&7."
 					remove arg-1 from {balance::%player's uuid%}
 					updateScoreboard(player)
 				else:
@@ -40,7 +40,7 @@ on right click:
 	if {_rank} is set:
 		make console execute command "lp user %player% parent add %{_rank}%"
 		remove 1 of player's tool from player's tool
-		broadcast "<##4b8bf2>&lVOUCHER &8| <##81aef7>%player%&7 just claimed <##81aef7>%{_rank} in uppercase%&7."
+		broadcast "<##f24b4b>&lVOUCHER &8| <##f78181>%player%&7 just claimed <##f78181>%{_rank} in uppercase%&7."
 		updateScoreboard(player)
 	if {_money} is set:
 		set {_money} to {_money} parsed as a number
