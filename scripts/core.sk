@@ -23,7 +23,9 @@ on load:
 	set {words::9} to "keyboard"
 	set {words::10} to "mouse"
 	set {words::11} to "webcam"
-	set {words::12} to "pneumonoultramicroscopicsilicovolcanoconiosis"
+	set {words::12} to "block"
+	set {words::13} to "mhf"
+	set {words::14} to ""
 
 	delete {mines::*}
 	set {mines::1} to {spawn}
@@ -64,8 +66,7 @@ on tab complete:
 	if event-string is "/skript" or "/sk":
 		set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"
 		set tab completions for position 2 to all scripts
-	if event-string is "/voucher":
-		set tab completions for position 1 to "money" and "rank"
+
 
 function getMulti(p: player) :: number:
 	set {_u} to {_p}'s uuid
@@ -249,14 +250,9 @@ command /reaction [<text>]:
 	permission message: &cNo Permission.
 	trigger:
 		delete {reaction::*}
-		if arg-1 is set:
-			set {reaction::word} to arg-1
-			set {reaction::start} to now
-			broadcast "<##f24b4b>&lREACTION &8| &7Type <##f78181>%{reaction::word}%&7 to a reward!"
-		else:
-			set {reaction::word} to random element out of {words::*}
-			set {reaction::start} to now
-			broadcast "<##f24b4b>&lREACTION &8| &7Type <##f78181>%{reaction::word}%&7 to a reward!"
+		set {reaction::word} to arg-1 if arg-1 is set, else random element out of {words::*}
+		set {reaction::start} to now
+		broadcast "<##f24b4b>&lREACTION &8| &7Type <##f78181>%{reaction::word}%&7 to a reward!"
 
 function updateLeaderboards():
 	broadcast "<##f24b4b>&lLEADERBOARDS &8| &7Leaderboards are updating. This may cause lag!"

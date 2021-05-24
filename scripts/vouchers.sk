@@ -34,6 +34,10 @@ command /withdraw <integer>:
 		else:
 			send "&cYou do not have enough money."
 
+on tab complete:
+	if event-string is "/voucher":
+		set tab completions for position 1 to "money" and "rank"
+
 on right click:
 	set {_rank} to tag "rank" of nbt of player's tool
 	set {_money} to tag "money" of nbt of player's tool

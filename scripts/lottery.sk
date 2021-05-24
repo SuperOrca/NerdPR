@@ -1,7 +1,23 @@
-command /lottery:
+command /lottery [<text>] [<integer=1>]:
 	aliases: /lot
 	trigger:
+		if arg-1 is "buy":
+			if arg-2 is set:
+				if arg-2 > 0:
+					if (metadata "lotto" of player + arg-2) <= 10:
+						add arg-2 to metadata "lotto" of player
+						broadcast "<##f24b4b>&lREACTION &8| &7Type <##f78181>%{reaction::word}%&7 to a reward!"
+					else:
+						send "&cYou cannot buy more than 10 tickets."
+				else:
+					send "&cYou must buy atleast 1 ticket."
+			else:
+				send "&cUsage: /lottery buy <amount>"
+
+
+on tab complete:
+	if event-string is "/lottery" or "/lot":
+		set tab completions for position 1 to "buy" or "info" or "forcebuy"
 
 
 every 30 minutes:
-	
