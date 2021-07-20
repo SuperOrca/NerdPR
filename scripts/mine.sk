@@ -40,7 +40,7 @@ function simMine(p: player, t: number, x: number, b: number = 1):
 	set {_points} to tag "points" of nbt of {_p}'s tool
 	if {_xp} >= {_xpn}:
 		add "{level:%{_level} + 1%,xpn:%{_xpn}^1.004%,xp:%{_xpn} - {_xp}%,points:%{_points} + 1%}" to nbt of {_p}'s tool
-		send "&8| &7Your pickaxe leveled up to level <##f78181>%{_level} + 1%&7!" to {_p}
+		send "&c&lPICKAXE &8| &7Your pickaxe leveled up to level <##f78181>%{_level} + 1%&7!" to {_p}
 	set {_p}'s tool to updatePickaxeLevel({_p}'s tool)
 
 

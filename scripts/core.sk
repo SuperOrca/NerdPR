@@ -112,6 +112,9 @@ command /stats <player=%player%>:
 		send centered "&8&m--------------------------------------" to player
 
 on join:
+    if {cleared::%player's uuid%} doesn't contain player's uuid:
+        clear player's inventory
+        add player's uuid to {cleared::%player's uuid%}
 	set join message to "<##f78181>%player%&7 joined the game."
 	wait 1 tick
 	player is online
